@@ -1,0 +1,30 @@
+group = 'com.pollvite'
+version = '0.0.1-SNAPSHOT'
+
+jar {
+    archivesBaseName = 'poll-service'
+}
+
+dependencies {
+//    implementation javalibs.springBootDataMongo
+//    implementation javalibs.springBootSecurity
+    implementation javalibs.springBootWebflux
+//    implementation javalibs.springCloudStream
+    implementation kotlinLibs.jacksonModuleKotlin
+    implementation kotlinLibs.kotlinReflect
+    implementation kotlinLibs.kotlinStdlib
+    implementation kotlinLibs.kotlinxCoroutinesReactor
+    implementation kotlinLibs.reactorKotlinExtensions
+
+    annotationProcessor javalibs.springBootConfigurationProcessor
+
+    testImplementation javalibs.springBootStarterTest
+    testImplementation javalibs.reactorTest
+//    testImplementation javalibs.springCloudStreamTestBinder
+//    testImplementation javalibs.springSecurityTest
+    testImplementation javalibs.junitJupiterApi
+    testImplementation javalibs.junitJupiterApi
+    testImplementation javalibs.junitJupiterEngine
+}
+
+

@@ -1,0 +1,9 @@
+rootProject.name = 'pollvite'
+
+new File(settingsDir, 'projects').listFiles().each {
+    if (it.directory && new File(it, 'build.gradle').exists()) {
+        def projName = ":${it.name}" as String
+        include(projName)
+        project(projName).projectDir = it
+    }
+}
