@@ -1,0 +1,27 @@
+group = 'com.pollvite'
+version = '0.0.1-SNAPSHOT'
+
+jar {
+    archivesBaseName = 'poll-service'
+}
+
+dependencies {
+    implementation project(':grpc-interface')
+    implementation mavenDeps.springBootStarter
+//    implementation mavenDeps.springBootDataMongo
+    implementation mavenDeps.springBootGrpcServer
+
+    implementation mavenDeps.jacksonModuleKotlin
+    implementation mavenDeps.kotlinReflect
+    implementation mavenDeps.kotlinStdlib
+
+//    implementation mavenDeps.javaxAnnotationApi // Workaround since spring boot 3 does not use javax
+
+    annotationProcessor mavenDeps.springBootConfigurationProcessor
+
+    testImplementation mavenDeps.springBootTest
+
+    testImplementation mavenDeps.junitJupiterApi
+    testImplementation mavenDeps.junitJupiterApi
+    testImplementation mavenDeps.junitJupiterEngine
+}
