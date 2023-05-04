@@ -1,0 +1,55 @@
+buildscript {
+    ext {
+        protobufVersion = '4.22.3'
+        protobufPluginVersion = '0.9.3'
+        grpcVersion = '1.53.0'
+    }
+}
+
+plugins {
+    id 'com.google.protobuf' version "${protobufPluginVersion}"
+}
+
+group 'org.pollvite'
+version = '0.0.1-SNAPSHOT'
+
+dependencies {
+    implementation mavenDeps.grpcProtobuff
+    implementation mavenDeps.grpcStub
+    compileOnly mavenDeps.jakartaAnnotationApi
+}
+
+protobuf {
+    protoc {
+        artifact = mavenDeps.protobufProtoc
+    }
+    generatedFilesBaseDir = "$projectDir/src/generated"
+    clean {
+        delete generatedFilesBaseDir
+    }
+    plugins {
+        grpc_java {
+            artifact = mavenDeps.protocGenGrpcJava
+        }
+    }
+    generateProtoTasks {
+
+        all().each { task ->
+            task.plugins {
+                grpc_java {}
+            }
+            task.builtins {
+                java {}
+            }
+        }
+    }
+}
+
+idea {
+    module {
+        sourceDirs += file("src/generated/main/java")
+        sourceDirs += file("src/generated/main/grpc")
+        generatedSourceDirs += file("src/generated/main/java")
+        generatedSourceDirs += file("src/generated/main/grpc")
+    }
+}

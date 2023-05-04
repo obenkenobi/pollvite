@@ -4,20 +4,47 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.0' apply false
     id 'org.jetbrains.kotlin.plugin.spring' version '1.8.21' apply false
 
+    id 'idea'
     id 'java'
 }
 
+enum Category { GRPC, JUNIT, KOTLIN, LIBRARY, SPRING_BOOT }
+
+ext {
+    getScriptPath = { "${rootProject.projectDir}/gradleScripts/${it}" }
+}
+
 subprojects {
-    def isJvmProject = ['springBoot'].contains(project.projectType)
-    
+    if (!project.hasProperty('categories')) {
+        return
+    }
+    Set<String> catSet = Set.of((project.categories as String).split(','))
+    def isCategory = {Category cat -> catSet.contains(cat.name()) }
+
+    def isLibrary = isCategory(Category.LIBRARY)
+
+    def jvmCategories = [
+            Category.GRPC,
+            Category.SPRING_BOOT,
+            Category.KOTLIN,
+            Category.JUNIT
+    ]
+
+    def isJvmProject = jvmCategories.stream().anyMatch(isCategory)
+
     if (isJvmProject) {
         apply plugin: 'java'
-        apply from: "${parent.rootDir}/gradleScripts/jvmlibs.gradle"
+        apply from: getScriptPath('dependencies.gradle')
 
-        def isSpringProject = 'springBoot' == project.projectType
-        def usingKotlin = project.hasProperty('jvmLanguage') && 'kotlin'.equals(project.jvmLanguage)
+        def usingSpringBoot = isCategory(Category.SPRING_BOOT)
+        def usingKotlin = isCategory(Category.KOTLIN)
+        def usingJunit = isCategory(Category.JUNIT)
 
         sourceCompatibility = parent.properties.javaVersion
+
+        if(isLibrary) {
+            apply plugin: 'java-library'
+        }
 
         if (usingKotlin) {
             apply plugin: 'org.jetbrains.kotlin.jvm';
@@ -34,8 +61,10 @@ subprojects {
             mavenCentral()
         }
 
-        test {
-            useJUnitPlatform()
+        if (usingJunit) {
+            test {
+                useJUnitPlatform()
+            }
         }
 
         configurations {
@@ -44,7 +73,7 @@ subprojects {
             }
         }
 
-        if (isSpringProject) {
+        if (usingSpringBoot) {
             apply plugin: 'org.springframework.boot'
             apply plugin: 'io.spring.dependency-management'
 

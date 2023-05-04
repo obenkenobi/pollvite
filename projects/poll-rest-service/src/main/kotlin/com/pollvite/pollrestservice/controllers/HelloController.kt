@@ -1,4 +1,4 @@
-package com.pollvite.pollservice.controllers
+package com.pollvite.pollrestservice.controllers
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController

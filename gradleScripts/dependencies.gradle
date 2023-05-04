@@ -1,0 +1,34 @@
+ext {
+
+    def mavenDepsVersions = [
+            "grpc": "1.53.0",
+            "jakartaAnnotationApi": "2.1.0",
+            "junit": "5.9.2",
+            "protobuf": "4.22.3"
+    ]
+
+    mavenDeps = [
+            "grpcProtobuff": "io.grpc:grpc-protobuf:${mavenDepsVersions.grpc}",
+            "grpcStub": "io.grpc:grpc-stub:${mavenDepsVersions.grpc}",
+            "jacksonModuleKotlin": "com.fasterxml.jackson.module:jackson-module-kotlin",
+            "jakartaAnnotationApi": "jakarta.annotation:jakarta.annotation-api:${mavenDepsVersions.jakartaAnnotationApi}",
+            "junitJupiterApi": "org.junit.jupiter:junit-jupiter-api:${mavenDepsVersions.junit}",
+            "kotlinReflect": "org.jetbrains.kotlin:kotlin-reflect",
+            "kotlinStdlib": "org.jetbrains.kotlin:kotlin-stdlib",
+            "kotlinxCoroutinesReactor": "org.jetbrains.kotlinx:kotlinx-coroutines-reactor",
+            "junitJupiterEngine": "org.junit.jupiter:junit-jupiter-engine:${mavenDepsVersions.junit}",
+            "protobufProtoc": "com.google.protobuf:protoc:${mavenDepsVersions.protobuf}",
+            "protocGenGrpcJava": "io.grpc:protoc-gen-grpc-java:${mavenDepsVersions.grpc}",
+            "reactorKotlinExtensions": "io.projectreactor.kotlin:reactor-kotlin-extensions",
+            "reactorTest": "io.projectreactor:reactor-test",
+            "springBootConfigurationProcessor": "org.springframework.boot:spring-boot-configuration-processor",
+            "springBootDataMongo": "org.springframework.boot:spring-boot-starter-data-mongodb",
+            "springBootSecurity": "org.springframework.boot:spring-boot-starter-security",
+            "springBootStarterTest": "org.springframework.boot:spring-boot-starter-test",
+            "springBootWebflux": "org.springframework.boot:spring-boot-starter-webflux",
+            "springCloudStream": "org.springframework.cloud:spring-cloud-stream",
+            "springCloudStreamTestBinder": "org.springframework.cloud:spring-cloud-stream-test-binder",
+            "springSecurityTest": "org.springframework.security:spring-security-test",
+    ]
+
+}

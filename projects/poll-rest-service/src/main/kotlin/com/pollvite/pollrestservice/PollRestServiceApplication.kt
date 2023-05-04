@@ -1,11 +1,11 @@
-package com.pollvite.pollservice
+package com.pollvite.pollrestservice
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class PollServiceApplication
+class PollRestServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<PollServiceApplication>(*args)
+    runApplication<PollRestServiceApplication>(*args)
 }
