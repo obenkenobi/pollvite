@@ -2,7 +2,7 @@ group = 'com.pollvite'
 version = '0.0.1-SNAPSHOT'
 
 jar {
-    archivesBaseName = 'poll-service'
+    archivesBaseName = 'poll-rest-service'
 }
 
 dependencies {
@@ -18,7 +18,7 @@ dependencies {
 
     annotationProcessor mavenDeps.springBootConfigurationProcessor
 
-    testImplementation mavenDeps.springBootStarterTest
+    testImplementation mavenDeps.springBootTest
     testImplementation mavenDeps.reactorTest
 //    testImplementation javalibs.springCloudStreamTestBinder
 //    testImplementation javalibs.springSecurityTest

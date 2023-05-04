@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package shared;
+
+option java_multiple_files = true;
+option java_package = " com.pollvite.grpc.shared";
+option java_outer_classname = "SharedProto";
+
+message IdDto {
+  string id = 1;
+}

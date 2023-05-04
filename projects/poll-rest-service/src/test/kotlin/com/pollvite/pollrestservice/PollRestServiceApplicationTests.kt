@@ -1,4 +1,4 @@
-package com.pollvite.pollservice
+package com.pollvite.pollrestservice
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

@@ -6,6 +6,7 @@ buildscript {
 
 plugins {
     id 'com.google.protobuf' version "${protobufPluginVersion}"
+    id 'org.jetbrains.kotlin.jvm' version '1.8.21'
 }
 
 group 'com.pollvite'
@@ -14,7 +15,8 @@ version = '0.0.1-SNAPSHOT'
 dependencies {
     implementation mavenDeps.grpcProtobuff
     implementation mavenDeps.grpcStub
-    compileOnly mavenDeps.jakartaAnnotationApi
+    compileOnly mavenDeps.javaxAnnotationApi // Workaround since spring boot 3 does not use javax
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
 }
 
 protobuf {
@@ -46,8 +48,8 @@ protobuf {
 idea {
     module {
         sourceDirs += file("src/generated/main/java")
-        sourceDirs += file("src/generated/main/grpc")
+        sourceDirs += file("src/generated/main/grpc_java")
         generatedSourceDirs += file("src/generated/main/java")
-        generatedSourceDirs += file("src/generated/main/grpc")
+        generatedSourceDirs += file("src/generated/main/grpc_java")
     }
 }

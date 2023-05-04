@@ -1,21 +1,23 @@
 syntax = "proto3";
 
-package com.pollvite.grpc.poll;
+package poll;
+
+import "shared.proto";
 
 option java_multiple_files = true;
 option java_package = " com.pollvite.grpc.poll";
 option java_outer_classname = "PollProto";
 
 service PollService {
-  rpc getPollChannelById (IdDto) returns (PollChannelReadDto) {}
+  rpc getPollChannelById (shared.IdDto) returns (PollChannelReadDto) {}
   rpc createPollChannel (PollChannelCreateDto) returns (PollChannelReadDto) {}
   rpc editPollChannel (PollChannelEditDto) returns (PollChannelReadDto) {}
-  rpc deletePollChannel (IdDto) returns (PollChannelReadDto) {}
+  rpc deletePollChannel (shared.IdDto) returns (PollChannelReadDto) {}
 }
 
-message IdDto {
-  string id = 1;
-}
+//message IdDto {
+//  string id = 1;
+//}
 
 message PollChannelDto {
   string owner = 1;
@@ -28,11 +30,11 @@ message PollChannelCreateDto {
 }
 
 message PollChannelEditDto {
-  IdDto id = 1;
+  shared.IdDto id = 1;
   PollChannelDto pollChannelCore = 2;
 }
 
 message PollChannelReadDto {
-  IdDto id = 1;
+  shared.IdDto id = 1;
   PollChannelDto pollChannelCore = 2;
 }
