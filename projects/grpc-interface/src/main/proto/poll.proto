@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package com.pollvite.grpc.poll;
+
+option java_multiple_files = true;
+option java_package = " com.pollvite.grpc.poll";
+option java_outer_classname = "PollProto";
+
+service PollService {
+  rpc getPollChannelById (IdDto) returns (PollChannelReadDto) {}
+  rpc createPollChannel (PollChannelCreateDto) returns (PollChannelReadDto) {}
+  rpc editPollChannel (PollChannelEditDto) returns (PollChannelReadDto) {}
+  rpc deletePollChannel (IdDto) returns (PollChannelReadDto) {}
+}
+
+message IdDto {
+  string id = 1;
+}
+
+message PollChannelDto {
+  string owner = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message PollChannelCreateDto {
+  PollChannelDto pollChannelCore = 1;
+}
+
+message PollChannelEditDto {
+  IdDto id = 1;
+  PollChannelDto pollChannelCore = 2;
+}
+
+message PollChannelReadDto {
+  IdDto id = 1;
+  PollChannelDto pollChannelCore = 2;
+}

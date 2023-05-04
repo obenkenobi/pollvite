@@ -1,8 +1,6 @@
 buildscript {
     ext {
-        protobufVersion = '4.22.3'
         protobufPluginVersion = '0.9.3'
-        grpcVersion = '1.53.0'
     }
 }
 
@@ -10,7 +8,7 @@ plugins {
     id 'com.google.protobuf' version "${protobufPluginVersion}"
 }
 
-group 'org.pollvite'
+group 'com.pollvite'
 version = '0.0.1-SNAPSHOT'
 
 dependencies {
