@@ -5,7 +5,7 @@ package poll;
 import "shared.proto";
 
 option java_multiple_files = true;
-option java_package = " com.pollvite.grpc.poll";
+option java_package = "com.pollvite.grpc.poll";
 option java_outer_classname = "PollProto";
 
 service PollService {
