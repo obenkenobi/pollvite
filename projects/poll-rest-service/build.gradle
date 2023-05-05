@@ -6,10 +6,11 @@ jar {
 }
 
 dependencies {
-//    implementation mavenDeps.springBootDataMongo
+    implementation project(':grpc-interface')
+
 //    implementation mavenDeps.springBootSecurity
     implementation mavenDeps.springBootWebflux
-//    implementation mavenDeps.springCloudStream
+    implementation mavenDeps.springBootGrpcClient
     implementation mavenDeps.jacksonModuleKotlin
     implementation mavenDeps.kotlinReflect
     implementation mavenDeps.kotlinStdlib

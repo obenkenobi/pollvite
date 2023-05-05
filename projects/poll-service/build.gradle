@@ -15,8 +15,6 @@ dependencies {
     implementation mavenDeps.kotlinReflect
     implementation mavenDeps.kotlinStdlib
 
-//    implementation mavenDeps.javaxAnnotationApi // Workaround since spring boot 3 does not use javax
-
     annotationProcessor mavenDeps.springBootConfigurationProcessor
 
     testImplementation mavenDeps.springBootTest
