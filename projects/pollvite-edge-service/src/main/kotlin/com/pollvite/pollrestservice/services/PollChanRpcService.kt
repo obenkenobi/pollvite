@@ -3,6 +3,7 @@ package com.pollvite.pollrestservice.services
 import com.pollvite.grpc.poll.PollChanCreatePb
 import com.pollvite.grpc.poll.PollChanServiceGrpc.PollChanServiceStub
 import com.pollvite.grpc.shared.IdPb
+import com.pollvite.pollrestservice.dtos.IdDto
 import com.pollvite.pollrestservice.dtos.PollChanCreateDto
 import com.pollvite.pollrestservice.dtos.PollChanReadDto
 import com.pollvite.pollrestservice.grpcutils.GrpcMonoObserver
@@ -23,7 +24,7 @@ class PollChanRpcServiceImpl(
 
     override fun getPollChannelById(id: String): Mono<PollChanReadDto> {
         return Mono.create { sink ->
-            val idPb = IdPb.newBuilder().also { it.value = id }.build()
+            val idPb = IdDto(id).toPb()
             pollChanServiceClient?.getPollChanById(idPb, GrpcMonoObserver(sink))
         }.map(PollChanReadDto::fromPb)
     }
