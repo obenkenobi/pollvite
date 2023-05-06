@@ -2,11 +2,12 @@ ext {
 
     def mavenDepsVersions = [
             "grpc": "1.53.0",
-            "springBootGrpc": "2.14.0.RELEASE",
             "javaxAnnotationApi": "1.3.5",
             "jakartaAnnotationApi": "2.1.0",
             "junit": "5.9.2",
-            "protobuf": "3.9.2"
+            "protobuf": "3.9.2",
+            "protobufJavaUtil": "3.22.4",
+            "springBootGrpc": "2.14.0.RELEASE",
     ]
 
     mavenDeps = [
@@ -20,6 +21,7 @@ ext {
             "kotlinStdlib": "org.jetbrains.kotlin:kotlin-stdlib",
             "kotlinxCoroutinesReactor": "org.jetbrains.kotlinx:kotlinx-coroutines-reactor",
             "junitJupiterEngine": "org.junit.jupiter:junit-jupiter-engine:${mavenDepsVersions.junit}",
+            "protobufJavaUtil": "com.google.protobuf:protobuf-java-util:${mavenDepsVersions.protobufJavaUtil}",
             "protobufProtoc": "com.google.protobuf:protoc:${mavenDepsVersions.protobuf}",
             "protocGenGrpcJava": "io.grpc:protoc-gen-grpc-java:${mavenDepsVersions.grpc}",
             "reactorKotlinExtensions": "io.projectreactor.kotlin:reactor-kotlin-extensions",

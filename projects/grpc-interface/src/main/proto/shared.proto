@@ -7,5 +7,5 @@ option java_package = "com.pollvite.grpc.shared";
 option java_outer_classname = "SharedProto";
 
 message IdDto {
-  string id = 1;
+  string value = 1;
 }
