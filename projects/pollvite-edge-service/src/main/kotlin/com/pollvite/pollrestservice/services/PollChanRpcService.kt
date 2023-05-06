@@ -22,9 +22,9 @@ class PollChanRpcServiceImpl(
     : PollChanRpcService {
 
     override fun getPollChannelById(id: String): Mono<PollChanReadDto> {
-        return Mono.create { it ->
+        return Mono.create { sink ->
             val idPb = IdPb.newBuilder().also { it.value = id }.build()
-            pollChanServiceClient?.getPollChanById(idPb, GrpcMonoObserver(it))
+            pollChanServiceClient?.getPollChanById(idPb, GrpcMonoObserver(sink))
         }.map(PollChanReadDto::fromPb)
     }
 
