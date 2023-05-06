@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class PollRestServiceApplication
+class PollviteEdgeServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<PollRestServiceApplication>(*args)
+    runApplication<PollviteEdgeServiceApplication>(*args)
 }

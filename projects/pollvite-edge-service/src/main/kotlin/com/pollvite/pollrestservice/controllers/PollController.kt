@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 
 @RestController
-@RequestMapping("/channel")
-class ChannelController(@Autowired val pollChanRpcService: PollChanRpcService) {
+@RequestMapping("api/poll")
+class PollController(@Autowired val pollChanService: PollChanRpcService) {
 
-    @GetMapping("/{id}")
+    @GetMapping("/channel/{id}")
     fun helloWorld(@PathVariable id: String): Mono<PollChanReadDto>? {
-        return pollChanRpcService.getPollChannelById(id)
+        return pollChanService.getPollChannelById(id)
     }
 
-    @PostMapping("/idk")
+    @PostMapping("/channel/idk")
     fun idk(@RequestBody id: IdDto): Mono<IdDto> {
         return Mono.just(IdDto.fromPb(id.toPb()));
     }

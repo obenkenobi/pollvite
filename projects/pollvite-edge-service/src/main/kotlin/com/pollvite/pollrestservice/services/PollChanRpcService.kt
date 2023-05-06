@@ -1,7 +1,6 @@
 package com.pollvite.pollrestservice.services
 
 import com.pollvite.grpc.poll.PollChanCreatePb
-import com.pollvite.grpc.poll.PollChanReadPb
 import com.pollvite.grpc.poll.PollChanServiceGrpc.PollChanServiceStub
 import com.pollvite.grpc.shared.IdPb
 import com.pollvite.pollrestservice.dtos.PollChanReadDto
@@ -11,23 +10,28 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
+interface PollChanRpcService {
+    fun getPollChannelById(id: String): Mono<PollChanReadDto>
+    fun createPollChannel(Pb: PollChanCreatePb): Mono<PollChanReadDto>
+}
 
 @Service
-class PollChanRpcService(
-    @Autowired @GrpcClient("pollService") private val pollChanService: PollChanServiceStub? = null) {
+class PollChanRpcServiceImpl(
+    @Autowired @GrpcClient("pollService") private val pollChanServiceClient: PollChanServiceStub? = null)
+    : PollChanRpcService {
 
-    fun getPollChannelById(id: String): Mono<PollChanReadDto> {
+    override fun getPollChannelById(id: String): Mono<PollChanReadDto> {
         return Mono.create { it ->
             val idPb = IdPb.newBuilder().also { it.value = id }.build()
-            pollChanService?.getPollChanById(idPb, GrpcMonoObserver(it))
+            pollChanServiceClient?.getPollChanById(idPb, GrpcMonoObserver(it))
         }.map {
             PollChanReadDto.fromPb(it)
         }
     }
 
-    fun createPollChannel(Pb: PollChanCreatePb): Mono<PollChanReadDto> {
+    override fun createPollChannel(Pb: PollChanCreatePb): Mono<PollChanReadDto> {
         return Mono.create {
-            pollChanService?.createPollChan(Pb, GrpcMonoObserver(it))
+            pollChanServiceClient?.createPollChan(Pb, GrpcMonoObserver(it))
         }.map {
             PollChanReadDto.fromPb(it)
         }
