@@ -15,22 +15,22 @@ service PollChanService {
   rpc deletePollChan (shared.IdPb) returns (PollChanReadPb) {}
 }
 
-message PollChanPb {
+message PollChanCorePb {
   string owner = 1;
   string title = 2;
   string description = 3;
 }
 
 message PollChanCreatePb {
-  PollChanPb core = 1;
+  PollChanCorePb core = 1;
 }
 
 message PollChanEditPb {
   shared.IdPb id = 1;
-  PollChanPb core = 2;
+  PollChanCorePb core = 2;
 }
 
 message PollChanReadPb {
   shared.IdPb id = 1;
-  PollChanPb core = 2;
+  PollChanCorePb core = 2;
 }

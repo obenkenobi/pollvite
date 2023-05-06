@@ -11,7 +11,7 @@ private class PollChanServiceImpl() : PollChanServiceGrpc.PollChanServiceImplBas
     override fun getPollChanById(request: IdPb?, resObserver: StreamObserver<PollChanReadPb>?) {
         val value: PollChanReadPb = PollChanReadPb.newBuilder()
             .setId(request)
-            .setCore(PollChanPb.newBuilder()
+            .setCore(PollChanCorePb.newBuilder()
                 .setOwner("Nero")
                 .setDescription("food based polls")
                 .setTitle("Food Polls")
@@ -46,7 +46,7 @@ private class PollChanServiceImpl() : PollChanServiceGrpc.PollChanServiceImplBas
     override fun deletePollChan(request: IdPb?, resObserver: StreamObserver<PollChanReadPb>?) {
         val value: PollChanReadPb = PollChanReadPb.newBuilder()
             .setId(request)
-            .setCore(PollChanPb.newBuilder()
+            .setCore(PollChanCorePb.newBuilder()
                 .setOwner("Nero")
                 .setDescription("food based polls")
                 .setTitle("Food Polls")

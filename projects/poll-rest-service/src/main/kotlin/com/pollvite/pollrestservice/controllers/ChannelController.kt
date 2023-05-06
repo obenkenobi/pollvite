@@ -1,29 +1,23 @@
 package com.pollvite.pollrestservice.controllers
 
-import com.pollvite.grpc.poll.PollChanReadPb
-import com.pollvite.grpc.shared.IdPb
+import com.pollvite.pollrestservice.dtos.IdDto
+import com.pollvite.pollrestservice.dtos.PollChanReadDto
 import com.pollvite.pollrestservice.services.PollChanRpcService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.MediaType
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 
 @RestController
-@RequestMapping("/channel", produces = [MediaType.APPLICATION_JSON_VALUE])
+@RequestMapping("/channel")
 class ChannelController(@Autowired val pollChanRpcService: PollChanRpcService) {
 
     @GetMapping("/{id}")
-    fun helloWorld(@PathVariable id: String): Mono<PollChanReadPb>? {
+    fun helloWorld(@PathVariable id: String): Mono<PollChanReadDto>? {
         return pollChanRpcService.getPollChannelById(id)
     }
 
-    @PostMapping("/idk", consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun idk(@RequestBody id: IdPb): Mono<IdPb> {
-        return Mono.just(id);
+    @PostMapping("/idk")
+    fun idk(@RequestBody id: IdDto): Mono<IdDto> {
+        return Mono.just(IdDto.fromPb(id.toPb()));
     }
 }
