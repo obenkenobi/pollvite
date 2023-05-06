@@ -8,7 +8,7 @@ jar {
 dependencies {
     implementation project(':grpc-interface')
 
-//    implementation mavenDeps.springBootSecurity
+    implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation mavenDeps.springBootWebflux
     implementation mavenDeps.springBootGrpcClient
     implementation mavenDeps.jacksonModuleKotlin

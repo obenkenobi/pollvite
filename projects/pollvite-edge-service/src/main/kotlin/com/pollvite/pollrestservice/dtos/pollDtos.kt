@@ -3,11 +3,14 @@ package com.pollvite.pollrestservice.dtos
 import com.pollvite.grpc.poll.PollChanCorePb
 import com.pollvite.grpc.poll.PollChanCreatePb
 import com.pollvite.grpc.poll.PollChanReadPb
+import javax.validation.Valid
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 
 data class PollChanCoreDto(
-    val owner: String,
-    val title: String,
-    val description: String) {
+    @NotBlank val owner: String,
+    @NotBlank val title: String,
+    @NotBlank val description: String) {
     companion object {
         fun fromPb(pb: PollChanCorePb): PollChanCoreDto {
             return PollChanCoreDto(
@@ -44,7 +47,7 @@ data class PollChanReadDto(val id: IdDto, val core: PollChanCoreDto) {
     }
 }
 
-data class PollChanCreateDto(val core: PollChanCoreDto) {
+data class PollChanCreateDto(@Valid @NotNull val core: PollChanCoreDto) {
     companion object {
         fun fromPb(pb: PollChanCreatePb): PollChanCreateDto {
             return PollChanCreateDto(
