@@ -11,6 +11,7 @@ data class PollChanCoreDto(
     @NotBlank val owner: String,
     @NotBlank val title: String,
     @NotBlank val description: String) {
+
     companion object {
         fun fromPb(pb: PollChanCorePb): PollChanCoreDto {
             return PollChanCoreDto(
@@ -30,6 +31,7 @@ data class PollChanCoreDto(
 }
 
 data class PollChanReadDto(val id: IdDto, val core: PollChanCoreDto) {
+
     companion object {
         fun fromPb(pb: PollChanReadPb): PollChanReadDto {
             return PollChanReadDto(
