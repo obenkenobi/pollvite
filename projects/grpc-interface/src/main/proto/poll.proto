@@ -9,28 +9,28 @@ option java_package = "com.pollvite.grpc.poll";
 option java_outer_classname = "PollProto";
 
 service PollChanService {
-  rpc getPollChanById (shared.IdDto) returns (PollChanReadDto) {}
-  rpc createPollChan (PollChanCreateDto) returns (PollChanReadDto) {}
-  rpc editPollChan (PollChanEditDto) returns (PollChanReadDto) {}
-  rpc deletePollChan (shared.IdDto) returns (PollChanReadDto) {}
+  rpc getPollChanById (shared.IdPb) returns (PollChanReadPb) {}
+  rpc createPollChan (PollChanCreatePb) returns (PollChanReadPb) {}
+  rpc editPollChan (PollChanEditPb) returns (PollChanReadPb) {}
+  rpc deletePollChan (shared.IdPb) returns (PollChanReadPb) {}
 }
 
-message PollChanDto {
+message PollChanPb {
   string owner = 1;
   string title = 2;
   string description = 3;
 }
 
-message PollChanCreateDto {
-  PollChanDto core = 1;
+message PollChanCreatePb {
+  PollChanPb core = 1;
 }
 
-message PollChanEditDto {
-  shared.IdDto id = 1;
-  PollChanDto core = 2;
+message PollChanEditPb {
+  shared.IdPb id = 1;
+  PollChanPb core = 2;
 }
 
-message PollChanReadDto {
-  shared.IdDto id = 1;
-  PollChanDto core = 2;
+message PollChanReadPb {
+  shared.IdPb id = 1;
+  PollChanPb core = 2;
 }

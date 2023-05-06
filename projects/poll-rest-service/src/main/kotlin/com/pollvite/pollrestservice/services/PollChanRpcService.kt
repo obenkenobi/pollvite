@@ -1,9 +1,9 @@
 package com.pollvite.pollrestservice.services
 
-import com.pollvite.grpc.poll.PollChanCreateDto
-import com.pollvite.grpc.poll.PollChanReadDto
+import com.pollvite.grpc.poll.PollChanCreatePb
+import com.pollvite.grpc.poll.PollChanReadPb
 import com.pollvite.grpc.poll.PollChanServiceGrpc.PollChanServiceStub
-import com.pollvite.grpc.shared.IdDto
+import com.pollvite.grpc.shared.IdPb
 import io.grpc.stub.StreamObserver
 import net.devh.boot.grpc.client.inject.GrpcClient
 import org.springframework.beans.factory.annotation.Autowired
@@ -32,15 +32,15 @@ class GrpcMonoObserver<V>(private val s: MonoSink<V> ): StreamObserver<V> {
 class PollChanRpcService(
     @Autowired @GrpcClient("pollService") private val pollChanService: PollChanServiceStub? = null) {
 
-    fun getPollChannelById(id: String): Mono<PollChanReadDto> {
+    fun getPollChannelById(id: String): Mono<PollChanReadPb> {
         return Mono.create {
-            pollChanService?.getPollChanById(IdDto.newBuilder().setValue(id).build(), GrpcMonoObserver(it))
+            pollChanService?.getPollChanById(IdPb.newBuilder().setValue(id).build(), GrpcMonoObserver(it))
         }
     }
 
-    fun createPollChannel(dto: PollChanCreateDto): Mono<PollChanReadDto> {
+    fun createPollChannel(Pb: PollChanCreatePb): Mono<PollChanReadPb> {
         return Mono.create {
-            pollChanService?.createPollChan(dto, GrpcMonoObserver(it))
+            pollChanService?.createPollChan(Pb, GrpcMonoObserver(it))
         }
     }
 
