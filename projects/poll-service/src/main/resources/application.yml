@@ -1,0 +1,5 @@
+grpc:
+  server:
+    security:
+      enabled: false
+

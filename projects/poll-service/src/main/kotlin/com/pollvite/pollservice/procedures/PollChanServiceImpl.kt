@@ -6,7 +6,7 @@ import io.grpc.stub.StreamObserver
 import net.devh.boot.grpc.server.service.GrpcService
 
 @GrpcService
-private class PollServiceImpl() : PollChanServiceGrpc.PollChanServiceImplBase() {
+private class PollChanServiceImpl() : PollChanServiceGrpc.PollChanServiceImplBase() {
     @Override
     override fun getPollChanById(request: IdDto?, resObserver: StreamObserver<PollChanReadDto>?) {
         val dto: PollChanReadDto = PollChanReadDto.newBuilder()
