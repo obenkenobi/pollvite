@@ -1,19 +1,20 @@
 package com.pollvite.pollrestservice.configuration
 
-import org.springframework.web.reactive.config.EnableWebFlux
-import org.springframework.web.reactive.config.WebFluxConfigurer
-import org.springframework.http.codec.ServerCodecConfigurer
-import org.springframework.http.codec.json.Jackson2JsonEncoder
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
-import kotlin.Throws
-import java.io.IOException
 import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.databind.JsonSerializer
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.*
 import com.google.protobuf.Message
+import com.google.protobuf.Struct
 import com.google.protobuf.util.JsonFormat
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.codec.ServerCodecConfigurer
+import org.springframework.http.codec.json.Jackson2JsonDecoder
+import org.springframework.http.codec.json.Jackson2JsonEncoder
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
+import org.springframework.web.reactive.config.EnableWebFlux
+import org.springframework.web.reactive.config.WebFluxConfigurer
+import java.io.IOException
+
 
 @Configuration
 @EnableWebFlux
@@ -27,6 +28,19 @@ class WebConfig : WebFluxConfigurer {
                         val str = JsonFormat.printer().omittingInsignificantWhitespace().print(value)
                         gen.writeRawValue(str)
                     }
+                }
+            ).build())
+        )
+        configurer.defaultCodecs().jackson2JsonDecoder(
+            Jackson2JsonDecoder(Jackson2ObjectMapperBuilder.json().deserializerByType(
+                Message::class.java, object : JsonDeserializer<Message?>() {
+                    override fun deserialize(p: JsonParser?, ctxt: DeserializationContext?): Message? {
+                        val jsonStr = p?.readValueAs(String::class.java)
+                        val structBuilder = Struct.newBuilder()
+                        JsonFormat.parser().ignoringUnknownFields().merge(jsonStr, structBuilder)
+                        return structBuilder.build()
+                    }
+
                 }
             ).build())
         )
