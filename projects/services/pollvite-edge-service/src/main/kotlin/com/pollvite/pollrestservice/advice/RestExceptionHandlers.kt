@@ -11,9 +11,9 @@ import org.springframework.web.bind.support.WebExchangeBindException
 
 
 @RestControllerAdvice
-class ExceptionHandlers {
+class RestExceptionHandlers {
     companion object {
-        val log: Logger = LoggerFactory.getLogger(ExceptionHandlers::class.java)
+        val log: Logger = LoggerFactory.getLogger(RestExceptionHandlers::class.java)
     }
 
     @ExceptionHandler(WebExchangeBindException::class)

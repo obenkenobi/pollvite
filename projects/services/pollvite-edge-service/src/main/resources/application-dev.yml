@@ -1,3 +1,7 @@
+logging:
+  level:
+    root: TRACE
+
 grpc:
   client:
     pollService:

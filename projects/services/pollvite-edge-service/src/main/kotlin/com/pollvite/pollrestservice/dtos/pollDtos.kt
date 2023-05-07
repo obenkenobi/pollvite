@@ -2,6 +2,7 @@ package com.pollvite.pollrestservice.dtos
 
 import com.pollvite.grpc.poll.PollChanCorePb
 import com.pollvite.grpc.poll.PollChanCreatePb
+import com.pollvite.grpc.poll.PollChanEditPb
 import com.pollvite.grpc.poll.PollChanReadPb
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
@@ -60,6 +61,24 @@ data class PollChanCreateDto(@field:Valid @field:NotNull val core: PollChanCoreD
 
     fun toPb(): PollChanCreatePb {
         return PollChanCreatePb.newBuilder().also {
+            it.core = core?.toPb()
+        }.build()
+    }
+}
+
+data class PollChanEditDto(@field:Valid @field:NotNull val id: IdDto?, @field:Valid @field:NotNull val core: PollChanCoreDto?) {
+    companion object {
+        fun fromPb(pb: PollChanEditPb): PollChanEditDto {
+            return PollChanEditDto(
+                id = IdDto.fromPb(pb.id),
+                core = PollChanCoreDto.fromPb(pb.core)
+            )
+        }
+    }
+
+    fun toPb(): PollChanEditPb {
+        return PollChanEditPb.newBuilder().also {
+            it.id = id?.toPb()
             it.core = core?.toPb()
         }.build()
     }
