@@ -1,4 +1,4 @@
-package com.pollvite.pollrestservice.grpcutils
+package com.pollvite.pollrestservice.reactive
 
 import io.grpc.stub.StreamObserver
 import reactor.core.publisher.FluxSink

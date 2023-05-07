@@ -5,7 +5,7 @@ import com.pollvite.pollrestservice.dtos.IdDto
 import com.pollvite.pollrestservice.dtos.PollChanCreateDto
 import com.pollvite.pollrestservice.dtos.PollChanEditDto
 import com.pollvite.pollrestservice.dtos.PollChanReadDto
-import com.pollvite.pollrestservice.grpcutils.GrpcMonoObserver
+import com.pollvite.pollrestservice.reactive.GrpcMonoObserver
 import net.devh.boot.grpc.client.inject.GrpcClient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
