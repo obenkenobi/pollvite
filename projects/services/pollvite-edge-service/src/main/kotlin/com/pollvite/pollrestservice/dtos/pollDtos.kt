@@ -8,9 +8,9 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 data class PollChanCoreDto(
-    @NotBlank val owner: String,
-    @NotBlank val title: String,
-    @NotBlank val description: String) {
+    @field:NotBlank val owner: String?,
+    @field:NotBlank val title: String?,
+    @field:NotBlank val description: String?) {
 
     companion object {
         fun fromPb(pb: PollChanCorePb): PollChanCoreDto {
@@ -49,7 +49,7 @@ data class PollChanReadDto(val id: IdDto, val core: PollChanCoreDto) {
     }
 }
 
-data class PollChanCreateDto(@Valid @NotNull val core: PollChanCoreDto) {
+data class PollChanCreateDto(@field:Valid @field:NotNull val core: PollChanCoreDto?) {
     companion object {
         fun fromPb(pb: PollChanCreatePb): PollChanCreateDto {
             return PollChanCreateDto(
@@ -60,7 +60,7 @@ data class PollChanCreateDto(@Valid @NotNull val core: PollChanCoreDto) {
 
     fun toPb(): PollChanCreatePb {
         return PollChanCreatePb.newBuilder().also {
-            it.core = core.toPb()
+            it.core = core?.toPb()
         }.build()
     }
 }

@@ -1,8 +1,9 @@
 package com.pollvite.pollrestservice.dtos
 
 import com.pollvite.grpc.shared.IdPb
+import javax.validation.constraints.NotNull
 
-data class IdDto(val value: String) {
+data class IdDto(@field:NotNull val value: String?) {
     
     companion object {
       fun fromPb(idPb: IdPb) : IdDto {
