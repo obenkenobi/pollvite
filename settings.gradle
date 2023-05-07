@@ -7,3 +7,30 @@ new File(settingsDir, 'projects').listFiles().each {
         project(projName).projectDir = it
     }
 }
+
+static boolean isGradleProject(File file) {
+    return file.directory && new File(file, 'build.gradle').exists()
+}
+
+boolean includeSingleProject(File file) {
+    if (!isGradleProject(file)) {
+        return false
+    }
+    def projName = ":${file.name}" as String
+    include(projName)
+    project(projName).projectDir = file
+    return true
+}
+
+def includeProjects(File rootFile) {
+    if (!rootFile.directory) {
+        return
+    }
+    for (file in rootFile.listFiles()) {
+        if(!includeSingleProject(file)) {
+            includeProjects(file)
+        }
+    }
+}
+
+includeProjects(new File(settingsDir, 'projects'))

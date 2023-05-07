@@ -11,7 +11,8 @@ private class PollChanServiceImpl() : PollChanServiceGrpc.PollChanServiceImplBas
     override fun getPollChanById(request: IdPb?, resObserver: StreamObserver<PollChanReadPb>?) {
         val value: PollChanReadPb = PollChanReadPb.newBuilder()
             .setId(request)
-            .setCore(PollChanCorePb.newBuilder()
+            .setCore(
+                PollChanCorePb.newBuilder()
                 .setOwner("Nero")
                 .setDescription("food based polls")
                 .setTitle("Food Polls")
@@ -24,7 +25,8 @@ private class PollChanServiceImpl() : PollChanServiceGrpc.PollChanServiceImplBas
     override fun createPollChan(request: PollChanCreatePb?, resObserver: StreamObserver<PollChanReadPb>?) {
         val value = PollChanReadPb.newBuilder()
             .setCore(request?.core)
-            .setId(IdPb.newBuilder()
+            .setId(
+                IdPb.newBuilder()
                 .setValue("someId")
                 .build()
             ).build()
@@ -35,7 +37,8 @@ private class PollChanServiceImpl() : PollChanServiceGrpc.PollChanServiceImplBas
     override fun editPollChan(request: PollChanEditPb?, resObserver: StreamObserver<PollChanReadPb>?) {
         val value = PollChanReadPb.newBuilder()
             .setCore(request?.core)
-            .setId(IdPb.newBuilder()
+            .setId(
+                IdPb.newBuilder()
                 .setValue("someId")
                 .build()
             ).build()
@@ -46,7 +49,8 @@ private class PollChanServiceImpl() : PollChanServiceGrpc.PollChanServiceImplBas
     override fun deletePollChan(request: IdPb?, resObserver: StreamObserver<PollChanReadPb>?) {
         val value: PollChanReadPb = PollChanReadPb.newBuilder()
             .setId(request)
-            .setCore(PollChanCorePb.newBuilder()
+            .setCore(
+                PollChanCorePb.newBuilder()
                 .setOwner("Nero")
                 .setDescription("food based polls")
                 .setTitle("Food Polls")

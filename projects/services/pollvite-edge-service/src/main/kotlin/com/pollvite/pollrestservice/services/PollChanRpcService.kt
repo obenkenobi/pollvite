@@ -1,8 +1,6 @@
 package com.pollvite.pollrestservice.services
 
-import com.pollvite.grpc.poll.PollChanCreatePb
 import com.pollvite.grpc.poll.PollChanServiceGrpc.PollChanServiceStub
-import com.pollvite.grpc.shared.IdPb
 import com.pollvite.pollrestservice.dtos.IdDto
 import com.pollvite.pollrestservice.dtos.PollChanCreateDto
 import com.pollvite.pollrestservice.dtos.PollChanReadDto
