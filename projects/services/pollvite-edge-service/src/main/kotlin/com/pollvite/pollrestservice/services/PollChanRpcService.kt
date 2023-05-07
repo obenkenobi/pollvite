@@ -5,7 +5,7 @@ import com.pollvite.pollrestservice.dtos.IdDto
 import com.pollvite.pollrestservice.dtos.PollChanCreateDto
 import com.pollvite.pollrestservice.dtos.PollChanEditDto
 import com.pollvite.pollrestservice.dtos.PollChanReadDto
-import com.pollvite.pollrestservice.reactive.GrpcMonoObserver
+import com.pollvite.pollrestservice.reactive.ReactiveGrpc
 import net.devh.boot.grpc.client.inject.GrpcClient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -24,33 +24,27 @@ class PollChanRpcServiceImpl(
     : PollChanRpcService {
 
     override fun getPollChannelById(id: String): Mono<PollChanReadDto> {
-        return Mono.create { sink ->
-            val idPb = IdDto(id).toPb()
-            pollChanServiceClient?.getPollChanById(idPb, GrpcMonoObserver(sink))
-        }.map(PollChanReadDto::fromPb)
+        val idPb = IdDto(id).toPb()
+        return ReactiveGrpc.callMono(pollChanServiceClient!!::getPollChanById, idPb)
+            .map(PollChanReadDto::fromPb)
     }
 
     override fun createPollChannel(dtoSrc: Mono<PollChanCreateDto>): Mono<PollChanReadDto> {
         return dtoSrc.flatMap { dto ->
-            Mono.create { sink ->
-                pollChanServiceClient?.createPollChan(dto.toPb(), GrpcMonoObserver(sink))
-            }
+            ReactiveGrpc.callMono(pollChanServiceClient!!::createPollChan, dto.toPb())
         }.map(PollChanReadDto::fromPb)
     }
 
     override fun editPollChannel(dtoSrc: Mono<PollChanEditDto>): Mono<PollChanReadDto> {
         return dtoSrc.flatMap { dto ->
-            Mono.create { sink ->
-                pollChanServiceClient?.editPollChan(dto.toPb(), GrpcMonoObserver(sink))
-            }
+            ReactiveGrpc.callMono(pollChanServiceClient!!::editPollChan, dto.toPb())
         }.map(PollChanReadDto::fromPb)
     }
 
     override fun deletePollChannel(id: String): Mono<PollChanReadDto> {
-        return Mono.create { sink ->
-            val idPb = IdDto(id).toPb()
-            pollChanServiceClient?.deletePollChan(idPb, GrpcMonoObserver(sink))
-        }.map(PollChanReadDto::fromPb)
+        val idPb = IdDto(id).toPb()
+        return ReactiveGrpc.callMono(pollChanServiceClient!!::deletePollChan, idPb)
+            .map(PollChanReadDto::fromPb)
     }
 
 }
