@@ -1,5 +1,5 @@
 grpc:
   client:
     pollService:
-      address: ${grpc.client.pollService.address}
+      address: static://localhost:9090
       negotiationType: PLAINTEXT
