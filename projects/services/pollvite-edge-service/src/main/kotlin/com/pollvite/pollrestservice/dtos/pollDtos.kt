@@ -66,7 +66,8 @@ data class PollChanCreateDto(@field:Valid @field:NotNull val core: PollChanCoreD
     }
 }
 
-data class PollChanEditDto(@field:Valid @field:NotNull val id: IdDto?, @field:Valid @field:NotNull val core: PollChanCoreDto?) {
+data class PollChanEditDto(@field:Valid @field:NotNull val id: IdDto?,
+                           @field:Valid @field:NotNull val core: PollChanCoreDto?) {
     companion object {
         fun fromPb(pb: PollChanEditPb): PollChanEditDto {
             return PollChanEditDto(
