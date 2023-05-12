@@ -7,6 +7,7 @@ ext {
             "junit": "5.9.2",
             "protobuf": "3.9.2",
             "protobufJavaUtil": "3.22.4",
+            "reactiveGrpc": "1.2.4",
             "springBootGrpc": "2.14.0.RELEASE",
     ]
 
@@ -24,8 +25,12 @@ ext {
             "protobufJavaUtil": "com.google.protobuf:protobuf-java-util:${mavenDepsVersions.protobufJavaUtil}",
             "protobufProtoc": "com.google.protobuf:protoc:${mavenDepsVersions.protobuf}",
             "protocGenGrpcJava": "io.grpc:protoc-gen-grpc-java:${mavenDepsVersions.grpc}",
+            "reactorGrpc": "com.salesforce.servicelibs:reactor-grpc:${mavenDepsVersions.reactiveGrpc}",
+            "reactorGrpcStub": "com.salesforce.servicelibs:reactor-grpc-stub:${mavenDepsVersions.reactiveGrpc}",
             "reactorKotlinExtensions": "io.projectreactor.kotlin:reactor-kotlin-extensions",
             "reactorTest": "io.projectreactor:reactor-test",
+            "rxGrpc": "com.salesforce.servicelibs:rxgrpc:${mavenDepsVersions.reactiveGrpc}",
+            "rxGrpcStub": "com.salesforce.servicelibs:rxgrpc-stub:${mavenDepsVersions.reactiveGrpc}",
             "springBootConfigurationProcessor": "org.springframework.boot:spring-boot-configuration-processor",
             "springBootDataMongo": "org.springframework.boot:spring-boot-starter-data-mongodb",
             "springBootGrpcClient": "net.devh:grpc-client-spring-boot-starter:${mavenDepsVersions.springBootGrpc}",

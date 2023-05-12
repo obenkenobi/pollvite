@@ -15,6 +15,8 @@ version = '0.0.1-SNAPSHOT'
 dependencies {
     implementation mavenDeps.grpcProtobuff
     implementation mavenDeps.grpcStub
+    implementation mavenDeps.reactorGrpcStub
+    compileOnly "io.projectreactor:reactor-core:3.5.6" // Explicit as it is just needed for compilation
     compileOnly mavenDeps.javaxAnnotationApi // Workaround since spring boot 3 does not use javax
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
 }
@@ -28,15 +30,19 @@ protobuf {
         delete generatedFilesBaseDir
     }
     plugins {
-        grpc_java {
+        java_grpc {
             artifact = mavenDeps.protocGenGrpcJava
+        }
+        java_reactor {
+            artifact = mavenDeps.reactorGrpc
         }
     }
     generateProtoTasks {
 
         all().each { task ->
             task.plugins {
-                grpc_java {}
+                java_grpc {}
+                java_reactor {}
             }
             task.builtins {
                 java {}
@@ -48,8 +54,15 @@ protobuf {
 idea {
     module {
         sourceDirs += file("src/generated/main/java")
-        sourceDirs += file("src/generated/main/grpc_java")
+        sourceDirs += file("src/generated/main/java_grpc")
+        sourceDirs += file("src/generated/main/java_reactor")
         generatedSourceDirs += file("src/generated/main/java")
-        generatedSourceDirs += file("src/generated/main/grpc_java")
+        generatedSourceDirs += file("src/generated/main/java_grpc")
+        generatedSourceDirs += file("src/generated/main/java_reactor")
+
     }
+}
+
+repositories {
+    mavenCentral()
 }
