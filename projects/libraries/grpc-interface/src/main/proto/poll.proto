@@ -26,11 +26,11 @@ message PollChanCreatePb {
 }
 
 message PollChanEditPb {
-  shared.IdPb id = 1;
+  string id = 1;
   PollChanCorePb core = 2;
 }
 
 message PollChanReadPb {
-  shared.IdPb id = 1;
+  string id = 1;
   PollChanCorePb core = 2;
 }

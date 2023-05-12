@@ -31,12 +31,12 @@ data class PollChanCoreDto(
     }
 }
 
-data class PollChanReadDto(val id: IdDto, val core: PollChanCoreDto) {
+data class PollChanReadDto(val id: String, val core: PollChanCoreDto) {
 
     companion object {
         fun fromPb(pb: PollChanReadPb): PollChanReadDto {
             return PollChanReadDto(
-                id = IdDto.fromPb(pb.id),
+                id = pb.id,
                 core = PollChanCoreDto.fromPb(pb.core)
             )
         }
@@ -44,7 +44,7 @@ data class PollChanReadDto(val id: IdDto, val core: PollChanCoreDto) {
 
     fun toPb(): PollChanReadPb {
         return PollChanReadPb.newBuilder().also {
-            it.id = id.toPb()
+            it.id = id
             it.core = core.toPb()
         }.build()
     }
@@ -66,12 +66,12 @@ data class PollChanCreateDto(@field:Valid @field:NotNull val core: PollChanCoreD
     }
 }
 
-data class PollChanEditDto(@field:Valid @field:NotNull val id: IdDto?,
+data class PollChanEditDto(@field:Valid @field:NotNull val id: String?,
                            @field:Valid @field:NotNull val core: PollChanCoreDto?) {
     companion object {
         fun fromPb(pb: PollChanEditPb): PollChanEditDto {
             return PollChanEditDto(
-                id = IdDto.fromPb(pb.id),
+                id = pb.id,
                 core = PollChanCoreDto.fromPb(pb.core)
             )
         }
@@ -79,7 +79,7 @@ data class PollChanEditDto(@field:Valid @field:NotNull val id: IdDto?,
 
     fun toPb(): PollChanEditPb {
         return PollChanEditPb.newBuilder().also {
-            it.id = id?.toPb()
+            it.id = id
             it.core = core?.toPb()
         }.build()
     }
