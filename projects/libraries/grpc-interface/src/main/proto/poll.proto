@@ -33,4 +33,5 @@ message PollChanEditPb {
 message PollChanReadPb {
   string id = 1;
   PollChanCorePb core = 2;
+  shared.TimestampsPb timestamps = 3;
 }

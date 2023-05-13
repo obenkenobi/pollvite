@@ -10,7 +10,12 @@ message IdPb {
   string value = 1;
 }
 
-message TimestampPb {
+message TimestampsPb {
   int64 createdAt = 1;
   int64 updatedAt = 2;
+}
+
+message AuditPb {
+  string createdBy = 1;
+  string updatedBy = 2;
 }
