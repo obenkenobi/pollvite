@@ -16,7 +16,7 @@ dependencies {
     implementation mavenDeps.grpcProtobuff
     implementation mavenDeps.grpcStub
     implementation mavenDeps.reactorGrpcStub
-    compileOnly "io.projectreactor:reactor-core:3.5.6" // Explicit as it is just needed for compilation
+    compileOnly mavenDeps.springBootReactorNetty // Required to compile against reactor
     compileOnly mavenDeps.javaxAnnotationApi // Workaround since spring boot 3 does not use javax
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
 }

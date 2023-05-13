@@ -35,6 +35,7 @@ ext {
             "springBootDataMongo": "org.springframework.boot:spring-boot-starter-data-mongodb",
             "springBootGrpcClient": "net.devh:grpc-client-spring-boot-starter:${mavenDepsVersions.springBootGrpc}",
             "springBootGrpcServer": "net.devh:grpc-server-spring-boot-starter:${mavenDepsVersions.springBootGrpc}",
+            "springBootReactorNetty": "org.springframework.boot:spring-boot-starter-reactor-netty",
             "springBootSecurity": "org.springframework.boot:spring-boot-starter-security",
             "springBootStarter": "org.springframework.boot:spring-boot-starter",
             "springBootTest": "org.springframework.boot:spring-boot-starter-test",
