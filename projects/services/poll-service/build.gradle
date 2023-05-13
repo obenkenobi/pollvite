@@ -10,6 +10,7 @@ dependencies {
     implementation mavenDeps.springBootStarter
 //    implementation mavenDeps.springBootDataMongo
     implementation mavenDeps.springBootGrpcServer
+    compileOnly mavenDeps.springBootReactorNetty
 
     implementation mavenDeps.jacksonModuleKotlin
     implementation mavenDeps.kotlinReflect
