@@ -33,6 +33,7 @@ ext {
             "rxGrpcStub": "com.salesforce.servicelibs:rxgrpc-stub:${mavenDepsVersions.reactiveGrpc}",
             "springBootConfigurationProcessor": "org.springframework.boot:spring-boot-configuration-processor",
             "springBootDataMongo": "org.springframework.boot:spring-boot-starter-data-mongodb",
+            "springBootDataMongoReactive": "org.springframework.boot:spring-boot-starter-data-mongodb-reactive",
             "springBootGrpcClient": "net.devh:grpc-client-spring-boot-starter:${mavenDepsVersions.springBootGrpc}",
             "springBootGrpcServer": "net.devh:grpc-server-spring-boot-starter:${mavenDepsVersions.springBootGrpc}",
             "springBootReactorNetty": "org.springframework.boot:spring-boot-starter-reactor-netty",

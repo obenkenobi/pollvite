@@ -10,7 +10,8 @@ dependencies {
     implementation project(':springboot3-resolver-grpc-server')
     implementation project(':springboot3-resolver-grpc-client')
     implementation mavenDeps.springBootStarter
-//    implementation mavenDeps.springBootDataMongo
+    implementation mavenDeps.springBootDataMongoReactive
+    implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:4.7.0'
     implementation mavenDeps.springBootGrpcServer
     implementation mavenDeps.springBootGrpcClient
     compileOnly mavenDeps.springBootReactorNetty
