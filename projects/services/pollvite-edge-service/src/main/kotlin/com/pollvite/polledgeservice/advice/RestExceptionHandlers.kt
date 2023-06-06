@@ -1,4 +1,4 @@
-package com.pollvite.pollrestservice.advice
+package com.pollvite.polledgeservice.advice
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

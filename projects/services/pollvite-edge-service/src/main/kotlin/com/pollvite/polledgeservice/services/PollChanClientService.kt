@@ -1,10 +1,10 @@
-package com.pollvite.pollrestservice.services
+package com.pollvite.polledgeservice.services
 
 import com.pollvite.grpc.poll.ReactorPollChanServiceGrpc.ReactorPollChanServiceStub
-import com.pollvite.pollrestservice.dtos.IdDto
-import com.pollvite.pollrestservice.dtos.PollChanCreateDto
-import com.pollvite.pollrestservice.dtos.PollChanEditDto
-import com.pollvite.pollrestservice.dtos.PollChanReadDto
+import com.pollvite.polledgeservice.dtos.IdDto
+import com.pollvite.polledgeservice.dtos.PollChanCreateDto
+import com.pollvite.polledgeservice.dtos.PollChanEditDto
+import com.pollvite.polledgeservice.dtos.PollChanReadDto
 import net.devh.boot.grpc.client.inject.GrpcClient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

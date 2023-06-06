@@ -1,4 +1,4 @@
-package com.pollvite.pollrestservice.dtos
+package com.pollvite.polledgeservice.dtos
 
 import com.pollvite.grpc.poll.PollChanCorePb
 import com.pollvite.grpc.poll.PollChanCreatePb

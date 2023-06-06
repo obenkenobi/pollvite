@@ -1,9 +1,9 @@
-package com.pollvite.pollrestservice.controllers
+package com.pollvite.polledgeservice.controllers
 
-import com.pollvite.pollrestservice.dtos.PollChanCreateDto
-import com.pollvite.pollrestservice.dtos.PollChanEditDto
-import com.pollvite.pollrestservice.dtos.PollChanReadDto
-import com.pollvite.pollrestservice.services.PollChanClientService
+import com.pollvite.polledgeservice.dtos.PollChanCreateDto
+import com.pollvite.polledgeservice.dtos.PollChanEditDto
+import com.pollvite.polledgeservice.dtos.PollChanReadDto
+import com.pollvite.polledgeservice.services.PollChanClientService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
