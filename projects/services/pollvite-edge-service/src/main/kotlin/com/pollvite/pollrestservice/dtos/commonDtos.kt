@@ -3,7 +3,7 @@ package com.pollvite.pollrestservice.dtos
 import com.pollvite.grpc.shared.AuditPb
 import com.pollvite.grpc.shared.IdPb
 import com.pollvite.grpc.shared.TimestampsPb
-import javax.validation.constraints.NotNull
+import jakarta.validation.constraints.NotNull
 
 data class IdDto(@field:NotNull val value: String?) {
     companion object {

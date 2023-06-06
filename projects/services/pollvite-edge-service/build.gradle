@@ -7,6 +7,7 @@ jar {
 
 dependencies {
     implementation project(':grpc-interface')
+    implementation project(':springboot3-resolver-grpc-client')
 
     implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation mavenDeps.springBootWebflux
@@ -17,6 +18,7 @@ dependencies {
     implementation mavenDeps.kotlinxCoroutinesReactor
     implementation mavenDeps.reactorKotlinExtensions
     implementation mavenDeps.protobufJavaUtil
+    compileOnly mavenDeps.javaxAnnotationApi
 
     annotationProcessor mavenDeps.springBootConfigurationProcessor
 
