@@ -19,10 +19,13 @@ def includeProjects(File rootFile) {
         return
     }
     for (file in rootFile.listFiles()) {
-        if(!includeSingleProject(file)) {
+        if (!includeSingleProject(file)) {
             includeProjects(file)
         }
     }
 }
 
 includeProjects(new File(settingsDir, 'projects'))
+include 'projects:libraries:errors'
+findProject(':projects:libraries:errors')?.name = 'errors'
+

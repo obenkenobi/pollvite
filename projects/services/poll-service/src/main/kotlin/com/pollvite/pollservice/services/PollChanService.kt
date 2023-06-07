@@ -7,6 +7,8 @@ import com.pollvite.pollservice.models.Audit
 import com.pollvite.pollservice.models.PollChan
 import com.pollvite.pollservice.models.Timestamps
 import com.pollvite.pollservice.repositories.PollChanRepository
+import com.pollvite.shared.errors.AppException
+import com.pollvite.shared.errors.ErrorStatus
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
@@ -23,6 +25,7 @@ private class PollChanServiceImpl(@Autowired val pollChanRepository: PollChanRep
     override fun getPollChanById(idPb: IdPb) : Mono<PollChanReadPb> {
         return pollChanRepository.findById(idPb.value)
             .map { pollChanToReadDto(it) }
+            .switchIfEmpty(Mono.error(AppException(ErrorStatus.NOT_FOUND, "Poll Channel Not Found")))
     }
 
     override fun createPollChan(pollCreatePb: Mono<PollChanCreatePb>) : Mono<PollChanReadPb> {

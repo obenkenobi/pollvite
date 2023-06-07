@@ -1,6 +1,7 @@
 ext {
 
     def mavenDepsVersions = [
+            "embeddedMongo": "4.7.0",
             "grpc": "1.53.0",
             "javaxAnnotationApi": "1.3.5",
             "jakartaAnnotationApi": "2.1.0",
@@ -12,6 +13,8 @@ ext {
     ]
 
     mavenDeps = [
+            "embeddedMongo": "de.flapdoodle.embed:de.flapdoodle.embed.mongo:${mavenDepsVersions.embeddedMongo}",
+            "grpcApi": "io.grpc:grpc-api:${mavenDepsVersions.grpc}",
             "grpcProtobuff": "io.grpc:grpc-protobuf:${mavenDepsVersions.grpc}",
             "grpcStub": "io.grpc:grpc-stub:${mavenDepsVersions.grpc}",
             "jacksonModuleKotlin": "com.fasterxml.jackson.module:jackson-module-kotlin",
@@ -47,3 +50,4 @@ ext {
     ]
 
 }
+//de.flapdoodle.embed:de.flapdoodle.embed.mongo:4.7.0

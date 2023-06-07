@@ -1,0 +1,11 @@
+group = 'com.pollvite'
+version = '0.0.1-SNAPSHOT'
+
+jar {
+    archivesBaseName = 'shared-errors'
+}
+
+dependencies {
+    implementation mavenDeps.grpcApi
+    compileOnly 'org.slf4j:slf4j-api:2.0.7'
+}
