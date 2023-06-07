@@ -5,6 +5,7 @@ import com.pollvite.grpc.shared.IdPb
 import com.pollvite.grpc.shared.TimestampsPb
 import com.pollvite.pollservice.models.Audit
 import com.pollvite.pollservice.models.PollChan
+import com.pollvite.pollservice.models.PollChanCore
 import com.pollvite.pollservice.models.Timestamps
 import com.pollvite.pollservice.repositories.PollChanRepository
 import com.pollvite.shared.errors.AppException
@@ -31,9 +32,11 @@ private class PollChanServiceImpl(@Autowired val pollChanRepository: PollChanRep
     override fun createPollChan(pollCreatePb: Mono<PollChanCreatePb>) : Mono<PollChanReadPb> {
         return pollCreatePb.flatMap { pb ->
             val pollChan = PollChan(id = null,
-                owner = pb.core.owner,
-                description = pb.core.description,
-                title = pb.core.title,
+                core = PollChanCore(
+                    owner = pb.core.owner,
+                    description = pb.core.description,
+                    title = pb.core.title,
+                ),
                 timestamps = Timestamps.create(),
                 audit = Audit(pb.core.owner, pb.core.owner)
             )
@@ -49,9 +52,11 @@ private class PollChanServiceImpl(@Autowired val pollChanRepository: PollChanRep
         }.flatMap { pair ->
             val (pb, oldPollChan) = pair
             val pollChan = PollChan(id = oldPollChan.id,
-                owner = pb.core.owner,
-                description = pb.core.description,
-                title = pb.core.title,
+                core = PollChanCore(
+                    owner = pb.core.owner,
+                    description = pb.core.description,
+                    title = pb.core.title,
+                ),
                 timestamps = oldPollChan.timestamps.toUpdated(),
                 audit = oldPollChan.audit.copy(updatedBy = pb.core.owner)
             )
@@ -65,9 +70,9 @@ private class PollChanServiceImpl(@Autowired val pollChanRepository: PollChanRep
         return PollChanReadPb.newBuilder().also {
             it.id = pollChan.id
             it.core = PollChanCorePb.newBuilder().also { core ->
-                core.owner = pollChan.owner
-                core.description = pollChan.description
-                core.title = pollChan.title
+                core.owner = pollChan.core.owner
+                core.description = pollChan.core.description
+                core.title = pollChan.core.title
             }.build()
             it.timestamps = TimestampsPb.newBuilder().also { timestamps ->
                 timestamps.createdAt = pollChan.timestamps.createdAt

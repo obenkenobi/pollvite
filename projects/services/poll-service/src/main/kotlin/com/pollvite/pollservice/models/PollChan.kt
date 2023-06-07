@@ -4,9 +4,6 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.Instant
 
-
-
-
 data class Timestamps(
     val createdAt: Long,
     val updatedAt: Long,
@@ -32,12 +29,12 @@ data class Audit(
     }
 }
 
+data class PollChanCore(val owner: String, val title: String, val description: String)
+
 @Document
 data class PollChan(
     @Id val id: String?,
-    val owner: String,
-    val title: String,
-    val description: String,
+    val core: PollChanCore,
     val timestamps: Timestamps,
     val audit: Audit,
 )
