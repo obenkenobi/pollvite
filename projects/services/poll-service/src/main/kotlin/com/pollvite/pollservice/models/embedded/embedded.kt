@@ -1,7 +1,5 @@
-package com.pollvite.pollservice.models
+package com.pollvite.pollservice.models.embedded
 
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
 import java.time.Instant
 
 data class Timestamps(
@@ -16,7 +14,7 @@ data class Timestamps(
         }
     }
     fun toUpdated(): Timestamps {
-        return this.copy(updatedAt=Instant.now().toEpochMilli())
+        return this.copy(updatedAt= Instant.now().toEpochMilli())
     }
 }
 
@@ -30,11 +28,3 @@ data class Audit(
 }
 
 data class PollChanCore(val owner: String, val title: String, val description: String)
-
-@Document
-data class PollChan(
-    @Id val id: String?,
-    val core: PollChanCore,
-    val timestamps: Timestamps,
-    val audit: Audit,
-)

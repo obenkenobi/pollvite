@@ -2,11 +2,10 @@ package com.pollvite.pollservice.services
 
 import com.pollvite.grpc.poll.*
 import com.pollvite.grpc.shared.IdPb
-import com.pollvite.grpc.shared.TimestampsPb
-import com.pollvite.pollservice.models.Audit
+import com.pollvite.pollservice.mappers.PollChanMapper
+import com.pollvite.pollservice.models.embedded.Audit
 import com.pollvite.pollservice.models.PollChan
-import com.pollvite.pollservice.models.PollChanCore
-import com.pollvite.pollservice.models.Timestamps
+import com.pollvite.pollservice.models.embedded.Timestamps
 import com.pollvite.pollservice.repositories.PollChanRepository
 import com.pollvite.shared.errors.AppException
 import com.pollvite.shared.errors.ErrorStatus
@@ -23,61 +22,32 @@ interface PollChanService {
 @Service
 private class PollChanServiceImpl(@Autowired val pollChanRepository: PollChanRepository): PollChanService {
 
-    override fun getPollChanById(idPb: IdPb) : Mono<PollChanReadPb> {
-        return pollChanRepository.findById(idPb.value)
-            .map { pollChanToReadDto(it) }
-            .switchIfEmpty(Mono.error(AppException(ErrorStatus.NOT_FOUND, "Poll Channel Not Found")))
-    }
+    override fun getPollChanById(idPb: IdPb) : Mono<PollChanReadPb> = pollChanRepository.findById(idPb.value)
+        .map { PollChanMapper.modelToReadPb(it) }
+        .switchIfEmpty(Mono.error(AppException(ErrorStatus.NOT_FOUND)))
 
-    override fun createPollChan(pollCreatePb: Mono<PollChanCreatePb>) : Mono<PollChanReadPb> {
-        return pollCreatePb.flatMap { pb ->
+    override fun createPollChan(pollCreatePb: Mono<PollChanCreatePb>) : Mono<PollChanReadPb> = pollCreatePb
+        .flatMap { pb ->
             val pollChan = PollChan(id = null,
-                core = PollChanCore(
-                    owner = pb.core.owner,
-                    description = pb.core.description,
-                    title = pb.core.title,
-                ),
+                core = PollChanMapper.corePbToCoreModel(pb.core),
                 timestamps = Timestamps.create(),
                 audit = Audit(pb.core.owner, pb.core.owner)
             )
             return@flatMap pollChanRepository.save(pollChan)
-        }.map { pollChanToReadDto(it) }
+        }.map { PollChanMapper.modelToReadPb(it) }
 
-    }
-
-    override fun editPollChan(pollChanEditPb: Mono<PollChanEditPb>) : Mono<PollChanReadPb> {
-        return pollChanEditPb.flatMap { pb ->
-            pollChanRepository.findById(pb.id)
-                .map { oldPollChan -> Pair(pb, oldPollChan) }
-        }.flatMap { pair ->
-            val (pb, oldPollChan) = pair
+    override fun editPollChan(pollChanEditPb: Mono<PollChanEditPb>) : Mono<PollChanReadPb> = pollChanEditPb
+        .flatMap { pb ->
+            pollChanRepository.findById(pb.id).map { oldPollChan -> Pair(pb, oldPollChan) }
+        }.flatMap {
+            val (pb, oldPollChan) = it
             val pollChan = PollChan(id = oldPollChan.id,
-                core = PollChanCore(
-                    owner = pb.core.owner,
-                    description = pb.core.description,
-                    title = pb.core.title,
-                ),
+                core = PollChanMapper.corePbToCoreModel(pb.core),
                 timestamps = oldPollChan.timestamps.toUpdated(),
                 audit = oldPollChan.audit.copy(updatedBy = pb.core.owner)
             )
             return@flatMap pollChanRepository.save(pollChan)
         }.map {
-            pollChanToReadDto(it)
-        }
-    }
-
-    fun pollChanToReadDto(pollChan: PollChan) : PollChanReadPb {
-        return PollChanReadPb.newBuilder().also {
-            it.id = pollChan.id
-            it.core = PollChanCorePb.newBuilder().also { core ->
-                core.owner = pollChan.core.owner
-                core.description = pollChan.core.description
-                core.title = pollChan.core.title
-            }.build()
-            it.timestamps = TimestampsPb.newBuilder().also { timestamps ->
-                timestamps.createdAt = pollChan.timestamps.createdAt
-                timestamps.updatedAt = pollChan.timestamps.updatedAt
-            }.build()
-        }.build()
+            PollChanMapper.modelToReadPb(it)
     }
 }
