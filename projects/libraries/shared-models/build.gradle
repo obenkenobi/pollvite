@@ -1,0 +1,10 @@
+group = 'com.pollvite'
+version = '0.0.1-SNAPSHOT'
+
+jar {
+    archivesBaseName = 'shared-models-mongo'
+}
+
+dependencies {
+    compileOnly mavenDeps.springBootDataMongoReactive
+}

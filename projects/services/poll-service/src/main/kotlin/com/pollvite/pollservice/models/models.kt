@@ -1,8 +1,8 @@
 package com.pollvite.pollservice.models
 
-import com.pollvite.pollservice.models.embedded.Audit
 import com.pollvite.pollservice.models.embedded.PollChanCore
-import com.pollvite.pollservice.models.embedded.Timestamps
+import com.pollvite.shared.models.embedded.Audit
+import com.pollvite.shared.models.embedded.Timestamps
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 

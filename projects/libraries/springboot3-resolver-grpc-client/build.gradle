@@ -2,7 +2,7 @@ group = 'com.pollvite'
 version = '0.0.1-SNAPSHOT'
 
 jar {
-    archivesBaseName = 'grpc-client-spring3-resolver'
+    archivesBaseName = 'springboot3-resolver-grpc-client'
 }
 
 dependencies {
