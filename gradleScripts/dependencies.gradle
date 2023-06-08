@@ -7,8 +7,8 @@ ext {
             "jakartaAnnotationApi": "2.1.0",
             "junit": "5.9.2",
             "protobuf": "3.9.2",
-            "protobufJavaUtil": "3.22.4",
             "reactiveGrpc": "1.2.4",
+            "slf4jApi": "2.0.7",
             "springBootGrpc": "2.14.0.RELEASE",
     ]
 
@@ -25,7 +25,6 @@ ext {
             "kotlinStdlib": "org.jetbrains.kotlin:kotlin-stdlib",
             "kotlinxCoroutinesReactor": "org.jetbrains.kotlinx:kotlinx-coroutines-reactor",
             "junitJupiterEngine": "org.junit.jupiter:junit-jupiter-engine:${mavenDepsVersions.junit}",
-            "protobufJavaUtil": "com.google.protobuf:protobuf-java-util:${mavenDepsVersions.protobufJavaUtil}",
             "protobufProtoc": "com.google.protobuf:protoc:${mavenDepsVersions.protobuf}",
             "protocGenGrpcJava": "io.grpc:protoc-gen-grpc-java:${mavenDepsVersions.grpc}",
             "reactorGrpc": "com.salesforce.servicelibs:reactor-grpc:${mavenDepsVersions.reactiveGrpc}",
@@ -34,6 +33,7 @@ ext {
             "reactorTest": "io.projectreactor:reactor-test",
             "rxGrpc": "com.salesforce.servicelibs:rxgrpc:${mavenDepsVersions.reactiveGrpc}",
             "rxGrpcStub": "com.salesforce.servicelibs:rxgrpc-stub:${mavenDepsVersions.reactiveGrpc}",
+            "slf4jApi": "org.slf4j:slf4j-api:${mavenDepsVersions.slf4jApi}",
             "springBootConfigurationProcessor": "org.springframework.boot:spring-boot-configuration-processor",
             "springBootDataMongo": "org.springframework.boot:spring-boot-starter-data-mongodb",
             "springBootDataMongoReactive": "org.springframework.boot:spring-boot-starter-data-mongodb-reactive",

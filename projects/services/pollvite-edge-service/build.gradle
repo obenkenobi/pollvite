@@ -17,7 +17,6 @@ dependencies {
     implementation mavenDeps.kotlinStdlib
     implementation mavenDeps.kotlinxCoroutinesReactor
     implementation mavenDeps.reactorKotlinExtensions
-    implementation mavenDeps.protobufJavaUtil
     compileOnly mavenDeps.javaxAnnotationApi
 
     annotationProcessor mavenDeps.springBootConfigurationProcessor

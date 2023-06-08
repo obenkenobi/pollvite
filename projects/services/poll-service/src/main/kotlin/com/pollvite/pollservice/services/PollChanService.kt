@@ -3,12 +3,12 @@ package com.pollvite.pollservice.services
 import com.pollvite.grpc.poll.*
 import com.pollvite.grpc.shared.IdPb
 import com.pollvite.pollservice.mappers.PollChanMapper
-import com.pollvite.pollservice.models.embedded.Audit
 import com.pollvite.pollservice.models.PollChan
-import com.pollvite.pollservice.models.embedded.Timestamps
 import com.pollvite.pollservice.repositories.PollChanRepository
 import com.pollvite.shared.errors.AppException
 import com.pollvite.shared.errors.ErrorStatus
+import com.pollvite.shared.models.embedded.Audit
+import com.pollvite.shared.models.embedded.Timestamps
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
