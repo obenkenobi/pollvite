@@ -5,5 +5,6 @@ grpc:
       negotiationType: PLAINTEXT
 
 firebase:
+  projectId: ${firebase.projectId}
   admin:
     serviceAccountPath: ${firebase.admin.serviceAccountPath}

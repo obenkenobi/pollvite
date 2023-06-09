@@ -13,6 +13,7 @@ import java.io.FileInputStream
 @Configuration
 @ConfigurationProperties(prefix = "firebase")
 class FirebasePropsConfig {
+    var projectId: String? = null
     var admin: AdminConfig? = null
 
     class AdminConfig {
@@ -24,11 +25,12 @@ class FirebasePropsConfig {
 class FirebaseConfig {
 
     @Bean
-    fun firebaseApp(@Autowired firebasePropsConfig: FirebasePropsConfig): FirebaseApp {
-        val serviceAccount = FileInputStream(firebasePropsConfig.admin!!.serviceAccountPath!!)
+    fun firebaseApp(@Autowired fbPropsConfig: FirebasePropsConfig): FirebaseApp {
+        val serviceAccount = FileInputStream(fbPropsConfig.admin!!.serviceAccountPath!!)
 
         val options = FirebaseOptions.builder()
             .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+            .setProjectId(fbPropsConfig.projectId)
             .build()
 
         return FirebaseApp.initializeApp(options)
