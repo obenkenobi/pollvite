@@ -41,6 +41,6 @@ class PollController(@Autowired val pollChanClientService: PollChanClientService
     @Profile("dev")
     @GetMapping("/testConfig")
     fun test(): String? {
-        return firebaseApp.name
+        return firebaseApp.options.projectId
     }
 }
