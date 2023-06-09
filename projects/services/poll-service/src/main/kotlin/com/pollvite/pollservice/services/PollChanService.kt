@@ -33,7 +33,7 @@ private class PollChanServiceImpl(@Autowired val pollChanRepository: PollChanRep
                 timestamps = Timestamps.create(),
                 audit = Audit(pb.core.owner, pb.core.owner)
             )
-            return@flatMap pollChanRepository.save(pollChan)
+            pollChanRepository.save(pollChan)
         }.map { PollChanMapper.modelToReadPb(it) }
 
     override fun editPollChan(pollChanEditPb: Mono<PollChanEditPb>) : Mono<PollChanReadPb> = pollChanEditPb
@@ -46,7 +46,7 @@ private class PollChanServiceImpl(@Autowired val pollChanRepository: PollChanRep
                 timestamps = oldPollChan.timestamps.toUpdated(),
                 audit = oldPollChan.audit.copy(updatedBy = pb.core.owner)
             )
-            return@flatMap pollChanRepository.save(pollChan)
+            pollChanRepository.save(pollChan)
         }.map {
             PollChanMapper.modelToReadPb(it)
     }
