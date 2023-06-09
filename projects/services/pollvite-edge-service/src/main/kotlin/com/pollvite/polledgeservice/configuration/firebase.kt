@@ -13,6 +13,8 @@ import java.io.FileInputStream
 @Configuration
 @ConfigurationProperties(prefix = "firebase")
 class FirebasePropsConfig {
+    var webConfigPath: String? = null
+    var sessionIssuer: String? = null
     var projectId: String? = null
     var admin: AdminConfig? = null
 
