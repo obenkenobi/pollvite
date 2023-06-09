@@ -18,7 +18,7 @@ class FirebaseController(@Autowired val firebasePropsConfig: FirebasePropsConfig
         return mapper.readValue(File(firebasePropsConfig.webConfigPath!!), type)
     }
 
-    @GetMapping("/fbConf")
+    @GetMapping("/webConf")
     fun getFBConf(): Map<String, Any> {
         return fbWebConfig
     }
