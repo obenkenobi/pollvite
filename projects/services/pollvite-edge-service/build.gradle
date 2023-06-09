@@ -9,11 +9,12 @@ dependencies {
     implementation project(':grpc-interface')
     implementation project(':springboot3-resolver-grpc-client')
 
-    implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation 'com.google.firebase:firebase-admin:9.1.1'
-    implementation("org.springframework.boot:spring-boot-starter-freemarker"){
+    implementation mavenDeps.springBootValidation
+    implementation mavenDeps.firebaseAdmin
+    implementation(mavenDeps.springBootFreeMarker){
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-web'
     }
+    implementation mavenDeps.springBootSecurity
     implementation mavenDeps.springBootWebflux
     implementation mavenDeps.springBootGrpcClient
     implementation mavenDeps.jacksonModuleKotlin
@@ -27,8 +28,8 @@ dependencies {
 
     testImplementation mavenDeps.springBootTest
     testImplementation mavenDeps.reactorTest
-//    testImplementation javalibs.springCloudStreamTestBinder
-//    testImplementation javalibs.springSecurityTest
+//    testImplementation mavenDeps.springCloudStreamTestBinder
+    testImplementation mavenDeps.springSecurityTest
     testImplementation mavenDeps.junitJupiterApi
     testImplementation mavenDeps.junitJupiterApi
     testImplementation mavenDeps.junitJupiterEngine
