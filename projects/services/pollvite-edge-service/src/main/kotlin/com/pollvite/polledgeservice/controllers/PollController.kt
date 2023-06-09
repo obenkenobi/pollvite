@@ -11,7 +11,7 @@ import jakarta.validation.Valid
 
 @RestController
 @RequestMapping("api/poll")
-class PollController(@Autowired val pollChanClientService: PollChanClientService) {
+class PollController(@Autowired private val pollChanClientService: PollChanClientService) {
 
     @GetMapping("/channel/{id}")
     fun getPollCHanById(@PathVariable id: String): Mono<PollChanReadDto>? {

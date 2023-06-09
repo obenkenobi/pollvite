@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import reactor.core.publisher.Mono
 
 @GrpcService
-private class PollChanServiceRPCImpl(@Autowired val pollChanService: PollChanService) : ReactorPollChanServiceGrpc.PollChanServiceImplBase() {
+private class PollChanServiceRPCImpl(@Autowired private val pollChanService: PollChanService)
+    : ReactorPollChanServiceGrpc.PollChanServiceImplBase() {
 
     override fun getPollChanById(request: Mono<IdPb>) : Mono<PollChanReadPb> {
         return request.flatMap { getPollChanById(it) }

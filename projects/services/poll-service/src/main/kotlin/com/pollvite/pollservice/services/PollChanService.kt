@@ -20,7 +20,7 @@ interface PollChanService {
 }
 
 @Service
-private class PollChanServiceImpl(@Autowired val pollChanRepository: PollChanRepository): PollChanService {
+private class PollChanServiceImpl(@Autowired private val pollChanRepository: PollChanRepository): PollChanService {
 
     override fun getPollChanById(idPb: IdPb) : Mono<PollChanReadPb> = pollChanRepository.findById(idPb.value)
         .map { PollChanMapper.modelToReadPb(it) }
