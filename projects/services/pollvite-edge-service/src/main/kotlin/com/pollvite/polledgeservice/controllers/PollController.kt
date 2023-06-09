@@ -1,6 +1,7 @@
 package com.pollvite.polledgeservice.controllers
 
-import com.pollvite.polledgeservice.configuration.FirebaseConfig
+import com.google.firebase.FirebaseApp
+import com.pollvite.polledgeservice.configuration.FirebasePropsConfig
 import com.pollvite.polledgeservice.dtos.PollChanCreateDto
 import com.pollvite.polledgeservice.dtos.PollChanEditDto
 import com.pollvite.polledgeservice.dtos.PollChanReadDto
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.Profile
 @RestController
 @RequestMapping("api/poll")
 class PollController(@Autowired val pollChanClientService: PollChanClientService,
-                     @Autowired val firebaseConfig: FirebaseConfig) {
+                     @Autowired val firebaseApp: FirebaseApp) {
 
     @GetMapping("/channel/{id}")
     fun getPollCHanById(@PathVariable id: String): Mono<PollChanReadDto>? {
@@ -40,6 +41,6 @@ class PollController(@Autowired val pollChanClientService: PollChanClientService
     @Profile("dev")
     @GetMapping("/testConfig")
     fun test(): String? {
-        return firebaseConfig.admin?.serviceAccountPath;
+        return firebaseApp.name
     }
 }
