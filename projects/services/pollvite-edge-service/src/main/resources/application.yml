@@ -3,3 +3,7 @@ grpc:
     pollService:
       address: ${grpc.client.pollService.address}
       negotiationType: PLAINTEXT
+
+firebase:
+  admin:
+    serviceAccountPath: ${firebase.admin.serviceAccountPath}

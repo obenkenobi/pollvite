@@ -1,5 +1,6 @@
 package com.pollvite.polledgeservice.controllers
 
+import com.pollvite.polledgeservice.configuration.FirebaseConfig
 import com.pollvite.polledgeservice.dtos.PollChanCreateDto
 import com.pollvite.polledgeservice.dtos.PollChanEditDto
 import com.pollvite.polledgeservice.dtos.PollChanReadDto
@@ -8,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 import jakarta.validation.Valid
+import org.springframework.context.annotation.Profile
 
 @RestController
 @RequestMapping("api/poll")
-class PollController(@Autowired val pollChanClientService: PollChanClientService) {
+class PollController(@Autowired val pollChanClientService: PollChanClientService,
+                     @Autowired val firebaseConfig: FirebaseConfig) {
 
     @GetMapping("/channel/{id}")
     fun getPollCHanById(@PathVariable id: String): Mono<PollChanReadDto>? {
@@ -31,5 +34,12 @@ class PollController(@Autowired val pollChanClientService: PollChanClientService
     @DeleteMapping("/channel/{id}")
     fun deletePollChannel(@PathVariable id: String): Mono<PollChanReadDto> {
         return pollChanClientService.deletePollChannel(id)
+    }
+
+    // For testing
+    @Profile("dev")
+    @GetMapping("/testConfig")
+    fun test(): String? {
+        return firebaseConfig.admin?.serviceAccountPath;
     }
 }
