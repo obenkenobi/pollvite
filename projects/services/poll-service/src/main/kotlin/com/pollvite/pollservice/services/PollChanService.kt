@@ -1,7 +1,7 @@
 package com.pollvite.pollservice.services
 
 import com.pollvite.grpc.poll.*
-import com.pollvite.pollservice.businessrules.PollChanBRs
+import com.pollvite.pollservice.services.businessrules.PollChanBrService
 import com.pollvite.pollservice.mappers.PollChanMapper
 import com.pollvite.pollservice.models.PollChan
 import com.pollvite.pollservice.repositories.PollChanRepository
@@ -22,8 +22,7 @@ interface PollChanService {
 
 @Service
 private class PollChanServiceImpl(@Autowired private val pollChanRepository: PollChanRepository,
-                                  @Autowired private val pollChanBrs: PollChanBRs,
-                                  @Autowired private val brService: BusinessRulesService): PollChanService {
+                                  @Autowired private val pollChanBrs: PollChanBrService): PollChanService {
 
     override fun getPollChanById(pollChanAccessPb: Mono<PollChanAccessPb>) : Mono<PollChanReadPb> {
         return pollChanAccessPb.flatMap { accessPb -> pollChanRepository.findById(accessPb.id) }
@@ -66,13 +65,11 @@ private class PollChanServiceImpl(@Autowired private val pollChanRepository: Pol
             Mono.error(AppException(ErrorStatus.NOT_FOUND))
         ).flatMap {
             val (accessPb, existingPollChan) = it
-            val brResults = pollChanBrs.validatePollChanDelete(accessPb, existingPollChan)
-            val appEx = brService.processBrResults(brResults)
-            if (appEx != null) {
-                return@flatMap Mono.error(appEx)
-            }
-            pollChanRepository.deleteById(accessPb.id)
-                .then(Mono.just(existingPollChan))
+            pollChanBrs.validatePollChanDelete(accessPb, existingPollChan)
+                .ifPassOrFail(
+                    passBlock = { pollChanRepository.deleteById(accessPb.id) },
+                    failBlock = { ex -> Mono.error(ex) }
+                ).thenReturn(existingPollChan)
         }.map { existingPollChan ->
             PollChanMapper.modelToReadPb(existingPollChan)
         }
