@@ -1,3 +1,3 @@
 # Pollvite
 
-A polling web application
+A polling web application.
