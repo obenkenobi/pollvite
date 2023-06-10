@@ -26,8 +26,8 @@ interface FirebaseService {
     fun getWebConfig(): Map<String, Any>
     // If unauthenticated returns empty
     fun createSessionJwt(loginDto: Mono<LoginDto>): Mono<String>
-
-    fun validateSession(session: String, type: Credentials.Type): Mono<Optional<Authentication>>
+    // If invalid returns empty
+    fun validateSession(session: String, type: Credentials.Type): Mono<Authentication>
 }
 
 @Service
@@ -52,7 +52,7 @@ class FirebaseServiceImpl(@Autowired private val firebasePropsConfig: FirebasePr
         jwtFuture.toMono()
     }.onErrorResume({ it is FirebaseAuthException}, { Mono.empty() })
 
-    override fun validateSession(session: String, type: Credentials.Type): Mono<Optional<Authentication>> =
+    override fun validateSession(session: String, type: Credentials.Type): Mono<Authentication> =
         FirebaseAuth.getInstance().verifySessionCookie(session, true).toMono()
             .onErrorResume { e -> if (e is FirebaseAuthException) Mono.empty() else Mono.error(e) }
             .map { decodedToken ->
@@ -60,8 +60,8 @@ class FirebaseServiceImpl(@Autowired private val firebasePropsConfig: FirebasePr
                 val credentials = Credentials(type, decodedToken, session)
                 val authentication: Authentication =
                     UsernamePasswordAuthenticationToken(user, credentials, null)
-                Optional.of(authentication)
-            }.defaultIfEmpty(Optional.ofNullable<Authentication>(null))
+                authentication
+            }
 
     private fun firebaseTokenToUserPrinciple(decodedToken: FirebaseToken): User = User(
         uuid = decodedToken.uid,

@@ -39,9 +39,9 @@ class SecurityFilter(
 
     private fun verifyToken(request: ServerHttpRequest): Mono<Optional<Authentication>> {
         return Mono.justOrEmpty(cookieUtils.getSessionCookieOrNone(request))
-            .flatMap { session ->
-                firebaseService.validateSession(session, Credentials.Type.SESSION)
-            }.defaultIfEmpty(Optional.empty())
+            .flatMap { session -> firebaseService.validateSession(session, Credentials.Type.SESSION) }
+            .map { Optional.of(it) }
+            .defaultIfEmpty(Optional.empty())
 
     }
 }
