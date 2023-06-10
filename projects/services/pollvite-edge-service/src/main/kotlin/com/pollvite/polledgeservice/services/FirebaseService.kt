@@ -52,7 +52,7 @@ class FirebaseServiceImpl(@Autowired private val firebasePropsConfig: FirebasePr
     }.onErrorResume({ it is FirebaseAuthException}, { Mono.empty() })
 
     override fun validateSession(session: String, type: Credentials.Type): Mono<Authentication> =
-        FirebaseAuth.getInstance().verifySessionCookie(session, true).toMono()
+        FirebaseAuth.getInstance().verifySessionCookieAsync(session, true).toMono()
             .onErrorResume { e -> if (e is FirebaseAuthException) Mono.empty() else Mono.error(e) }
             .map { decodedToken ->
                 val user = firebaseTokenToUserPrinciple(decodedToken)
