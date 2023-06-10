@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 
 data class PollChanCoreDto(
-    @field:NotBlank val owner: String?,
+    val owner: String?,
     @field:NotBlank val title: String?,
     @field:NotBlank val description: String?) {
 

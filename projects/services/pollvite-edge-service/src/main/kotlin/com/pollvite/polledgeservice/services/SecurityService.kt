@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono
 
 
 @Service
-class SecurityService(@Autowired val securityProps: SecurityProperties? = null) {
+class SecurityService(@Autowired private val securityProps: SecurityProperties? = null) {
 
     val user: Mono<UserPrincipal>
         get() = ReactiveSecurityContextHolder.getContext().flatMap { securityContext ->

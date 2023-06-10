@@ -19,7 +19,8 @@ interface PollChanClientService {
 
 @Service
 class PollChanClientServiceImpl(
-    @Autowired @GrpcClient("pollService") private val pollChanServiceStub: ReactorPollChanServiceStub? = null)
+    @Autowired @GrpcClient("pollService") private val pollChanServiceStub: ReactorPollChanServiceStub? = null,
+    @Autowired private val securityService: SecurityService)
     : PollChanClientService {
 
     override fun getPollChannelById(id: String): Mono<PollChanReadDto> {
@@ -29,13 +30,21 @@ class PollChanClientServiceImpl(
     }
 
     override fun createPollChannel(dtoSrc: Mono<PollChanCreateDto>): Mono<PollChanReadDto> {
-        return dtoSrc.flatMap { dto ->
+        val userSrc = securityService.user
+        return Mono.zip(userSrc, dtoSrc).flatMap {
+            val user = it.t1
+            val originalDto = it.t2
+            val dto = originalDto.copy(core = originalDto.core?.copy(owner = user.name))
             pollChanServiceStub?.createPollChan(dto.toPb()) ?: Mono.empty()
         }.map(PollChanReadDto::fromPb)
     }
 
     override fun editPollChannel(dtoSrc: Mono<PollChanEditDto>): Mono<PollChanReadDto> {
-        return dtoSrc.flatMap { dto ->
+        val userSrc = securityService.user
+        return Mono.zip(userSrc, dtoSrc).flatMap {
+            val user = it.t1
+            val originalDto = it.t2
+            val dto = originalDto.copy(core = originalDto.core?.copy(owner = user.name))
             pollChanServiceStub?.editPollChan(dto.toPb()) ?: Mono.empty()
         }.map(PollChanReadDto::fromPb)
     }

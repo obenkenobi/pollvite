@@ -13,7 +13,7 @@ import org.springframework.security.web.server.context.NoOpServerSecurityContext
 
 @Configuration
 @EnableWebFluxSecurity
-class SecurityConfig(@Autowired val securityFilter: SecurityFilter) {
+class SecurityConfig(@Autowired private val securityFilter: SecurityFilter) {
     @Bean
     fun springSecurityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
         // Todo: enable cors and csrf

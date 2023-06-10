@@ -14,7 +14,8 @@ import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping("api/auth")
-class AuthController(@Autowired private val firebaseService: FirebaseService, @Autowired val cookieUtils: CookieUtils) {
+class AuthController(@Autowired private val firebaseService: FirebaseService,
+                     @Autowired private val cookieUtils: CookieUtils) {
 
     @PostMapping("/login")
     fun login(@RequestBody loginDto: Mono<LoginDto>): Mono<ResponseEntity<Void>> =
@@ -22,6 +23,5 @@ class AuthController(@Autowired private val firebaseService: FirebaseService, @A
             val authCookie = cookieUtils.createSessionCookie(jwt)
             ResponseEntity.noContent().header("Set-Cookie", authCookie.toString()).build()
         }.defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED.value()).build())
-
 
 }
