@@ -2,7 +2,7 @@ package com.pollvite.polledgeservice.security
 
 import java.security.Principal
 
-class User(
+class UserPrincipal(
     val uuid: String,
     val issuer: String,
     val isEmailVerified: Boolean

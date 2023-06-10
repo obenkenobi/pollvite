@@ -9,7 +9,7 @@ import com.google.firebase.auth.SessionCookieOptions
 import com.pollvite.polledgeservice.configuration.FirebaseProps
 import com.pollvite.polledgeservice.dtos.LoginDto
 import com.pollvite.polledgeservice.security.Credentials
-import com.pollvite.polledgeservice.security.User
+import com.pollvite.polledgeservice.security.UserPrincipal
 import com.pollvite.polledgeservice.utils.toMono
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 import reactor.kotlin.core.publisher.toMono
 import java.io.File
-import java.util.*
 import kotlin.collections.HashMap
 
 
@@ -63,7 +62,7 @@ class FirebaseServiceImpl(@Autowired private val firebasePropsConfig: FirebasePr
                 authentication
             }
 
-    private fun firebaseTokenToUserPrinciple(decodedToken: FirebaseToken): User = User(
+    private fun firebaseTokenToUserPrinciple(decodedToken: FirebaseToken): UserPrincipal = UserPrincipal(
         uuid = decodedToken.uid,
         issuer = decodedToken.issuer,
         isEmailVerified = decodedToken.isEmailVerified
