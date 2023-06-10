@@ -4,25 +4,35 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseToken
 import com.google.firebase.auth.SessionCookieOptions
-import com.pollvite.polledgeservice.configuration.FirebasePropsConfig
+import com.pollvite.polledgeservice.configuration.FirebaseProps
 import com.pollvite.polledgeservice.dtos.LoginDto
+import com.pollvite.polledgeservice.security.Credentials
+import com.pollvite.polledgeservice.security.User
 import com.pollvite.polledgeservice.utils.toMono
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
+import reactor.kotlin.core.publisher.toMono
 import java.io.File
+import java.util.*
+import kotlin.collections.HashMap
 
 
 interface FirebaseService {
     fun getWebConfig(): Map<String, Any>
     // If unauthenticated returns empty
     fun createSessionJwt(loginDto: Mono<LoginDto>): Mono<String>
+
+    fun validateSession(session: String, type: Credentials.Type): Mono<Optional<Authentication>>
 }
 
 @Service
-class FirebaseServiceImpl(@Autowired private val firebasePropsConfig: FirebasePropsConfig,
-                      @Autowired private val firebaseApp: FirebaseApp): FirebaseService {
+class FirebaseServiceImpl(@Autowired private val firebasePropsConfig: FirebaseProps,
+                          @Autowired private val firebaseApp: FirebaseApp): FirebaseService {
     private val fbWebConfig: Map<String, Any> = readFirebaseWebConf()
 
     private fun readFirebaseWebConf(): Map<String, Any> {
@@ -41,4 +51,21 @@ class FirebaseServiceImpl(@Autowired private val firebasePropsConfig: FirebasePr
         val jwtFuture = auth.createSessionCookieAsync(it.token, sessOpt)
         jwtFuture.toMono()
     }.onErrorResume({ it is FirebaseAuthException}, { Mono.empty() })
+
+    override fun validateSession(session: String, type: Credentials.Type): Mono<Optional<Authentication>> =
+        FirebaseAuth.getInstance().verifySessionCookie(session, true).toMono()
+            .onErrorResume { e -> if (e is FirebaseAuthException) Mono.empty() else Mono.error(e) }
+            .map { decodedToken ->
+                val user = firebaseTokenToUserPrinciple(decodedToken)
+                val credentials = Credentials(type, decodedToken, session)
+                val authentication: Authentication =
+                    UsernamePasswordAuthenticationToken(user, credentials, null)
+                Optional.of(authentication)
+            }.defaultIfEmpty(Optional.ofNullable<Authentication>(null))
+
+    private fun firebaseTokenToUserPrinciple(decodedToken: FirebaseToken): User = User(
+        uuid = decodedToken.uid,
+        issuer = decodedToken.issuer,
+        isEmailVerified = decodedToken.isEmailVerified
+    )
 }

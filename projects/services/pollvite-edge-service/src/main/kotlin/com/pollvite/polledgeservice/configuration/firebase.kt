@@ -12,7 +12,7 @@ import java.io.FileInputStream
 
 @Configuration
 @ConfigurationProperties(prefix = "firebase")
-class FirebasePropsConfig {
+class FirebaseProps {
     var webConfigPath: String? = null
     var sessionIssuer: String? = null
     var projectId: String? = null
@@ -27,7 +27,7 @@ class FirebasePropsConfig {
 class FirebaseConfig {
 
     @Bean
-    fun firebaseApp(@Autowired fbPropsConfig: FirebasePropsConfig): FirebaseApp {
+    fun firebaseApp(@Autowired fbPropsConfig: FirebaseProps): FirebaseApp {
         val serviceAccount = FileInputStream(fbPropsConfig.admin!!.serviceAccountPath!!)
 
         val options = FirebaseOptions.builder()

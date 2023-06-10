@@ -15,7 +15,7 @@
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
             import { getAuth, GoogleAuthProvider, signInWithPopup  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-            fetch("/fb/webConf").then(res => res.json()).then(firebaseConfig => {
+            fetch("api/conf/fb/web").then(res => res.json()).then(firebaseConfig => {
                 const app = initializeApp(firebaseConfig);
                 const auth = getAuth(app);
                 auth.languageCode = 'it';

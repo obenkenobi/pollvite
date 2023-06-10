@@ -14,7 +14,7 @@ dependencies {
     implementation(mavenDeps.springBootFreeMarker){
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-web'
     }
-//    implementation mavenDeps.springBootSecurity
+    implementation mavenDeps.springBootSecurity
     implementation mavenDeps.springBootWebflux
     implementation mavenDeps.springBootGrpcClient
     implementation mavenDeps.jacksonModuleKotlin

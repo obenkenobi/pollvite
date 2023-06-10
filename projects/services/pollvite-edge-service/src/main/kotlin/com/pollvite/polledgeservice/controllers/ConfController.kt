@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("fb")
-class FirebaseController(@Autowired private val firebaseService: FirebaseService) {
+@RequestMapping("api/conf")
+class ConfController(@Autowired private val firebaseService: FirebaseService) {
 
-    @GetMapping("/webConf")
+    @GetMapping("/fb/web")
     fun getFBConf(): Map<String, Any> {
         return firebaseService.getWebConfig()
     }
