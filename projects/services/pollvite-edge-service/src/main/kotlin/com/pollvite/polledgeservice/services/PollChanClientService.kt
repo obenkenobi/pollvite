@@ -2,7 +2,6 @@ package com.pollvite.polledgeservice.services
 
 import com.pollvite.grpc.poll.PollChanAccessPb
 import com.pollvite.grpc.poll.ReactorPollChanServiceGrpc.ReactorPollChanServiceStub
-import com.pollvite.polledgeservice.dtos.IdDto
 import com.pollvite.polledgeservice.dtos.PollChanCreateDto
 import com.pollvite.polledgeservice.dtos.PollChanEditDto
 import com.pollvite.polledgeservice.dtos.PollChanReadDto
