@@ -11,11 +11,7 @@ import reactor.core.publisher.Mono
 private class PollChanServiceRPCImpl(@Autowired private val pollChanService: PollChanService)
     : ReactorPollChanServiceGrpc.PollChanServiceImplBase() {
 
-    override fun getPollChanById(request: Mono<IdPb>) : Mono<PollChanReadPb> {
-        return request.flatMap { getPollChanById(it) }
-    }
-
-    override fun getPollChanById(request:IdPb) : Mono<PollChanReadPb> {
+    override fun getPollChanById(request: Mono<PollChanAccessPb>) : Mono<PollChanReadPb> {
         return pollChanService.getPollChanById(request)
     }
 
@@ -25,5 +21,9 @@ private class PollChanServiceRPCImpl(@Autowired private val pollChanService: Pol
 
     override fun editPollChan(request: Mono<PollChanEditPb>) : Mono<PollChanReadPb> {
         return pollChanService.editPollChan(request)
+    }
+
+    override fun deletePollChan(request: Mono<PollChanAccessPb>): Mono<PollChanReadPb> {
+        return pollChanService.deletePollChan(request)
     }
 }

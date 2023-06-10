@@ -1,5 +1,6 @@
 package com.pollvite.polledgeservice.services
 
+import com.pollvite.grpc.poll.PollChanAccessPb
 import com.pollvite.grpc.poll.ReactorPollChanServiceGrpc.ReactorPollChanServiceStub
 import com.pollvite.polledgeservice.dtos.IdDto
 import com.pollvite.polledgeservice.dtos.PollChanCreateDto
@@ -24,9 +25,13 @@ class PollChanClientServiceImpl(
     : PollChanClientService {
 
     override fun getPollChannelById(id: String): Mono<PollChanReadDto> {
-        val idPb = IdDto(id).toPb()
-        return pollChanServiceStub?.getPollChanById(idPb)
-            ?.map(PollChanReadDto::fromPb) ?: Mono.empty()
+        return securityService.userPrincipal.flatMap { userPrincipal ->
+            val pollChanAccessPb = PollChanAccessPb.newBuilder().also {
+                it.id = id
+                it.userId = userPrincipal.name
+            }.build()
+            pollChanServiceStub?.getPollChanById(pollChanAccessPb) ?: Mono.empty()
+        }.map(PollChanReadDto::fromPb)
     }
 
     override fun createPollChannel(dtoSrc: Mono<PollChanCreateDto>): Mono<PollChanReadDto> {
@@ -48,9 +53,13 @@ class PollChanClientServiceImpl(
     }
 
     override fun deletePollChannel(id: String): Mono<PollChanReadDto> {
-        val idPb = IdDto(id).toPb()
-        return pollChanServiceStub?.deletePollChan(idPb)
-            ?.map(PollChanReadDto::fromPb) ?: Mono.empty()
+        return securityService.userPrincipal.flatMap { userPrincipal ->
+            val pollChanAccessPb = PollChanAccessPb.newBuilder().also {
+                it.id = id
+                it.userId = userPrincipal.name
+            }.build()
+            pollChanServiceStub?.deletePollChan(pollChanAccessPb) ?: Mono.empty()
+        }.map(PollChanReadDto::fromPb)
     }
 
 }

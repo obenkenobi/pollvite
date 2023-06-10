@@ -9,10 +9,10 @@ option java_package = "com.pollvite.grpc.poll";
 option java_outer_classname = "PollProto";
 
 service PollChanService {
-  rpc getPollChanById (shared.IdPb) returns (PollChanReadPb) {}
+  rpc getPollChanById (PollChanAccessPb) returns (PollChanReadPb) {}
   rpc createPollChan (PollChanCreatePb) returns (PollChanReadPb) {}
   rpc editPollChan (PollChanEditPb) returns (PollChanReadPb) {}
-  rpc deletePollChan (shared.IdPb) returns (PollChanReadPb) {}
+  rpc deletePollChan (PollChanAccessPb) returns (PollChanReadPb) {}
 }
 
 message PollChanCorePb {
@@ -34,4 +34,9 @@ message PollChanReadPb {
   string id = 1;
   PollChanCorePb core = 2;
   shared.TimestampsPb timestamps = 3;
+}
+
+message PollChanAccessPb {
+  string id = 1;
+  string userId = 2;
 }
