@@ -6,7 +6,6 @@ grpc:
 
 firebase:
   webConfigPath: ${firebase.webConfigPath}
-  sessionIssuer: https://session.firebase.google.com/${firebase.projectId}
   projectId: ${firebase.projectId}
   admin:
     serviceAccountPath: ${firebase.admin.serviceAccountPath}
