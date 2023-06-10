@@ -26,11 +26,11 @@ class SecurityFilter(
         serverWebExchange: ServerWebExchange,
         webFilterChain: WebFilterChain
     ): Mono<Void> {
-        return verifyToken(serverWebExchange.request).flatMap { authenticationOpt ->
+        return verifyToken(serverWebExchange.request).flatMap { authentication ->
             val mono = webFilterChain.filter(serverWebExchange)
 
-            if (authenticationOpt.isPresent)
-                mono.contextWrite(ReactiveSecurityContextHolder.withAuthentication(authenticationOpt.get()))
+            if (authentication.isPresent)
+                mono.contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication.get()))
             else
                 mono
 
