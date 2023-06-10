@@ -2,23 +2,25 @@ package com.pollvite.polledgeservice.services
 
 import com.pollvite.polledgeservice.security.Credentials
 import com.pollvite.polledgeservice.security.UserPrincipal
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.security.core.context.ReactiveSecurityContextHolder
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
+interface SecurityService {
+    val userPrincipal: Mono<UserPrincipal>
+    val credentials: Mono<Credentials>
+}
 
 @Service
-class SecurityService(@Autowired private val securityProps: SecurityProperties? = null) {
+class SecurityServiceImpl: SecurityService {
 
-    val user: Mono<UserPrincipal>
+    override val userPrincipal: Mono<UserPrincipal>
         get() = ReactiveSecurityContextHolder.getContext().flatMap { securityContext ->
             val principal = securityContext.authentication.principal
             val userPrincipal = if (principal is UserPrincipal) principal else null
             Mono.justOrEmpty(userPrincipal)
         }
-    val credentials: Mono<Credentials>
+    override val credentials: Mono<Credentials>
         get() = ReactiveSecurityContextHolder.getContext().map { securityContext ->
             securityContext.authentication.credentials as Credentials
         }

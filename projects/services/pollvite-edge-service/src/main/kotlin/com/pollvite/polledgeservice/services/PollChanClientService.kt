@@ -30,21 +30,19 @@ class PollChanClientServiceImpl(
     }
 
     override fun createPollChannel(dtoSrc: Mono<PollChanCreateDto>): Mono<PollChanReadDto> {
-        val userSrc = securityService.user
-        return Mono.zip(userSrc, dtoSrc).flatMap {
-            val user = it.t1
+        return Mono.zip(securityService.userPrincipal, dtoSrc).flatMap {
+            val userPrincipal = it.t1
             val originalDto = it.t2
-            val dto = originalDto.copy(core = originalDto.core?.copy(owner = user.name))
+            val dto = originalDto.copy(core = originalDto.core?.copy(owner = userPrincipal.name))
             pollChanServiceStub?.createPollChan(dto.toPb()) ?: Mono.empty()
         }.map(PollChanReadDto::fromPb)
     }
 
     override fun editPollChannel(dtoSrc: Mono<PollChanEditDto>): Mono<PollChanReadDto> {
-        val userSrc = securityService.user
-        return Mono.zip(userSrc, dtoSrc).flatMap {
-            val user = it.t1
+        return Mono.zip(securityService.userPrincipal, dtoSrc).flatMap {
+            val userPrincipal = it.t1
             val originalDto = it.t2
-            val dto = originalDto.copy(core = originalDto.core?.copy(owner = user.name))
+            val dto = originalDto.copy(core = originalDto.core?.copy(owner = userPrincipal.name))
             pollChanServiceStub?.editPollChan(dto.toPb()) ?: Mono.empty()
         }.map(PollChanReadDto::fromPb)
     }
