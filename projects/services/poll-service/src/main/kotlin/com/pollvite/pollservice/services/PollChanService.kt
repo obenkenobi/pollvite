@@ -1,7 +1,7 @@
 package com.pollvite.pollservice.services
 
 import com.pollvite.grpc.poll.*
-import com.pollvite.grpc.shared.IdPb
+import com.pollvite.pollservice.businessrules.PollChanBRs
 import com.pollvite.pollservice.mappers.PollChanMapper
 import com.pollvite.pollservice.models.PollChan
 import com.pollvite.pollservice.repositories.PollChanRepository
@@ -21,7 +21,9 @@ interface PollChanService {
 }
 
 @Service
-private class PollChanServiceImpl(@Autowired private val pollChanRepository: PollChanRepository): PollChanService {
+private class PollChanServiceImpl(@Autowired private val pollChanRepository: PollChanRepository,
+                                  @Autowired private val pollChanBrs: PollChanBRs,
+                                  @Autowired private val brService: BusinessRulesService): PollChanService {
 
     override fun getPollChanById(pollChanAccessPb: Mono<PollChanAccessPb>) : Mono<PollChanReadPb> {
         return pollChanAccessPb.flatMap { accessPb -> pollChanRepository.findById(accessPb.id) }
@@ -64,8 +66,10 @@ private class PollChanServiceImpl(@Autowired private val pollChanRepository: Pol
             Mono.error(AppException(ErrorStatus.NOT_FOUND))
         ).flatMap {
             val (accessPb, existingPollChan) = it
-            if (accessPb.userId != existingPollChan.core.owner) {
-                return@flatMap Mono.error(AppException(ErrorStatus.BR_VIOLATION, "Not a poll owner"))
+            val brResults = pollChanBrs.validatePollChanDelete(accessPb, existingPollChan)
+            val appEx = brService.processBrResults(brResults)
+            if (appEx != null) {
+                return@flatMap Mono.error(appEx)
             }
             pollChanRepository.deleteById(accessPb.id)
                 .then(Mono.just(existingPollChan))
