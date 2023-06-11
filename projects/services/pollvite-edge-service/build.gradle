@@ -7,7 +7,7 @@ jar {
 
 dependencies {
     implementation project(':grpc-interface')
-    implementation project(':springboot3-resolver-grpc-client')
+    implementation project(':springboot-resolver-grpc-client')
 
     implementation mavenDeps.springBootValidation
     implementation mavenDeps.firebaseAdmin

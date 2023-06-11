@@ -1,0 +1,12 @@
+group = 'com.pollvite'
+version = '0.0.1-SNAPSHOT'
+
+jar {
+    archivesBaseName = 'shared-models-mongo'
+}
+
+dependencies {
+    annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor"
+    implementation project(':shared-errors')
+    implementation 'org.springframework.boot:spring-boot-starter'
+}

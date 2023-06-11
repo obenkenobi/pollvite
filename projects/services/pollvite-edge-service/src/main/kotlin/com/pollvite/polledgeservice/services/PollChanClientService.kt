@@ -19,7 +19,7 @@ interface PollChanClientService {
 
 @Service
 class PollChanClientServiceImpl(
-    @Autowired @GrpcClient("pollService") private val pollChanServiceStub: ReactorPollChanServiceStub? = null,
+    @Autowired @GrpcClient("pollService") private val pollChanServiceStub: ReactorPollChanServiceStub,
     @Autowired private val securityService: SecurityService)
     : PollChanClientService {
 
@@ -29,7 +29,7 @@ class PollChanClientServiceImpl(
                 it.id = id
                 it.userId = userPrincipal.name
             }.build()
-            pollChanServiceStub?.getPollChanById(pollChanAccessPb) ?: Mono.empty()
+            pollChanServiceStub.getPollChanById(pollChanAccessPb)
         }.map(PollChanReadDto::fromPb)
     }
 
@@ -38,7 +38,7 @@ class PollChanClientServiceImpl(
             val userPrincipal = it.t1
             val originalDto = it.t2
             val dto = originalDto.copy(core = originalDto.core?.copy(owner = userPrincipal.name))
-            pollChanServiceStub?.createPollChan(dto.toPb()) ?: Mono.empty()
+            pollChanServiceStub.createPollChan(dto.toPb())
         }.map(PollChanReadDto::fromPb)
     }
 
@@ -47,7 +47,7 @@ class PollChanClientServiceImpl(
             val userPrincipal = it.t1
             val originalDto = it.t2
             val dto = originalDto.copy(core = originalDto.core?.copy(owner = userPrincipal.name))
-            pollChanServiceStub?.editPollChan(dto.toPb()) ?: Mono.empty()
+            pollChanServiceStub.editPollChan(dto.toPb())
         }.map(PollChanReadDto::fromPb)
     }
 
@@ -57,7 +57,7 @@ class PollChanClientServiceImpl(
                 it.id = id
                 it.userId = userPrincipal.name
             }.build()
-            pollChanServiceStub?.deletePollChan(pollChanAccessPb) ?: Mono.empty()
+            pollChanServiceStub.deletePollChan(pollChanAccessPb)
         }.map(PollChanReadDto::fromPb)
     }
 

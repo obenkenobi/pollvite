@@ -9,8 +9,9 @@ dependencies {
     implementation project(':grpc-interface')
     implementation project(':shared-errors')
     implementation project(':shared-models')
-    implementation project(':springboot3-resolver-grpc-server')
-    implementation project(':springboot3-resolver-grpc-client')
+    implementation project(':springboot-businessrules-manager')
+    implementation project(':springboot-resolver-grpc-server')
+    implementation project(':springboot-resolver-grpc-client')
     implementation mavenDeps.springBootStarter
     implementation mavenDeps.springBootDataMongoReactive
     implementation mavenDeps.springBootGrpcServer

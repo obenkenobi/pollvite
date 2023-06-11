@@ -2,6 +2,8 @@ package com.pollvite.pollservice.services.businessrules
 
 import com.pollvite.grpc.poll.PollChanAccessPb
 import com.pollvite.pollservice.models.PollChan
+import com.pollvite.springboot.businessrules.BusinessRuleResult
+import com.pollvite.springboot.businessrules.services.BusinessRulesService
 import org.springframework.stereotype.Component
 
 interface PollChanBrService {
