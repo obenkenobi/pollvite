@@ -7,5 +7,4 @@ grpc:
 firebase:
   webConfigPath: ${firebase.webConfigPath}
   projectId: ${firebase.projectId}
-  admin:
-    serviceAccountPath: ${firebase.admin.serviceAccountPath}
+  serviceAccountPath: ${firebase.admin.serviceAccountPath}

@@ -15,19 +15,15 @@ import java.io.FileInputStream
 class FirebaseProps {
     var webConfigPath: String? = null
     var projectId: String? = null
-    var admin: AdminConfig? = null
-
-    class AdminConfig {
-        var serviceAccountPath: String? = null
-    }
+    var serviceAccountPath: String? = null
 }
 
 @Configuration
 class FirebaseConfig {
 
-    @Bean
+    @Bean(name=["firebaseApp"])
     fun firebaseApp(@Autowired fbPropsConfig: FirebaseProps): FirebaseApp {
-        val serviceAccount = FileInputStream(fbPropsConfig.admin!!.serviceAccountPath!!)
+        val serviceAccount = FileInputStream(fbPropsConfig.serviceAccountPath!!)
 
         val options = FirebaseOptions.builder()
             .setCredentials(GoogleCredentials.fromStream(serviceAccount))

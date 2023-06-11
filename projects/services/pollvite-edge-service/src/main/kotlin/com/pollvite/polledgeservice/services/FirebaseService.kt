@@ -1,7 +1,6 @@
 package com.pollvite.polledgeservice.services
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseToken
@@ -12,11 +11,11 @@ import com.pollvite.polledgeservice.security.Credentials
 import com.pollvite.polledgeservice.security.UserPrincipal
 import com.pollvite.polledgeservice.utils.toMono
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.DependsOn
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
-import reactor.kotlin.core.publisher.toMono
 import java.io.File
 import kotlin.collections.HashMap
 
@@ -30,8 +29,8 @@ interface FirebaseService {
 }
 
 @Service
-class FirebaseServiceImpl(@Autowired private val firebasePropsConfig: FirebaseProps,
-                          @Autowired private val firebaseApp: FirebaseApp): FirebaseService {
+@DependsOn("firebaseApp")
+class FirebaseServiceImpl(@Autowired private val firebasePropsConfig: FirebaseProps): FirebaseService {
     private val fbWebConfig: Map<String, Any> = readFirebaseWebConf()
 
     private fun readFirebaseWebConf(): Map<String, Any> {
