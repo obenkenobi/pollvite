@@ -42,19 +42,22 @@ private class PollChanServiceImpl(@Autowired private val pollChanRepository: Pol
 
     override fun editPollChan(pollChanEditPb: Mono<PollChanEditPb>) : Mono<PollChanReadPb> {
         return pollChanEditPb.flatMap { pb ->
-                pollChanRepository.findById(pb.id).map { oldPollChan -> Pair(pb, oldPollChan) }
-            }.flatMap {
-                val (pb, oldPollChan) = it
-                val pollChan = PollChan(
-                    id = oldPollChan.id,
-                    core = PollChanMapper.corePbToCoreModel(pb.core),
-                    timestamps = oldPollChan.timestamps.toUpdated(),
-                    audit = oldPollChan.audit.copy(updatedBy = pb.core.owner)
-                )
-                pollChanRepository.save(pollChan)
-            }.map {
-                PollChanMapper.modelToReadPb(it)
-            }
+            pollChanRepository.findById(pb.id).map { oldPollChan -> Pair(pb, oldPollChan) }
+        }.flatMap {
+            val (pb, existingPollChan) = it
+            val pollChan = PollChan(
+                id = existingPollChan.id,
+                core = PollChanMapper.corePbToCoreModel(pb.core),
+                timestamps = existingPollChan.timestamps.toUpdated(),
+                audit = existingPollChan.audit.copy(updatedBy = pb.core.owner)
+            )
+            pollChanBrs.validateEditPollChan(pb, existingPollChan).ifPassOrFail(
+                passBlock = { pollChanRepository.save(pollChan) },
+                failBlock = { ex -> Mono.error(ex) })
+            pollChanRepository.save(pollChan)
+        }.map {
+            PollChanMapper.modelToReadPb(it)
+        }
     }
 
     override fun deletePollChan(pollChanAccessPb: Mono<PollChanAccessPb>): Mono<PollChanReadPb> {
@@ -65,7 +68,7 @@ private class PollChanServiceImpl(@Autowired private val pollChanRepository: Pol
             Mono.error(AppException(ErrorStatus.NOT_FOUND))
         ).flatMap {
             val (accessPb, existingPollChan) = it
-            pollChanBrs.validatePollChanDelete(accessPb, existingPollChan)
+            pollChanBrs.validateDeletePollChan(accessPb, existingPollChan)
                 .ifPassOrFail(
                     passBlock = { pollChanRepository.deleteById(accessPb.id) },
                     failBlock = { ex -> Mono.error(ex) }

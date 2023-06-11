@@ -37,7 +37,9 @@ class PollChanClientServiceImpl(
         return Mono.zip(securityService.userPrincipal, dtoSrc).flatMap {
             val userPrincipal = it.t1
             val originalDto = it.t2
-            val dto = originalDto.copy(core = originalDto.core?.copy(owner = userPrincipal.name))
+            val dto = originalDto.copy(
+                core = originalDto.core?.copy(
+                    owner = userPrincipal.name))
             pollChanServiceStub.createPollChan(dto.toPb())
         }.map(PollChanReadDto::fromPb)
     }
@@ -46,7 +48,9 @@ class PollChanClientServiceImpl(
         return Mono.zip(securityService.userPrincipal, dtoSrc).flatMap {
             val userPrincipal = it.t1
             val originalDto = it.t2
-            val dto = originalDto.copy(core = originalDto.core?.copy(owner = userPrincipal.name))
+            val dto = originalDto.copy(
+                core = originalDto.core?.copy(
+                    owner = userPrincipal.name))
             pollChanServiceStub.editPollChan(dto.toPb())
         }.map(PollChanReadDto::fromPb)
     }
