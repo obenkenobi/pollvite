@@ -13,8 +13,8 @@ import reactor.core.publisher.Mono
 import java.util.*
 
 @Component
-class SecurityFilter(@Autowired private val firebaseService: FirebaseService,
-                     @Autowired private val cookieUtils: CookieUtils): WebFilter {
+class AuthFilter(@Autowired private val firebaseService: FirebaseService,
+                 @Autowired private val cookieUtils: CookieUtils): WebFilter {
 
     override fun filter(
         serverWebExchange: ServerWebExchange,
