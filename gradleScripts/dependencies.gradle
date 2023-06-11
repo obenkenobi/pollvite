@@ -36,6 +36,7 @@ ext {
             "rxGrpc": "com.salesforce.servicelibs:rxgrpc:${mavenDepsVersions.reactiveGrpc}",
             "rxGrpcStub": "com.salesforce.servicelibs:rxgrpc-stub:${mavenDepsVersions.reactiveGrpc}",
             "slf4jApi": "org.slf4j:slf4j-api:${mavenDepsVersions.slf4jApi}",
+            "springBootAutoConfigureProcessor": "org.springframework.boot:spring-boot-autoconfigure-processor",
             "springBootConfigurationProcessor": "org.springframework.boot:spring-boot-configuration-processor",
             "springBootDataMongo": "org.springframework.boot:spring-boot-starter-data-mongodb",
             "springBootDataMongoReactive": "org.springframework.boot:spring-boot-starter-data-mongodb-reactive",

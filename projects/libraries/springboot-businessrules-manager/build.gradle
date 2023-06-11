@@ -6,7 +6,7 @@ jar {
 }
 
 dependencies {
-    annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor"
+    annotationProcessor mavenDeps.springBootAutoConfigureProcessor
+    implementation mavenDeps.springBootStarter
     implementation project(':shared-errors')
-    implementation 'org.springframework.boot:spring-boot-starter'
 }
