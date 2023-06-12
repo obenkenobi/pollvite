@@ -1,7 +1,8 @@
 package com.pollvite.shared.errors
 
 /**
- * A generic error status that can convert to different protocol status codes like GRPC or HTTP.
+ * A general error status that can convert to different protocol status codes like GRPC or HTTP.
+ * @param description The description of the [ErrorStatus]
  * */
 enum class ErrorStatus(val description: String) {
     CLIENT("Client Error"),
