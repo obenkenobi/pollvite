@@ -19,3 +19,8 @@ message AuditPb {
   string createdBy = 1;
   string updatedBy = 2;
 }
+
+message PageRequestPb {
+ int32 page = 1;
+ int32 size = 2;
+}
