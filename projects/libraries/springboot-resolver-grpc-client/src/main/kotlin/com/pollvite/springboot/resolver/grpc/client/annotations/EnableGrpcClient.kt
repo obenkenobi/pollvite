@@ -3,6 +3,10 @@ package com.pollvite.springboot.resolver.grpc.client.annotations
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration
 import java.lang.annotation.Inherited
 
+/**
+ * Activates Grpc Client dependencies for Spring Boot 3.
+ * This may not be needed for later versions of net.devh:grpc-client-spring-boot-starter.
+ * */
 @Inherited
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.CLASS)
