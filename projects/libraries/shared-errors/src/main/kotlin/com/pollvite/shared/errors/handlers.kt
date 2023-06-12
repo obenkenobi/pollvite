@@ -14,6 +14,7 @@ object GrpcErrorHandler {
      * Handles an [Exception].
      * @param e [Exception] to be handled.
      * @return The appropriate [io.grpc.Status] for the provided [Exception].
+     * It's description will vary based on the [Exception] provided.
      * */
     fun handle(e: Exception): io.grpc.Status {
         log.debug("Handling Exception from GRPC Advice", e)
