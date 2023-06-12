@@ -27,7 +27,10 @@ enum class ErrorStatus(val description: String) {
 }
 
 /**
- * An [Exception] created directly from an application used to represent failure in business or server tasks.
+ * An [Exception] Created directly from an application used to represent failure in business or server tasks.
+ * @param status The status of the exception.
+ * @param message The [Exception] message.
+ * @param cause The cause of the [AppException] if caused by a [Throwable].
  * */
 class AppException(val status: ErrorStatus, message: String = status.description, cause: Throwable? = null)
     : Exception(message, cause) {
