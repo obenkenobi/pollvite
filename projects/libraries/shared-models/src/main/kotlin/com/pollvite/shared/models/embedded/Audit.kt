@@ -1,7 +1,7 @@
 package com.pollvite.shared.models.embedded
 
 /**
- * Embedded immutable class containing audit fields for a data persistence model.
+ * Embedded immutable POJO containing audit fields for a data persistence model.
  * */
 data class Audit(
     val createdBy: String,
