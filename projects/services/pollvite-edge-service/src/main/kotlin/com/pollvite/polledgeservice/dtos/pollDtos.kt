@@ -3,6 +3,7 @@ package com.pollvite.polledgeservice.dtos
 import com.pollvite.grpc.poll.PollChanCorePb
 import com.pollvite.grpc.poll.PollChanCreatePb
 import com.pollvite.grpc.poll.PollChanEditPb
+import com.pollvite.grpc.poll.PollChanPagePb
 import com.pollvite.grpc.poll.PollChanReadPb
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
@@ -81,6 +82,24 @@ data class PollChanEditDto(@field:Valid @field:NotNull val id: String?,
         return PollChanEditPb.newBuilder().also {
             it.id = id
             it.core = core?.toPb()
+        }.build()
+    }
+}
+
+data class PollChanPageDto(val content: List<PollChanReadDto>, val total: Long) {
+    companion object {
+        fun fromPb(pb: PollChanPagePb) : PollChanPageDto {
+            return PollChanPageDto(
+                total = pb.total,
+                content = pb.contentList.map { PollChanReadDto.fromPb(it) }
+            )
+        }
+    }
+
+    fun toPb(): PollChanPagePb {
+        return PollChanPagePb.newBuilder().also { builder ->
+            builder.total = total
+            builder.addAllContent(content.map { it.toPb() })
         }.build()
     }
 }
