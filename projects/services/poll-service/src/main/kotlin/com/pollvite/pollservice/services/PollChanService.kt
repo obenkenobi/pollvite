@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono
 
 interface PollChanService {
     fun createPollChan(pollCreatePb: Mono<PollChanCreatePb>) : Mono<PollChanReadPb>
+    fun getPollChanPage(pollChanPageFilterPb: Mono<PollChanPageFilterPb>?): Mono<PollChanPagePb>
     fun editPollChan(pollChanEditPb: Mono<PollChanEditPb>) : Mono<PollChanReadPb>
     fun getPollChanById(pollChanAccessPb: Mono<PollChanAccessPb>) : Mono<PollChanReadPb>
     fun deletePollChan(pollChanAccessPb: Mono<PollChanAccessPb>): Mono<PollChanReadPb>
@@ -27,6 +28,10 @@ private class PollChanServiceImpl(@Autowired private val pollChanRepository: Pol
     override fun getPollChanById(pollChanAccessPb: Mono<PollChanAccessPb>) : Mono<PollChanReadPb> {
         return pollChanAccessPb.flatMap { accessPb -> getPollChanByIdRequired(accessPb.id) }
             .map { PollChanMapper.modelToReadPb(it) }
+    }
+
+    override fun getPollChanPage(pollChanPageFilterPb: Mono<PollChanPageFilterPb>?): Mono<PollChanPagePb> {
+        TODO("Not yet implemented")
     }
 
     override fun createPollChan(pollCreatePb: Mono<PollChanCreatePb>) : Mono<PollChanReadPb> = pollCreatePb
