@@ -21,6 +21,10 @@ data class Timestamps(
                 createdAt = current, updatedAt = current)
         }
     }
+    /**
+     * @return A Timestamps instance where the [createdAt] is the same
+     * and the [updatedAt] value is the current timestamp.
+     * */
     fun toUpdated(): Timestamps {
         return this.copy(updatedAt= Instant.now().toEpochMilli())
     }
