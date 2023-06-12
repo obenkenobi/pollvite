@@ -15,8 +15,8 @@ class PollChanRepositoryCustomImpl(@Autowired private val mongoTemplate: Reactiv
 
     override fun getPageWithFilter(pageable: Pageable, owner: String?, titlePattern: String?): Mono<Page<PollChan>> {
         val filterCriteriaList = listOfNotNull(
-            if (owner != null) Criteria.where("core.owner").`is`(owner) else null,
-            if (titlePattern != null) Criteria.where("core.title").regex(titlePattern) else null,
+            if (owner.isNullOrBlank()) null else Criteria.where("core.owner").`is`(owner),
+            if (titlePattern.isNullOrBlank()) null else Criteria.where("core.title").regex(titlePattern),
         )
         val criteria = Criteria().andOperator(filterCriteriaList)
         val query = Query(criteria).with(pageable)

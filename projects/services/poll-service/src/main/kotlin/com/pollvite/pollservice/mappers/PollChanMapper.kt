@@ -10,8 +10,8 @@ object PollChanMapper {
 
     fun corePbToCoreModel(corePb: PollChanCorePb): PollChanCore = PollChanCore(
         owner = corePb.owner,
-        description = corePb.description,
-        title = corePb.title,
+        description = corePb.description.trim(),
+        title = corePb.title.trim(),
     )
 
     private fun coreModelToCorePb(core: PollChanCore): PollChanCorePb = PollChanCorePb.newBuilder().also {
