@@ -20,6 +20,7 @@ interface BusinessRulesService {
      * @param separator A char separator that is used when joining messages in [violations]
      * into a single message [String] to be added as a message in the [AppException]
      * inside the failing [BusinessRuleResult] return value.
+     * @return A passing or failing [BusinessRuleResult].
      */
     fun processBrResults(violations: List<String>, separator: Char = ';'): BusinessRuleResult
 }
