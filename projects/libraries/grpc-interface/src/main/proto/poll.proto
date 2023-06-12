@@ -10,6 +10,7 @@ option java_outer_classname = "PollProto";
 
 service PollChanService {
   rpc getPollChanById (PollChanAccessPb) returns (PollChanReadPb) {}
+  rpc getPollChanPage (PollChanPageFilterPb) returns (PollChanPagePb) {}
   rpc createPollChan (PollChanCreatePb) returns (PollChanReadPb) {}
   rpc editPollChan (PollChanEditPb) returns (PollChanReadPb) {}
   rpc deletePollChan (PollChanAccessPb) returns (PollChanReadPb) {}
