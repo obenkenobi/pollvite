@@ -43,8 +43,9 @@ message PollChanAccessPb {
 }
 
 message PollChanPageFilterPb {
-  string owner = 1;
-  string titlePattern = 2;
+  shared.PageRequestPb pageRequest = 1;
+  string owner = 2;
+  string titlePattern = 3;
 }
 
 message PollChanPagePb {
