@@ -10,12 +10,14 @@ import com.pollvite.shared.errors.ErrorStatus
 import com.pollvite.shared.models.embedded.Audit
 import com.pollvite.shared.models.embedded.Timestamps
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
 interface PollChanService {
     fun createPollChan(pollCreatePb: Mono<PollChanCreatePb>) : Mono<PollChanReadPb>
-    fun getPollChanPage(pollChanPageFilterPb: Mono<PollChanPageFilterPb>?): Mono<PollChanPagePb>
+    fun getPollChanPage(pollChanPageFilterPb: Mono<PollChanPageFilterPb>): Mono<PollChanPagePb>
     fun editPollChan(pollChanEditPb: Mono<PollChanEditPb>) : Mono<PollChanReadPb>
     fun getPollChanById(pollChanAccessPb: Mono<PollChanAccessPb>) : Mono<PollChanReadPb>
     fun deletePollChan(pollChanAccessPb: Mono<PollChanAccessPb>): Mono<PollChanReadPb>
@@ -30,9 +32,18 @@ private class PollChanServiceImpl(@Autowired private val pollChanRepository: Pol
             .map { PollChanMapper.modelToReadPb(it) }
     }
 
-    override fun getPollChanPage(pollChanPageFilterPb: Mono<PollChanPageFilterPb>?): Mono<PollChanPagePb> {
-        TODO("Not yet implemented")
-    }
+    override fun getPollChanPage(pollChanPageFilterPb: Mono<PollChanPageFilterPb>): Mono<PollChanPagePb> =
+        pollChanPageFilterPb.flatMap { filterPb ->
+            val pageable = PageRequest.of(filterPb.pageRequest.page, filterPb.pageRequest.size)
+            pollChanRepository.getPageWithFilter(pageable, filterPb.owner, filterPb.titlePattern)
+        }.map { page ->
+            val pbPage = page.map { PollChanMapper.modelToReadPb(it) }
+            PollChanPagePb.newBuilder()
+            .also {
+                it.addAllContent(pbPage.content)
+                it.total = pbPage.totalElements
+            }.build()
+        }
 
     override fun createPollChan(pollCreatePb: Mono<PollChanCreatePb>) : Mono<PollChanReadPb> = pollCreatePb
         .flatMap { pb ->

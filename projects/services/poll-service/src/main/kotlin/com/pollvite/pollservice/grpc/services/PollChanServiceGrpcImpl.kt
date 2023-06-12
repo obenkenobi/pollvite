@@ -14,7 +14,7 @@ private class PollChanServiceGrpcImpl(@Autowired private val pollChanService: Po
         return pollChanService.getPollChanById(request)
     }
 
-    override fun getPollChanPage(request: Mono<PollChanPageFilterPb>?): Mono<PollChanPagePb> {
+    override fun getPollChanPage(request: Mono<PollChanPageFilterPb>): Mono<PollChanPagePb> {
         return pollChanService.getPollChanPage(request)
     }
 
