@@ -40,3 +40,13 @@ message PollChanAccessPb {
   string id = 1;
   string userId = 2;
 }
+
+message PollChanPageFilterPb {
+  string owner = 1;
+  string titlePattern = 2;
+}
+
+message PollChanPagePb {
+  repeated PollChanReadPb content = 1;
+  int64 total = 2;
+}
