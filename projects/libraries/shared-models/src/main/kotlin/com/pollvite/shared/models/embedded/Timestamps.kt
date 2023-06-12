@@ -2,6 +2,11 @@ package com.pollvite.shared.models.embedded
 
 import java.time.Instant
 
+/**
+ * Embedded immutable POJO containing timestamp fields for a data persistence model.
+ * @param createdAt when the data persistence model instance was created
+ * @param updatedAt when the data persistence model instance was updated
+ * */
 data class Timestamps(
     val createdAt: Long,
     val updatedAt: Long,
