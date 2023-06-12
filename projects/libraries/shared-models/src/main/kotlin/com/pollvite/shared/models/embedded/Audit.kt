@@ -11,7 +11,7 @@ data class Audit(
 ) {
     /**
      * @param newUpdatedBy new updater for the data persistence model instance.
-     * @return A new Audit instance
+     * @return A new [Audit] instance where the [updatedBy] property is now equal to the [newUpdatedBy] param.
      * */
     fun toUpdated(newUpdatedBy: String): Audit {
         return this.copy(updatedBy=newUpdatedBy)
