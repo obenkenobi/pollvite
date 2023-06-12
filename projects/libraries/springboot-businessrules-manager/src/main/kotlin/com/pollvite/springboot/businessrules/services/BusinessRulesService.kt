@@ -31,7 +31,7 @@ class BusinessRulesServiceImpl : BusinessRulesService {
         return if (violations.isEmpty())
             BusinessRuleResult.pass()
         else {
-            val ex = AppException(ErrorStatus.BR_VIOLATION, Strings.join(violations, separator))
+            val ex = AppException(ErrorStatus.BUSINESS_RULES_VIOLATION, Strings.join(violations, separator))
             BusinessRuleResult.fail(ex)
         }
     }

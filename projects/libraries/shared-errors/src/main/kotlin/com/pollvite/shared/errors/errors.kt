@@ -1,16 +1,22 @@
 package com.pollvite.shared.errors
 
+/**
+ * A generic error status that can convert to different protocol status codes like GRPC or HTTP.
+ * */
 enum class ErrorStatus(val description: String) {
     CLIENT("Client Error"),
-    BR_VIOLATION("Business Rule Violation"),
+    BUSINESS_RULES_VIOLATION("Business Rules Violation"),
     NOT_FOUND("Not Found"),
     UNAUTHENTICATED("Unauthenticated"),
     UNAUTHORIZED("Unauthorized"),
     INTERNAL("Internal Error");
 
+    /**
+     * @return A [io.grpc.Status] that is mapped from an [ErrorStatus] instance.
+     * */
     fun toGrpcStatus(): io.grpc.Status {
         return when(this) {
-            CLIENT, BR_VIOLATION -> io.grpc.Status.INVALID_ARGUMENT
+            CLIENT, BUSINESS_RULES_VIOLATION -> io.grpc.Status.INVALID_ARGUMENT
             NOT_FOUND -> io.grpc.Status.NOT_FOUND
             UNAUTHENTICATED -> io.grpc.Status.UNAUTHENTICATED
             UNAUTHORIZED -> io.grpc.Status.PERMISSION_DENIED
@@ -19,6 +25,9 @@ enum class ErrorStatus(val description: String) {
     }
 }
 
+/**
+ * An exception that
+ * */
 class AppException(val status: ErrorStatus, message: String = status.description, cause: Throwable? = null)
     : Exception(message, cause) {
 
