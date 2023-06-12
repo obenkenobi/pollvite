@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate
 
-class PollChanRepositoryCustomImpl(@Autowired mongoTemplate: ReactiveMongoTemplate): PollChanRepositoryCustom {
+class PollChanRepositoryCustomImpl(@Autowired private val mongoTemplate: ReactiveMongoTemplate): PollChanRepositoryCustom {
     override fun getPageWithFilter(pageable: Pageable, owner: String?, namePattern: String?): Page<PollChan> {
         TODO("Not yet implemented")
     }
