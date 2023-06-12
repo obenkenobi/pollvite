@@ -42,6 +42,11 @@ class AppException(val status: ErrorStatus, message: String = status.description
         }
     }
 
+    /**
+     * @return An [io.grpc.Status] with a description that is either
+     * the [message] for the [AppException]
+     * or the [ErrorStatus.description] if the [status] is [ErrorStatus.INTERNAL] or [message] is null.
+     * */
     fun asGrpcStatus(): io.grpc.Status {
         return status.toGrpcStatus().withDescription(getPublicDescription())
     }
