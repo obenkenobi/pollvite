@@ -2,6 +2,7 @@ package com.pollvite.polledgeservice.dtos
 
 import com.pollvite.grpc.shared.AuditPb
 import com.pollvite.grpc.shared.IdPb
+import com.pollvite.grpc.shared.PageRequestPb
 import com.pollvite.grpc.shared.TimestampsPb
 import jakarta.validation.constraints.NotNull
 
@@ -45,6 +46,21 @@ data class AuditDto(val createdBy: String, val updatedBy: String) {
         return AuditPb.newBuilder().also {
             it.createdBy = createdBy
             it.createdBy = createdBy
+        }.build()
+    }
+}
+
+data class PageRequestDto(val page: Int, val size: Int) {
+    companion object {
+        fun fromPb(pb: PageRequestPb) : PageRequestDto {
+            return PageRequestDto(pb.page, size = pb.size)
+        }
+    }
+
+    fun toPb(): PageRequestPb {
+        return PageRequestPb.newBuilder().also {
+            it.page = page
+            it.size = size
         }.build()
     }
 }
