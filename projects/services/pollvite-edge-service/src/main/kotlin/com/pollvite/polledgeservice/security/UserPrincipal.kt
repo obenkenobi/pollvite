@@ -7,6 +7,9 @@ class UserPrincipal(
     val issuer: String,
     val isEmailVerified: Boolean
 ) : Principal {
+    /**
+     * @return The ID of the user.
+     * */
     override fun getName(): String {
         return uuid
     }
