@@ -11,22 +11,22 @@ private class PollChanServiceGrpcImpl(@Autowired private val pollChanService: Po
     : ReactorPollChanServiceGrpc.PollChanServiceImplBase() {
 
     override fun getPollChanById(request: Mono<PollChanAccessPb>) : Mono<PollChanReadPb> {
-        return pollChanService.getPollChanById(request)
+        return request.map { pollChanService.getPollChanById(it) }
     }
 
     override fun getPollChanPage(request: Mono<PollChanPageFilterPb>): Mono<PollChanPagePb> {
-        return pollChanService.getPollChanPage(request)
+        return request.map { pollChanService.getPollChanPage(it) }
     }
 
     override fun createPollChan(request: Mono<PollChanCreatePb>) : Mono<PollChanReadPb> {
-        return pollChanService.createPollChan(request)
+        return request.map { pollChanService.createPollChan(it) }
     }
 
     override fun editPollChan(request: Mono<PollChanEditPb>) : Mono<PollChanReadPb> {
-        return pollChanService.editPollChan(request)
+        return request.map { pollChanService.editPollChan(it) }
     }
 
     override fun deletePollChan(request: Mono<PollChanAccessPb>): Mono<PollChanReadPb> {
-        return pollChanService.deletePollChan(request)
+        return request.map { pollChanService.deletePollChan(it) }
     }
 }

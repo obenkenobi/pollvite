@@ -1,6 +1,6 @@
 package com.pollvite.pollservice.repositories
 
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository
 import com.pollvite.pollservice.models.PollChan
+import org.springframework.data.mongodb.repository.MongoRepository
 
-interface PollChanRepository : ReactiveMongoRepository<PollChan, String>, PollChanRepositoryCustom
+interface PollChanRepository : MongoRepository<PollChan, String>, PollChanRepositoryCustom

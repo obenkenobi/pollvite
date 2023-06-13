@@ -13,7 +13,7 @@ dependencies {
     implementation project(':springboot-resolver-grpc-server')
     implementation project(':springboot-resolver-grpc-client')
     implementation mavenDeps.springBootStarter
-    implementation mavenDeps.springBootDataMongoReactive
+    implementation mavenDeps.springBootDataMongo
     implementation mavenDeps.springBootGrpcServer
     implementation mavenDeps.springBootGrpcClient
     compileOnly mavenDeps.springBootReactorNetty
