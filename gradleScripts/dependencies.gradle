@@ -48,6 +48,7 @@ ext {
             "springBootStarter": "org.springframework.boot:spring-boot-starter",
             "springBootTest": "org.springframework.boot:spring-boot-starter-test",
             "springBootValidation": "org.springframework.boot:spring-boot-starter-validation",
+            "springBootWeb": "org.springframework.boot:spring-boot-starter-web",
             "springBootWebflux": "org.springframework.boot:spring-boot-starter-webflux",
             "springCloudStream": "org.springframework.cloud:spring-cloud-stream",
             "springCloudStreamTestBinder": "org.springframework.cloud:spring-cloud-stream-test-binder",

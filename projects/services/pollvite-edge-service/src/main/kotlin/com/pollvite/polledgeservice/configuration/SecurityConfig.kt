@@ -3,49 +3,41 @@ package com.pollvite.polledgeservice.configuration
 import com.pollvite.polledgeservice.security.AuthFilter
 import com.pollvite.polledgeservice.security.CsrfLoadFilter
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
-import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
-import org.springframework.security.config.web.server.SecurityWebFiltersOrder
-import org.springframework.security.config.web.server.ServerHttpSecurity
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository
+import org.springframework.security.web.csrf.CsrfFilter
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler
-import org.springframework.security.web.server.SecurityWebFilterChain
-import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository
-import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository
-import org.springframework.security.web.server.csrf.CsrfToken
-import org.springframework.security.web.server.csrf.ServerCsrfTokenRequestAttributeHandler
-import org.springframework.security.web.server.csrf.XorServerCsrfTokenRequestAttributeHandler
-import org.springframework.web.server.ServerWebExchange
-import org.springframework.web.server.WebFilter
-import org.springframework.web.server.WebFilterChain
-import reactor.core.publisher.Mono
 
 
 @Configuration
-@EnableWebFluxSecurity
+@EnableWebSecurity
 class SecurityConfig(@Autowired private val securityFilter: AuthFilter,
                      @Autowired private val  csrfLoadFilter: CsrfLoadFilter) {
     @Bean
-    fun springSecurityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
+    @kotlin.jvm.Throws(Exception::class)
+    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         return http
-            .csrf { csrf -> csrf
-                .csrfTokenRepository(CookieServerCsrfTokenRepository.withHttpOnlyFalse())
-                .csrfTokenRequestHandler(ServerCsrfTokenRequestAttributeHandler())
+            .csrf {
+//                it.disable()
+                it.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                    .csrfTokenRequestHandler(CsrfTokenRequestAttributeHandler())
             }
             .formLogin { it.disable() }
             .httpBasic { it.disable() }
-            .authorizeExchange { exchanges -> exchanges
-                .pathMatchers("/firebase", "/api/auth/login", "/api/conf/**").permitAll()
-                .pathMatchers("/api/**").authenticated()
-                .pathMatchers(HttpMethod.GET).permitAll()
-                .anyExchange().authenticated()
+            .authorizeHttpRequests { authz -> authz
+                .requestMatchers("/api/auth/login", "/api/conf/**").permitAll()
+                .requestMatchers("/api/**").authenticated()
+                .anyRequest().permitAll()
             }
-            .addFilterBefore(csrfLoadFilter, SecurityWebFiltersOrder.CSRF)
-            .addFilterAfter(csrfLoadFilter, SecurityWebFiltersOrder.CSRF)
-            .addFilterBefore(securityFilter, SecurityWebFiltersOrder.AUTHORIZATION)
-            .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
+//            .addFilterAfter(csrfLoadFilter, CsrfFilter::class.java)
+            .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .build()
     }
 }

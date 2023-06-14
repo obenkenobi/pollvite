@@ -41,4 +41,10 @@ class BusinessRuleResult private constructor(val appException: AppException? = n
     fun <V> ifPassOrFail(passBlock: () -> V, failBlock: (AppException) -> V) : V {
         return if (isPass) passBlock() else failBlock(appException!!)
     }
+
+    fun throwIfFail() {
+        if (isFail) {
+            throw appException!!
+        }
+    }
 }
