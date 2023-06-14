@@ -24,7 +24,6 @@ class SecurityConfig(@Autowired private val securityFilter: AuthFilter,
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         return http
             .csrf {
-//                it.disable()
                 it.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                     .csrfTokenRequestHandler(CsrfTokenRequestAttributeHandler())
             }
