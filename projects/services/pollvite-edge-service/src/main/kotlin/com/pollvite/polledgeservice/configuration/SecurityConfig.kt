@@ -5,13 +5,13 @@ import com.pollvite.polledgeservice.security.CsrfLoadFilter
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
-import org.springframework.security.web.csrf.CsrfFilter
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler
 
 
@@ -30,10 +30,11 @@ class SecurityConfig(@Autowired private val securityFilter: AuthFilter,
             }
             .formLogin { it.disable() }
             .httpBasic { it.disable() }
-            .authorizeHttpRequests { authz -> authz
-                .requestMatchers("/api/auth/login", "/api/conf/**").permitAll()
+            .authorizeHttpRequests { authorize -> authorize
+                .requestMatchers("/firebase", "/api/auth/login", "/api/conf/**").permitAll()
                 .requestMatchers("/api/**").authenticated()
-                .anyRequest().permitAll()
+                .requestMatchers(HttpMethod.GET).permitAll()
+                .anyRequest().authenticated()
             }
 //            .addFilterAfter(csrfLoadFilter, CsrfFilter::class.java)
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)
