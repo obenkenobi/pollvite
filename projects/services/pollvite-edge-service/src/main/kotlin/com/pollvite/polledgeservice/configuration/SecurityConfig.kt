@@ -35,9 +35,10 @@ class SecurityConfig(@Autowired private val securityFilter: AuthFilter,
             }
             .formLogin { it.disable() }
             .httpBasic { it.disable() }
-            .authorizeExchange { exchanges ->
-                exchanges.pathMatchers("/firebase", "/api/auth/login", "/api/conf/**").permitAll()
-                    .anyExchange().authenticated()
+            .authorizeExchange { exchanges -> exchanges
+                .pathMatchers("/firebase", "/api/auth/login", "/api/conf/**").permitAll()
+                .pathMatchers("/api/**").authenticated()
+                .anyExchange().permitAll()
             }
             .addFilterBefore(csrfLoadFilter, SecurityWebFiltersOrder.CSRF)
             .addFilterAfter(csrfLoadFilter, SecurityWebFiltersOrder.CSRF)
