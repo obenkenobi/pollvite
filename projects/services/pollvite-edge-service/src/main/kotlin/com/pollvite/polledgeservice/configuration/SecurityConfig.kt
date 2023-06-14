@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder
 import org.springframework.security.config.web.server.ServerHttpSecurity
@@ -38,7 +39,8 @@ class SecurityConfig(@Autowired private val securityFilter: AuthFilter,
             .authorizeExchange { exchanges -> exchanges
                 .pathMatchers("/firebase", "/api/auth/login", "/api/conf/**").permitAll()
                 .pathMatchers("/api/**").authenticated()
-                .anyExchange().permitAll()
+                .pathMatchers(HttpMethod.GET).permitAll()
+                .anyExchange().authenticated()
             }
             .addFilterBefore(csrfLoadFilter, SecurityWebFiltersOrder.CSRF)
             .addFilterAfter(csrfLoadFilter, SecurityWebFiltersOrder.CSRF)
