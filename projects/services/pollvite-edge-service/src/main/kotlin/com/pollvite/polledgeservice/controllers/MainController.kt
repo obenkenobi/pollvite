@@ -7,12 +7,16 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 
 @Controller
-class ViewController {
+class MainController {
 
-    @Profile("dev")
-    @RequestMapping("/firebase")
+    @RequestMapping("/")
     fun index(model: Model): String {
-        return "firebase"
+        return "home"
+    }
+
+    @RequestMapping("/home")
+    fun home(model: Model): String {
+        return "home"
     }
 
 }
