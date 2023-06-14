@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
+import org.springframework.security.web.csrf.CsrfFilter
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler
 
 
@@ -30,12 +31,13 @@ class SecurityConfig(@Autowired private val securityFilter: AuthFilter,
             .formLogin { it.disable() }
             .httpBasic { it.disable() }
             .authorizeHttpRequests { authorize -> authorize
-                .requestMatchers("/firebase", "/api/auth/login", "/api/conf/**").permitAll()
+                .requestMatchers("/api/auth/login", "/api/auth/csrf").permitAll()
+                .requestMatchers("/api/conf/**").permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .requestMatchers(HttpMethod.GET).permitAll()
                 .anyRequest().authenticated()
             }
-//            .addFilterAfter(csrfLoadFilter, CsrfFilter::class.java)
+            .addFilterAfter(csrfLoadFilter, CsrfFilter::class.java)
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .build()
