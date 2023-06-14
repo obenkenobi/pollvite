@@ -1,16 +1,20 @@
+<#import "spring.ftl" as spring />
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Pollvite</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css"
+              href="<@spring.url '/css/styles.css'/>"/>
+        <style></style>
     </head>
     <body>
         <h1>Login ID Token:</h1>
         <p id="token"></p>
         <h1>CSRF Token:</h1>
         <p id="csrfToken"></p>
-        <button id="login">Login</button>
+        <button id="login" class="button">Login</button>
         <p id="err"></p>
 
         <script type="module">
