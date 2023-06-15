@@ -10,13 +10,8 @@ import org.springframework.web.servlet.view.RedirectView
 class HomeController {
 
     @RequestMapping("/")
-    fun index(model: Model): RedirectView {
-        return RedirectView("/home");
-    }
-
-    @RequestMapping("/home")
-    fun home(model: Model): String {
-        return "home"
+    fun index(model: Model): String {
+        return "index"
     }
 
 }
