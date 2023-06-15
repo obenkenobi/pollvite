@@ -20,7 +20,7 @@ dependencies {
     implementation mavenDeps.kotlinxCoroutinesReactor
     implementation mavenDeps.reactorKotlinExtensions
 
-    implementation mavenDeps.TomcatEmbeddedJasper
+    implementation mavenDeps.tomcatEmbeddedJasper
     implementation mavenDeps.jstl
     implementation mavenDeps.jstlApi
 
