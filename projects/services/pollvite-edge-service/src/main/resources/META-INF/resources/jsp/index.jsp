@@ -1,5 +1,4 @@
-<%@ include file = "meta/javaPage.jsp" %>
-<%@ include file = "meta/taglibs.jsp" %>
+<%@ include file = "meta/index.jsp" %>
 <!DOCTYPE html>
 <html>
 <%@include file="fragments/head.jsp" %>

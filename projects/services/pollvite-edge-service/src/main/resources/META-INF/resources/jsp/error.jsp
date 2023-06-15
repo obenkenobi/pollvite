@@ -1,6 +1,5 @@
 <%@ page import="org.springframework.http.HttpStatus" %>
-<%@ include file = "meta/javaPage.jsp" %>
-<%@ include file = "meta/taglibs.jsp" %>
+<%@ include file = "meta/index.jsp" %>
 <html>
 <%@include file="fragments/head.jsp" %>
 <body>
