@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View Books</title>
+    <title>Pollvite</title>
     <link href="<s:url value="/css/styles.css"/>" rel="stylesheet" type="text/css">
 </head>
 <body>
