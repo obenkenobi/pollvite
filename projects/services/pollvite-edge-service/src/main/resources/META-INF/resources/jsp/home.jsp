@@ -1,11 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ taglib prefix="c" uri="jakarta.tags.core" %>--%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>View Books</title>
-<%--    <link href="<c:url value="/css/styles.css"/>" rel="stylesheet" type="text/css">--%>
-    <link href="/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/css/styles.css"/>" rel="stylesheet" type="text/css">
 </head>
 <body>
     <h1>Login ID Token:</h1>
