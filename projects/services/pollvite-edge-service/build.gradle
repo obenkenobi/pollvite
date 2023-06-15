@@ -9,14 +9,12 @@ dependencies {
     implementation project(':grpc-interface')
     implementation project(':springboot-resolver-grpc-client')
 
-//    Todo: support JSP
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
-    implementation 'org.eclipse.jetty:glassfish-jstl:11.0.15'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.0'
 
     implementation mavenDeps.springBootValidation
     implementation mavenDeps.firebaseAdmin
-//    implementation mavenDeps.springBootFreeMarker
     implementation mavenDeps.springBootSecurity
     implementation mavenDeps.springBootWeb
     implementation mavenDeps.springBootGrpcClient
