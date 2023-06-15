@@ -10,7 +10,6 @@
     <button id="login" class="pollvite-button">Login</button>
     <p id="err"></p>
 
-    <%@include file="fragments/scripts.jsp" %>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
