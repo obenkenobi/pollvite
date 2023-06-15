@@ -40,24 +40,24 @@ subprojects {
         def usingSpringBoot = isCategory(Category.SPRING_BOOT)
         def usingKotlin = isCategory(Category.KOTLIN)
         def usingJunit = isCategory(Category.JUNIT)
-        def ENABLE_PREVIEW = "--enable-preview"
-        def ADD_MODULES = "--add-modules"
-        def JDK_INCUBATOR_CONCURRENT = "jdk.incubator.concurrent"
+//        def ENABLE_PREVIEW = "--enable-preview"
+//        def ADD_MODULES = "--add-modules"
+//        def JDK_INCUBATOR_CONCURRENT = "jdk.incubator.concurrent"
 
         sourceCompatibility = parent.properties.javaVersion
 
         compileJava {
             options.release = Integer.parseInt(parent.properties.javaVersion)
-            options.compilerArgs << ENABLE_PREVIEW
-            options.compilerArgs << ADD_MODULES
-            options.compilerArgs << JDK_INCUBATOR_CONCURRENT
+//            options.compilerArgs << ENABLE_PREVIEW
+//            options.compilerArgs << ADD_MODULES
+//            options.compilerArgs << JDK_INCUBATOR_CONCURRENT
         }
 
         if(isLibrary) {
             apply plugin: 'java-library'
         } else {
             apply plugin: 'application'
-            applicationDefaultJvmArgs = [ENABLE_PREVIEW, ADD_MODULES, JDK_INCUBATOR_CONCURRENT]
+//            applicationDefaultJvmArgs = [ENABLE_PREVIEW, ADD_MODULES, JDK_INCUBATOR_CONCURRENT]
         }
 
         if (usingKotlin) {
@@ -76,9 +76,9 @@ subprojects {
         }
 
         test {
-            jvmArgs += ENABLE_PREVIEW
-            jvmArgs += ADD_MODULES
-            jvmArgs += JDK_INCUBATOR_CONCURRENT
+//            jvmArgs += ENABLE_PREVIEW
+//            jvmArgs += ADD_MODULES
+//            jvmArgs += JDK_INCUBATOR_CONCURRENT
             if (usingJunit) {
                 useJUnitPlatform()
             }

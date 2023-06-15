@@ -10,8 +10,8 @@ firebase:
   serviceAccountPath: ${firebase.admin.serviceAccountPath}
 # Todo: support JSP
 #
-#spring:
-#  mvc:
-#    view:
-#      prefix: /WEB-INF/jsp/
-#      suffix: .jsp
+spring:
+  mvc:
+    view:
+      prefix: /jsp/
+      suffix: .jsp
