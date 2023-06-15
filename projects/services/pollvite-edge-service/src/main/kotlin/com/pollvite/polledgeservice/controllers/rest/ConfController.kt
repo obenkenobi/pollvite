@@ -1,4 +1,4 @@
-package com.pollvite.polledgeservice.controllers
+package com.pollvite.polledgeservice.controllers.rest
 
 import com.pollvite.polledgeservice.services.FirebaseService
 import org.springframework.beans.factory.annotation.Autowired

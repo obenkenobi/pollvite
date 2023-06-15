@@ -1,4 +1,4 @@
-package com.pollvite.polledgeservice.controllers
+package com.pollvite.polledgeservice.controllers.rest
 
 import com.pollvite.polledgeservice.dtos.LoginDto
 import com.pollvite.polledgeservice.security.CookieUtils

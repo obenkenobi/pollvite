@@ -1,4 +1,4 @@
-package com.pollvite.polledgeservice.controllers
+package com.pollvite.polledgeservice.controllers.mvc
 
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

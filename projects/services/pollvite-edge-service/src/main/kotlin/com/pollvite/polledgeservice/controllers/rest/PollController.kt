@@ -1,4 +1,4 @@
-package com.pollvite.polledgeservice.controllers
+package com.pollvite.polledgeservice.controllers.rest
 
 import com.pollvite.polledgeservice.dtos.PollChanCreateDto
 import com.pollvite.polledgeservice.dtos.PollChanEditDto
