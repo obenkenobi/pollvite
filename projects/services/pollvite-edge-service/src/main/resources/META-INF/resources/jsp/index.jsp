@@ -18,8 +18,7 @@
         function getCsrfToken() {
             return  document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
         }
-
-        document.getElementById("csrfToken").innerText = getCsrfToken()
+        $("#csrfToken").innerText = getCsrfToken()
 
         fetch("api/conf/fb/web").then(res => res.json()).then(firebaseConfig => {
             const app = initializeApp(firebaseConfig);
@@ -32,16 +31,16 @@
                 signInWithPopup(auth, provider)
                     .then(() => auth.currentUser.getIdToken(/* forceRefresh */ true))
                     .then((idToken) => {
-                        document.getElementById("token").innerText = idToken
+                        $("#token").innerText = idToken
                         return auth.signOut()
                     })
                     .then(() => console.log("Done!"))
                     .catch((error) => {
                         console.error(error)
-                        document.getElementById("error").innerText = error.code + "::" + error.message
+                        $("#error").innerText = error.code + "::" + error.message
                     });
             }
-            document.getElementById("login").addEventListener('click', signInFunc)
+            $("#login").click(signInFunc)
         })
     </script>
 </body>
