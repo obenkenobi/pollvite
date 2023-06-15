@@ -9,10 +9,6 @@ dependencies {
     implementation project(':grpc-interface')
     implementation project(':springboot-resolver-grpc-client')
 
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
-    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.0'
-
     implementation mavenDeps.springBootValidation
     implementation mavenDeps.firebaseAdmin
     implementation mavenDeps.springBootSecurity
@@ -23,6 +19,11 @@ dependencies {
     implementation mavenDeps.kotlinStdlib
     implementation mavenDeps.kotlinxCoroutinesReactor
     implementation mavenDeps.reactorKotlinExtensions
+
+    implementation mavenDeps.TomcatEmbeddedJasper
+    implementation mavenDeps.jstl
+    implementation mavenDeps.jstlApi
+
     compileOnly mavenDeps.javaxAnnotationApi
 
     annotationProcessor mavenDeps.springBootConfigurationProcessor

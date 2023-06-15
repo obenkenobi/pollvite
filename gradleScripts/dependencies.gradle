@@ -6,6 +6,7 @@ ext {
             "grpc": "1.53.0",
             "javaxAnnotationApi": "1.3.5",
             "jakartaAnnotationApi": "2.1.0",
+            "jstl": "3.0.0",
             "junit": "5.9.2",
             "protobuf": "3.9.2",
             "reactiveGrpc": "1.2.4",
@@ -22,6 +23,8 @@ ext {
             "jacksonModuleKotlin": "com.fasterxml.jackson.module:jackson-module-kotlin",
             "javaxAnnotationApi": "jakarta.annotation:jakarta.annotation-api:${mavenDepsVersions.javaxAnnotationApi}",
             "jakartaAnnotationApi": "jakarta.annotation:jakarta.annotation-api:${mavenDepsVersions.jakartaAnnotationApi}",
+            "jstl": "org.glassfish.web:jakarta.servlet.jsp.jstl:${mavenDepsVersions.jstl}",
+            "jstlApi": "jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:${mavenDepsVersions.jstl}",
             "junitJupiterApi": "org.junit.jupiter:junit-jupiter-api:${mavenDepsVersions.junit}",
             "kotlinReflect": "org.jetbrains.kotlin:kotlin-reflect",
             "kotlinStdlib": "org.jetbrains.kotlin:kotlin-stdlib",
@@ -53,6 +56,7 @@ ext {
             "springCloudStream": "org.springframework.cloud:spring-cloud-stream",
             "springCloudStreamTestBinder": "org.springframework.cloud:spring-cloud-stream-test-binder",
             "springSecurityTest": "org.springframework.security:spring-security-test",
+            "TomcatEmbeddedJasper": "org.apache.tomcat.embed:tomcat-embed-jasper",
     ]
 
 }
