@@ -1,13 +1,8 @@
 <%@ page import="org.springframework.http.HttpStatus" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
-<!DOCTYPE html>
+<%@ include file = "meta/javaPage.jsp" %>
+<%@ include file = "meta/taglibs.jsp" %>
 <html>
-<head>
-    <title>Pollvite</title>
-    <link href="<s:url value="/css/styles.css"/>" rel="stylesheet" type="text/css">
-</head>
+<%@include file="fragments/head.jsp" %>
 <body>
     <%
         int status = response.getStatus();
