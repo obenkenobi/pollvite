@@ -57,10 +57,10 @@
         </header>
         <#nested>
         <script>
-            const BASE_URL = "<@spring.url '/' />"
+            const BASE_URL = "<@spring.url '/' />";
             function absoluteUrl(url) {
-                const trimmedUrl =  url.startsWith("/")? url.slice(1) : url
-                return BASE_URL + trimmedUrl
+                const trimmedUrl =  url.startsWith("/")? url.slice(1) : url;
+                return BASE_URL + trimmedUrl;
             }
         </script>
     </body>
