@@ -33,7 +33,14 @@
                     .then(() => auth.currentUser.getIdToken(/* forceRefresh */ true))
                     .then((idToken) => {
                         $("#token").text(idToken)
-                        return idToken
+                        return fetch("/api/auth/login", {
+                            method: "POST",
+                            headers: {
+                                "X-XSRF-TOKEN": getCsrfToken(),
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({token: idToken})
+                        }).then(() => fetch("api/auth/csrf"))
                     })
                     .then(() =>  {
                         return auth.signOut()
