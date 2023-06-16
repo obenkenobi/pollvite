@@ -21,7 +21,7 @@
         }
         async function getCsrfToken() {
             const cookie = getCsrfTokenCookie()
-            if (!!cookie) {
+            if (!cookie) {
                 return fetch("/api/auth/csrf").then(() => getCsrfTokenCookie())
             }
             return cookie
