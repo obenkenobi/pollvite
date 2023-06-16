@@ -17,7 +17,7 @@
         async function getCsrfToken() {
             const cookie = getCsrfTokenCookie()
             if (!cookie) {
-                return fetch("/api/auth/csrf").then(() => getCsrfTokenCookie())
+                return fetch(absoluteUrl("/api/auth/csrf")).then(() => getCsrfTokenCookie())
             }
             return cookie
         }
@@ -28,7 +28,7 @@
 
         async function init() {
             await csrfWrapper(csrf => $("#csrfToken").text(csrf))
-            const fbConf = await fetch("api/conf/fb/web").then(res => res.json())
+            const fbConf = await fetch(absoluteUrl("api/conf/fb/web")).then(res => res.json())
 
             const app = initializeApp(fbConf);
             const auth = getAuth(app);
@@ -42,7 +42,7 @@
                     const idToken = await auth.currentUser.getIdToken(/* forceRefresh */ true)
                     $("#token").text(idToken)
                     await csrfWrapper(csrf => {
-                        return fetch("/api/auth/login", {
+                        return fetch(absoluteUrl("/api/auth/login"), {
                             method: "POST",
                             headers: {"X-XSRF-TOKEN": csrf, "Content-Type": "application/json",},
                             body: JSON.stringify({token: idToken})
