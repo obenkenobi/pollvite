@@ -16,11 +16,30 @@
     </head>
     <body class="custom-content">
         <script>
-            function absoluteUrl(url) {
-                const baseUrl = "<@spring.url '/' />"
-                const trimmedUrl =  url.startsWith("/") ? url.slice(1) : url;
-                return baseUrl + trimmedUrl;
-            }
+            const helpers = function () {
+                function _absoluteUrl(url) {
+                    const baseUrl = "<@spring.url '/' />"
+                    const trimmedUrl =  url.startsWith("/") ? url.slice(1) : url;
+                    return baseUrl + trimmedUrl;
+                }
+                function _getCsrfTokenCookie() {
+                    return  document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+                }
+                async function _getCsrfToken() {
+                    const cookie = _getCsrfTokenCookie()
+                    if (!cookie) {
+                        return fetch(_absoluteUrl("/api/auth/csrf")).then(() => _getCsrfTokenCookie())
+                    }
+                    return cookie
+                }
+                return {
+                    absoluteUrl: _absoluteUrl,
+                    getCsrfToken: _getCsrfToken,
+                    csrfWrapper: async function (csrfSupplier) {
+                        return _getCsrfToken().then(csrf => csrfSupplier(csrf))
+                    }
+                }
+            }()
         </script>
         <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">

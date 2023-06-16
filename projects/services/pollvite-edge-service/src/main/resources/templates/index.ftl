@@ -4,31 +4,16 @@
     <p id="token"></p>
     <h1>CSRF Token:</h1>
     <p id="csrfToken"></p>
-    <button id="login" class="button">Login</button>
+    <button id="login" class="pollvite-button">Login</button>
     <p id="err"></p>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-        function getCsrfTokenCookie() {
-            return  document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
-        }
-        async function getCsrfToken() {
-            const cookie = getCsrfTokenCookie()
-            if (!cookie) {
-                return fetch(absoluteUrl("/api/auth/csrf")).then(() => getCsrfTokenCookie())
-            }
-            return cookie
-        }
-
-        async function csrfWrapper(csrfSupplier) {
-            return getCsrfToken().then(csrf => csrfSupplier(csrf))
-        }
-
         async function init() {
-            await csrfWrapper(csrf => $("#csrfToken").text(csrf))
-            const fbConf = await fetch(absoluteUrl("api/conf/fb/web")).then(res => res.json())
+            await helpers.csrfWrapper(csrf => $("#csrfToken").text(csrf))
+            const fbConf = await fetch(helpers.absoluteUrl("api/conf/fb/web")).then(res => res.json())
 
             const app = initializeApp(fbConf);
             const auth = getAuth(app);
@@ -41,14 +26,17 @@
                     await signInWithPopup(auth, provider)
                     const idToken = await auth.currentUser.getIdToken(/* forceRefresh */ true)
                     $("#token").text(idToken)
-                    await csrfWrapper(csrf => {
-                        return fetch(absoluteUrl("/api/auth/login"), {
-                            method: "POST",
-                            headers: {"X-XSRF-TOKEN": csrf, "Content-Type": "application/json",},
-                            body: JSON.stringify({token: idToken})
+                    try {
+                        await helpers.csrfWrapper(csrf => {
+                            return fetch(helpers.absoluteUrl("/api/auth/login"), {
+                                method: "POST",
+                                headers: {"X-XSRF-TOKEN": csrf, "Content-Type": "application/json",},
+                                body: JSON.stringify({token: idToken})
+                            })
                         })
-                    })
-                    await auth.signOut()
+                    } finally {
+                        await auth.signOut()
+                    }
                     console.log("Done!")
                 } catch (error) {
                     console.error(error)
@@ -58,7 +46,7 @@
             $("#login").click(signInFuncAsync)
         }
         $(document).ready(function () {
-            console.log("url:" + absoluteUrl(""))
+            console.log("url:" + helpers.absoluteUrl(""))
             init().then()
         })
     </script>
