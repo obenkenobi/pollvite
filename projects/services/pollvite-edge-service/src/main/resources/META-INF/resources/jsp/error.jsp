@@ -3,6 +3,7 @@
 <html>
 <%@include file="fragments/head.jsp" %>
 <body>
+    <%@include file="fragments/navbar.jsp" %>
     <%
         int status = response.getStatus();
         String reasonPhrase = HttpStatus.valueOf(status).getReasonPhrase();

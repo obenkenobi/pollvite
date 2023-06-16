@@ -3,6 +3,8 @@
 <html>
 <%@include file="fragments/head.jsp" %>
 <body>
+    <%@include file="fragments/navbar.jsp" %>
+
     <h1>Login ID Token:</h1>
     <p id="token"></p>
     <h1>CSRF Token:</h1>
