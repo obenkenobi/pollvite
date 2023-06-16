@@ -26,6 +26,11 @@
             }
             return cookie
         }
+
+        async function csrfWrapper(csrfSupplier) {
+            return getCsrfToken().then(csrf => csrfSupplier())
+        }
+
         $("#csrfToken").text(getCsrfTokenCookie())
 
         fetch("api/conf/fb/web").then(res => res.json()).then(firebaseConfig => {
