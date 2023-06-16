@@ -15,31 +15,9 @@
               href="<@spring.url '/webjars/bootstrap/5.2.3/css/bootstrap.min.css'/>"/>
     </head>
     <body class="custom-content">
+        <script src="<@spring.url '/js/common/helper.js'/>"></script>
         <script>
-            const helpers = function () {
-                function _absoluteUrl(url) {
-                    const baseUrl = "<@spring.url '/' />"
-                    const trimmedUrl =  url.startsWith("/") ? url.slice(1) : url;
-                    return baseUrl + trimmedUrl;
-                }
-                function _getCsrfTokenCookie() {
-                    return  document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
-                }
-                async function _getCsrfToken() {
-                    const cookie = _getCsrfTokenCookie()
-                    if (!cookie) {
-                        return fetch(_absoluteUrl("/api/auth/csrf")).then(() => _getCsrfTokenCookie())
-                    }
-                    return cookie
-                }
-                return {
-                    absoluteUrl: _absoluteUrl,
-                    getCsrfToken: _getCsrfToken,
-                    csrfWrapper: async function (csrfSupplier) {
-                        return _getCsrfToken().then(csrf => csrfSupplier(csrf))
-                    }
-                }
-            }()
+            const helpers = initHelper({ baseUrl: "<@spring.url '/' />"})
         </script>
         <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
