@@ -31,10 +31,7 @@ class SecurityConfig(@Autowired private val securityFilter: AuthFilter,
             .formLogin { it.disable() }
             .httpBasic { it.disable() }
             .authorizeHttpRequests { authorize -> authorize
-                .requestMatchers(
-                    "/api/auth/login",
-                    "/api/auth/logout",
-                    "/api/auth/csrf").permitAll()
+                .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/conf/**").permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .requestMatchers(HttpMethod.GET).permitAll()
