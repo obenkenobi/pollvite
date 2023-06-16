@@ -33,6 +33,9 @@
                     .then(() => auth.currentUser.getIdToken(/* forceRefresh */ true))
                     .then((idToken) => {
                         $("#token").text(idToken)
+                        return idToken
+                    })
+                    .then(() =>  {
                         return auth.signOut()
                     })
                     .then(() => console.log("Done!"))
