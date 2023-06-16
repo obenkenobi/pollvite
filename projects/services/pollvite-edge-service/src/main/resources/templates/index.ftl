@@ -1,4 +1,4 @@
-<#import "utils.ftlh" as u />
+<#import "utils.ftl" as u />
 <@u.page>
     <h1>Login ID Token:</h1>
     <p id="token"></p>

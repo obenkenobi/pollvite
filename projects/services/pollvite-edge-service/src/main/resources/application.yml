@@ -8,13 +8,10 @@ firebase:
   webConfigPath: ${firebase.webConfigPath}
   projectId: ${firebase.projectId}
   serviceAccountPath: ${firebase.admin.serviceAccountPath}
-# Todo: support JSP
-#
+
 spring:
-  mvc:
-    view:
-      prefix: /jsp/
-      suffix: .jsp
+  freemarker:
+    suffix: .ftl
 
 server:
   error:
