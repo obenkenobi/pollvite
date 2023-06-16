@@ -58,7 +58,7 @@
             $("#login").click(signInFuncAsync)
         }
         $(document).ready(function () {
-            console.log("url:" + BASE_URL)
+            console.log("url:" + absoluteUrl(""))
             init().then()
         })
     </script>

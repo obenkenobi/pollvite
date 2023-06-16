@@ -15,6 +15,13 @@
               href="<@spring.url '/webjars/bootstrap/5.2.3/css/bootstrap.min.css'/>"/>
     </head>
     <body class="custom-content">
+        <script>
+            function absoluteUrl(url) {
+                const baseUrl = "<@spring.url '/' />"
+                const trimmedUrl =  url.startsWith("/") ? url.slice(1) : url;
+                return baseUrl + trimmedUrl;
+            }
+        </script>
         <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="#">Navbar</a>
@@ -56,13 +63,6 @@
             </nav>
         </header>
         <#nested>
-        <script>
-            const BASE_URL = "<@spring.url '/' />";
-            function absoluteUrl(url) {
-                const trimmedUrl =  url.startsWith("/")? url.slice(1) : url;
-                return BASE_URL + trimmedUrl;
-            }
-        </script>
     </body>
     </html>
 </#macro>
