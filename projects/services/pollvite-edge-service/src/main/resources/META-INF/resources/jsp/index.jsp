@@ -19,6 +19,13 @@
         function getCsrfTokenCookie() {
             return  document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
         }
+        async function getCsrfToken() {
+            const cookie = getCsrfTokenCookie()
+            if (!!cookie) {
+                return fetch("/api/auth/csrf").then(() => getCsrfTokenCookie())
+            }
+            return cookie
+        }
         $("#csrfToken").text(getCsrfTokenCookie())
 
         fetch("api/conf/fb/web").then(res => res.json()).then(firebaseConfig => {
