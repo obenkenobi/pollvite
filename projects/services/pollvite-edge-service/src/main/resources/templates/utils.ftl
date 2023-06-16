@@ -55,9 +55,10 @@
                 </div>
             </nav>
         </header>
-        <div>
-            <#nested>
-        </div>
+        <#nested>
+        <script>
+            const BASE_URL = "<@spring.url '/' />"
+        </script>
     </body>
     </html>
 </#macro>

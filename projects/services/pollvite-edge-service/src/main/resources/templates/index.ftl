@@ -58,6 +58,7 @@
             $("#login").click(signInFuncAsync)
         }
         $(document).ready(function () {
+            console.log("url:" + BASE_URL)
             init().then()
         })
     </script>
