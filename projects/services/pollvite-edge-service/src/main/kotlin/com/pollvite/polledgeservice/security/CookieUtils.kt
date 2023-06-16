@@ -18,6 +18,13 @@ class CookieUtils {
         .secure(false) // Todo: should be true in production
         .build()
 
+    fun createLogoutCookie() = ResponseCookie.fromClientResponse(SESSION_COOKIE_NAME, "")
+        .maxAge(0)
+        .httpOnly(true)
+        .path("/")
+        .secure(false) // Todo: should be true in production
+        .build()
+
     fun getSessionCookieOrNone(request: HttpServletRequest) = WebUtils.getCookie(request, SESSION_COOKIE_NAME)?.value
 
 

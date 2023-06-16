@@ -1,6 +1,6 @@
 package com.pollvite.polledgeservice.security
 
-import com.pollvite.polledgeservice.services.FirebaseService
+import com.pollvite.polledgeservice.services.SecurityService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -10,8 +10,9 @@ import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
-class AuthFilter(@Autowired private val firebaseService: FirebaseService,
-                 @Autowired private val cookieUtils: CookieUtils): OncePerRequestFilter() {
+class AuthFilter(
+    @Autowired private val securityService: SecurityService
+): OncePerRequestFilter() {
 
     override fun doFilterInternal(request: HttpServletRequest,
                                   response: HttpServletResponse, filterChain: FilterChain) {
@@ -20,8 +21,7 @@ class AuthFilter(@Autowired private val firebaseService: FirebaseService,
     }
 
     private fun verifyToken(request: HttpServletRequest) {
-        val session = cookieUtils.getSessionCookieOrNone(request) ?: return
-        val authentication = firebaseService.validateSession(session, Credentials.Type.SESSION)
+        val authentication = securityService.verifyToken(request) ?: return
         SecurityContextHolder.getContext().authentication = authentication
     }
 }
