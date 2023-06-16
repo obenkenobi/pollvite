@@ -16,10 +16,10 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-        function getCsrfToken() {
+        function getCsrfTokenCookie() {
             return  document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
         }
-        $("#csrfToken").text(getCsrfToken())
+        $("#csrfToken").text(getCsrfTokenCookie())
 
         fetch("api/conf/fb/web").then(res => res.json()).then(firebaseConfig => {
             const app = initializeApp(firebaseConfig);
@@ -36,7 +36,7 @@
                         return fetch("/api/auth/login", {
                             method: "POST",
                             headers: {
-                                "X-XSRF-TOKEN": getCsrfToken(),
+                                "X-XSRF-TOKEN": getCsrfTokenCookie(),
                                 "Content-Type": "application/json",
                             },
                             body: JSON.stringify({token: idToken})
