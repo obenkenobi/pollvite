@@ -28,7 +28,7 @@ class AuthController(@Autowired private val securityService: SecurityService) {
     }
 
     @PostMapping("/logout")
-    fun logout(@RequestBody loginDto: LoginDto) : ResponseEntity<Void> {
+    fun logout() : ResponseEntity<Void> {
         val logoutCookie = securityService.createLogoutCookie()
         return ResponseEntity.noContent().header("Set-Cookie", logoutCookie.toString()).build()
     }
