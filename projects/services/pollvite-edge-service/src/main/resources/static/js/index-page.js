@@ -17,10 +17,10 @@ async function initAsync() {
             const idToken = await auth.currentUser.getIdToken(/* forceRefresh */ true)
             $("#token").text(idToken)
             try {
-                await helpers.csrfWrapper(csrf => {
+                await helpers.csrfFetch(csrfHeaders => {
                     return fetch(helpers.absoluteUrl("/api/auth/login"), {
                         method: "POST",
-                        headers: {"X-XSRF-TOKEN": csrf, "Content-Type": "application/json",},
+                        headers: {...csrfHeaders, "Content-Type": "application/json",},
                         body: JSON.stringify({token: idToken})
                     })
                 })

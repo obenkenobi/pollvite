@@ -13,11 +13,16 @@ function initHelper(initConf = {baseUrl: "/"}) {
         }
         return cookie
     }
+    async function _csrfWrapper(csrfSupplier) {
+        return _getCsrfToken().then(csrf => csrfSupplier(csrf))
+    }
+    async function _csrfFetch(csrfHeaderSupplier) {
+        return _csrfWrapper(csrf => csrfHeaderSupplier({"X-XSRF-TOKEN": csrf}))
+    }
     return {
         absoluteUrl: _absoluteUrl,
         getCsrfToken: _getCsrfToken,
-        csrfWrapper: async function (csrfSupplier) {
-            return _getCsrfToken().then(csrf => csrfSupplier(csrf))
-        }
+        csrfWrapper: _csrfWrapper,
+        csrfFetch: _csrfFetch
     }
 }
