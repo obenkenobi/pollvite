@@ -40,7 +40,7 @@
                                 "Content-Type": "application/json",
                             },
                             body: JSON.stringify({token: idToken})
-                        })//.then(() => fetch("api/auth/csrf"))
+                        }).then(() => fetch("api/auth/csrf"))
                     })
                     .then(() =>  {
                         return auth.signOut()
