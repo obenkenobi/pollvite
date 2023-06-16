@@ -31,40 +31,39 @@
             return getCsrfToken().then(csrf => csrfSupplier(csrf))
         }
 
-        $("#csrfToken").text(getCsrfTokenCookie())
+        async function init() {
+            await csrfWrapper(csrf => $("#csrfToken").text(csrf))
+            const fbConf = await fetch("api/conf/fb/web").then(res => res.json())
 
-        fetch("api/conf/fb/web").then(res => res.json())
-            .then(fbConf => {
-                const app = initializeApp(fbConf);
-                const auth = getAuth(app);
-                auth.languageCode = 'it';
+            const app = initializeApp(fbConf);
+            const auth = getAuth(app);
+            auth.languageCode = 'it';
 
-                const provider = new GoogleAuthProvider();
+            const provider = new GoogleAuthProvider();
 
-                const signInFunc = () => {
-                    signInWithPopup(auth, provider)
-                        .then(() => auth.currentUser.getIdToken(/* forceRefresh */ true))
-                        .then((idToken) => {
-                            $("#token").text(idToken)
-                            return fetch("/api/auth/login", {
-                                method: "POST",
-                                headers: {
-                                    "X-XSRF-TOKEN": getCsrfTokenCookie(),
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({token: idToken})
-                            }).then(() => fetch("api/auth/csrf"))
+            const signInFuncAsync = async () => {
+                try {
+                    await signInWithPopup(auth, provider)
+                    const idToken = await auth.currentUser.getIdToken(/* forceRefresh */ true)
+                    $("#token").text(idToken)
+                    await csrfWrapper(csrf => {
+                        return fetch("/api/auth/login", {
+                            method: "POST",
+                            headers: {"X-XSRF-TOKEN": csrf, "Content-Type": "application/json",},
+                            body: JSON.stringify({token: idToken})
                         })
-                        .then(() =>  {
-                            return auth.signOut()
-                        })
-                        .then(() => console.log("Done!"))
-                        .catch((error) => {
-                            console.error(error)
-                            $("#err").text(error.code + "::" + error.message)
-                        });
+                    })
+                    await auth.signOut()
+                    console.log("Done!")
+                } catch (error) {
+                    console.error(error)
+                    $("#err").text(error.code + "::" + error.message)
+                }
             }
-            $("#login").click(signInFunc)
+            $("#login").click(signInFuncAsync)
+        }
+        $(document).ready(function () {
+            init().then()
         })
     </script>
 </body>
