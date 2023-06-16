@@ -20,9 +20,11 @@ dependencies {
     implementation mavenDeps.kotlinxCoroutinesReactor
     implementation mavenDeps.reactorKotlinExtensions
 
-    implementation mavenDeps.tomcatEmbeddedJasper
-    implementation mavenDeps.jstl
-    implementation mavenDeps.jstlApi
+//    implementation mavenDeps.tomcatEmbeddedJasper
+//    implementation mavenDeps.jstl
+//    implementation mavenDeps.jstlApi
+    implementation mavenDeps.springBootFreeMarker
+
     implementation 'org.webjars:bootstrap:5.2.3'
     implementation 'org.webjars:jquery:3.6.4'
 
