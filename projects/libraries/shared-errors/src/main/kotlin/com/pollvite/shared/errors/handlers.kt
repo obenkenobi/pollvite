@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
  * */
 object GrpcErrorHandler {
     @JvmStatic
-    private val log: Logger = LoggerFactory.getLogger(GrpcErrorHandler::class.java)
+    private val log: Logger = LoggerFactory.getLogger(GrpcErrorHandler.javaClass)
 
     /**
      * Handles an [Exception].
