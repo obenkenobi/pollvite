@@ -9,8 +9,7 @@ import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 
-class PollChanRepositoryCustomImpl(@Autowired private val mongoTemplate: MongoTemplate)
-    : PollChanRepositoryCustom {
+class PollChanRepositoryCustomImpl(@Autowired private val mongoTemplate: MongoTemplate) : PollChanRepositoryCustom {
 
     override fun getPageWithFilter(pageable: Pageable, owner: String?, titlePattern: String?): Page<PollChan> {
         val filterCriteriaList = listOfNotNull(
