@@ -5,19 +5,20 @@ import com.pollvite.grpc.poll.PollChanReadPb
 import com.pollvite.grpc.shared.TimestampsPb
 import com.pollvite.pollservice.models.PollChan
 import com.pollvite.pollservice.models.embedded.PollChanCore
+import com.pollvite.pollservice.utils.PollUtils
 
 object PollChanMapper {
 
     fun corePbToCoreModel(corePb: PollChanCorePb): PollChanCore = PollChanCore(
         owner = corePb.owner,
         description = corePb.description.trim(),
-        title = corePb.title.trim(),
+        titleId = PollUtils.titleToId(corePb.title)
     )
 
     private fun coreModelToCorePb(core: PollChanCore): PollChanCorePb = PollChanCorePb.newBuilder().also {
         it.owner = core.owner
         it.description = core.description
-        it.title = core.title
+        it.title = PollUtils.idToTitle(core.titleId)
     }.build()
 
     fun modelToReadPb(pollChan: PollChan) : PollChanReadPb = PollChanReadPb.newBuilder().also {

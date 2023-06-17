@@ -9,28 +9,28 @@ option java_package = "com.pollvite.grpc.user";
 option java_outer_classname = "UserProto";
 
 service UserService {
-  rpc getUserProfileByAuthId (shared.IdPb) returns (UserProfileFullPb) {}
-  rpc getUserProfilePublicById (shared.IdPb) returns (UserProfilePublicPb) {}
-  rpc getUserProfilesByIds (stream shared.IdPb) returns (stream UserProfilePublicPb) {}
+  rpc getUserProfileByUUID (shared.IdPb) returns (UserProfileFullPb) {}
+  rpc getUserProfileByPublicId (shared.IdPb) returns (UserProfilePublicPb) {}
+  rpc getUserProfilesByPublicIds (stream shared.IdPb) returns (stream UserProfilePublicPb) {}
   rpc createUserProfile (UserProfileCreatePb) returns (UserProfileFullPb) {}
   rpc updateUserProfile (UserProfileUpdatePb) returns (UserProfileFullPb) {}
   rpc beginDeleteUserProfileById (shared.IdPb) returns (UserProfileFullPb) {}
 }
 
 message UserProfilePublicPb {
-  string id = 1;
+  string publicId = 1;
   string userName = 2;
 }
 
 message UserProfileFullPb {
-  string id = 1;
-  string authId = 2;
+  string publicId = 1;
+  string uuid = 2;
   string userName = 3;
   string email = 4;
 }
 
 message UserProfileCreatePb {
-  string authId = 2;
+  string uuid = 2;
   string userName = 3;
   string email = 4;
 }
