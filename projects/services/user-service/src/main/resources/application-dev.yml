@@ -1,0 +1,8 @@
+logging:
+  level:
+    root: TRACE
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/poll_db
