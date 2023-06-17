@@ -7,4 +7,5 @@ import reactor.core.publisher.Mono
 
 interface PollChanRepositoryCustom {
     fun getPageWithFilter(pageable: Pageable, owner: String?, titlePattern: String?): Page<PollChan>
+    fun getByTitleId(titleId: String): PollChan?
 }

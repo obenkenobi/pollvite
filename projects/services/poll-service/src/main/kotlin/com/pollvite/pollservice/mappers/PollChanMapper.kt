@@ -9,16 +9,21 @@ import com.pollvite.pollservice.utils.PollUtils
 
 object PollChanMapper {
 
-    fun corePbToCoreModel(corePb: PollChanCorePb): PollChanCore = PollChanCore(
-        owner = corePb.owner,
-        description = corePb.description.trim(),
-        titleId = PollUtils.titleToId(corePb.title)
-    )
+    fun corePbToCoreModel(corePb: PollChanCorePb): PollChanCore {
+        val titleId = PollUtils.titleToId(corePb.title)
+        val title = PollUtils.idToTitle(titleId)
+        return PollChanCore(
+            owner = corePb.owner,
+            description = corePb.description.trim(),
+            titleId = titleId,
+            title = title
+        )
+    }
 
     private fun coreModelToCorePb(core: PollChanCore): PollChanCorePb = PollChanCorePb.newBuilder().also {
         it.owner = core.owner
         it.description = core.description
-        it.title = PollUtils.idToTitle(core.titleId)
+        it.title = core.title
     }.build()
 
     fun modelToReadPb(pollChan: PollChan) : PollChanReadPb = PollChanReadPb.newBuilder().also {
