@@ -7,7 +7,7 @@ import org.junit.jupiter.api.function.Executable
 
 class ErrorStatusTest {
     @Test
-    fun assertErrorStatusGrpcDescriptions() {
+    fun testErrorStatusGrpcDescriptions() {
         val assertions = ErrorStatus.values().map { errorStatus ->
             Executable {
                 val grpcStatus = errorStatus.toGrpcStatus()
@@ -18,7 +18,7 @@ class ErrorStatusTest {
     }
 
     @Test
-    fun assertErrorStatusGrpcCodes() {
+    fun testErrorStatusGrpcCodes() {
         assertAll("Asserting Error Status Codes",
             { assertEquals(io.grpc.Status.INVALID_ARGUMENT.code, ErrorStatus.CLIENT.toGrpcStatus().code) },
             { assertEquals(io.grpc.Status.INVALID_ARGUMENT.code,
