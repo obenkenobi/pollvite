@@ -8,4 +8,7 @@ jar {
 dependencies {
     implementation mavenDeps.grpcApi
     compileOnly 'org.slf4j:slf4j-api:2.0.7'
+
+    testImplementation mavenDeps.junitJupiterApi
+    testImplementation mavenDeps.junitJupiterEngine
 }

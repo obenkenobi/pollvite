@@ -33,7 +33,6 @@ dependencies {
 //    testImplementation mavenDeps.springCloudStreamTestBinder
     testImplementation mavenDeps.springSecurityTest
     testImplementation mavenDeps.junitJupiterApi
-    testImplementation mavenDeps.junitJupiterApi
     testImplementation mavenDeps.junitJupiterEngine
 }
 
