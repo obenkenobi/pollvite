@@ -17,4 +17,11 @@ class GrpcErrorHandlerTest {
         val status = GrpcErrorHandler.handle(ex)
         assertEquals(io.grpc.Status.INVALID_ARGUMENT.code, status.code)
     }
+
+    @Test
+    fun testHandleAppExceptionInternal() {
+        val ex = AppException(ErrorStatus.INTERNAL)
+        val status = GrpcErrorHandler.handle(ex)
+        assertEquals(io.grpc.Status.INTERNAL.code, status.code)
+    }
 }
