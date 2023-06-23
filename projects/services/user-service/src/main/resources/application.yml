@@ -2,6 +2,7 @@ grpc:
   server:
     security:
       enabled: false
+    port: 9091
 
 firebase:
   projectId: ${firebase.projectId}

@@ -14,7 +14,7 @@ service UserService {
   rpc getUserProfilesByPublicIds (stream shared.IdPb) returns (stream UserProfilePublicPb) {}
   rpc createUserProfile (UserProfileCreatePb) returns (UserProfileFullPb) {}
   rpc updateUserProfile (UserProfileUpdatePb) returns (UserProfileFullPb) {}
-  rpc beginDeleteUserProfileById (shared.IdPb) returns (UserProfileFullPb) {}
+  rpc beginDeleteUserById (shared.IdPb) returns (UserProfileFullPb) {}
 }
 
 message UserProfilePublicPb {
@@ -26,13 +26,11 @@ message UserProfileFullPb {
   string publicId = 1;
   string uuid = 2;
   string userName = 3;
-  string email = 4;
 }
 
 message UserProfileCreatePb {
   string uuid = 2;
   string userName = 3;
-  string email = 4;
 }
 
 

@@ -2,4 +2,5 @@ grpc:
   server:
     security:
       enabled: false
+    port: 9090
 
