@@ -12,4 +12,5 @@ data class PollChan(
     val core: PollChanCore,
     val timestamps: Timestamps,
     val audit: Audit,
+    val fbSynced: Boolean = false
 )
