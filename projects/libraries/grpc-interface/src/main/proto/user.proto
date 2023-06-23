@@ -14,7 +14,7 @@ service UserService {
   rpc getUserProfilesByPublicIds (stream shared.IdPb) returns (stream UserProfilePublicPb) {}
   rpc createUserProfile (UserProfileCreatePb) returns (UserProfileFullPb) {}
   rpc updateUserProfile (UserProfileUpdatePb) returns (UserProfileFullPb) {}
-  rpc beginDeleteUserById (shared.IdPb) returns (UserProfileFullPb) {}
+  rpc beginDeleteUserByUUID (shared.IdPb) returns (UserProfileFullPb) {}
 }
 
 message UserProfilePublicPb {
