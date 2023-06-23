@@ -15,6 +15,7 @@ dependencies {
     implementation mavenDeps.firebaseAdmin
     implementation mavenDeps.springBootStarter
     implementation mavenDeps.springBootDataMongo
+    implementation mavenDeps.springBootDataMongoReactive
     implementation mavenDeps.springBootGrpcServer
     implementation mavenDeps.springBootGrpcClient
     compileOnly mavenDeps.springBootReactorNetty
