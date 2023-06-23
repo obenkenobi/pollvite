@@ -63,6 +63,7 @@ class FirebaseServiceImpl(@Autowired private val firebasePropsConfig: FirebasePr
 
     private fun firebaseTokenToUserPrinciple(decodedToken: FirebaseToken): UserPrincipal = UserPrincipal(
         uuid = decodedToken.uid,
+        email = decodedToken.email,
         issuer = decodedToken.issuer,
         isEmailVerified = decodedToken.isEmailVerified
     )

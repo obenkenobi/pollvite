@@ -4,6 +4,7 @@ import java.security.Principal
 
 class UserPrincipal(
     val uuid: String,
+    val email: String,
     val issuer: String,
     val isEmailVerified: Boolean
 ) : Principal {
