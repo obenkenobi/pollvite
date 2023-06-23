@@ -13,6 +13,7 @@ interface UserService {
     fun createUserProfile(request: UserProfileCreatePb): UserProfileFullPb
     fun updateUserProfile(request: UserProfileUpdatePb): UserProfileFullPb
     fun beginDeleteUserByUUID(uuid: String): UserProfileFullPb
+    fun syncUserProfilesToFb()
 }
 
 @Service
@@ -38,6 +39,10 @@ class UserServiceImpl: UserService {
     }
 
     override fun beginDeleteUserByUUID(uuid: String): UserProfileFullPb {
+        TODO("Not yet implemented")
+    }
+
+    override fun syncUserProfilesToFb() {
         TODO("Not yet implemented")
     }
 
