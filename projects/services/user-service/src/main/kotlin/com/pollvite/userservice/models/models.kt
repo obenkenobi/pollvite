@@ -13,5 +13,6 @@ data class UserProfile(
     val userName: String,
     val timestamps: Timestamps,
     val audit: Audit,
+    val batchIndex: Long,
     val fbSynced: Boolean = false
 )
