@@ -8,6 +8,12 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
+import org.springframework.data.mongodb.repository.MongoRepository
+
+interface PollChanRepositoryCustom {
+    fun getPageWithFilter(pageable: Pageable, owner: String?, titlePattern: String?): Page<PollChan>
+    fun getByTitleId(titleId: String): PollChan?
+}
 
 class PollChanRepositoryCustomImpl(@Autowired private val mongoTemplate: MongoTemplate) : PollChanRepositoryCustom {
 
@@ -29,3 +35,5 @@ class PollChanRepositoryCustomImpl(@Autowired private val mongoTemplate: MongoTe
         return mongoTemplate.findOne(query, PollChan::class.java)
     }
 }
+
+interface PollChanRepository : MongoRepository<PollChan, String>, PollChanRepositoryCustom
