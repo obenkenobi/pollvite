@@ -16,7 +16,7 @@ interface UserService {
     fun createUserProfile(request: UserProfileCreatePb): UserProfileFullPb
     fun updateUserProfile(request: UserProfileUpdatePb): UserProfileFullPb
     fun beginDeleteUserByUUID(uuid: String): UserProfileFullPb
-    fun syncUserProfilesToFb()
+    fun doUserSyncActions()
 }
 
 @Service
@@ -46,7 +46,10 @@ class UserServiceImpl(@Autowired private val userProfileRepository: UserProfileR
         TODO("Not yet implemented")
     }
 
-    override fun syncUserProfilesToFb() {
+    override fun doUserSyncActions() {
+        val profiles = userProfileRepository.getActionableBatch(
+            this.JobProps.userProfileBatchNumber,
+            this.JobProps.userProfileBatchCount)
         TODO("Not yet implemented")
     }
 

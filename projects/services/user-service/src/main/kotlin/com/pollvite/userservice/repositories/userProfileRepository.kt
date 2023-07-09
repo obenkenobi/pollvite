@@ -10,13 +10,13 @@ import org.springframework.data.mongodb.core.query.isEqualTo
 import org.springframework.data.mongodb.repository.MongoRepository
 
 interface UserProfileRepositoryCustom {
-    fun getUpdatedUserProfilesBatchIndex(batchNumber: Long, batchCount: Long): List<UserProfile>
+    fun getActionableBatch(batchNumber: Long, batchCount: Long): List<UserProfile>
 }
 
 class UserProfileRepositoryCustomImpl(@Autowired private val mongoTemplate: MongoTemplate)
     : UserProfileRepositoryCustom {
 
-    override fun getUpdatedUserProfilesBatchIndex(batchNumber: Long, batchCount: Long): List<UserProfile> {
+    override fun getActionableBatch(batchNumber: Long, batchCount: Long): List<UserProfile> {
         val actionCt = Criteria.where("action").ne(UserProfile.Action.NONE)
 
         val idxModBatchCountOp = ArithmeticOperators.Mod.valueOf("batchIndex").mod(batchCount)

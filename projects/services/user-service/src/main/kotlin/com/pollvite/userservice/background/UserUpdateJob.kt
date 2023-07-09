@@ -16,7 +16,6 @@ class UserUpdateJob(@Autowired val userService: UserService) {
 
     @Scheduled(fixedRate = 5000)
     fun listenChangeStream() {
-        //Todo: do scheduled job
-        log.info("Scheduled job")
+        userService.doUserSyncActions()
     }
 }
