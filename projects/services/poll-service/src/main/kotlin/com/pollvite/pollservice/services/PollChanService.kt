@@ -12,7 +12,6 @@ import com.pollvite.shared.models.embedded.Timestamps
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
-import reactor.core.publisher.Mono
 
 interface PollChanService {
     fun createPollChan(pollCreatePb: PollChanCreatePb) : PollChanReadPb
@@ -51,23 +50,23 @@ private class PollChanServiceImpl(@Autowired private val pollChanRepository: Pol
         return PollChanMapper.modelToReadPb(saved)
     }
 
-    override fun editPollChan(pb: PollChanEditPb) : PollChanReadPb {
-        val existingPollChan = getPollChanByIdRequired(pb.id)
-        pollChanBrs.validateEditPollChan(pb, existingPollChan).throwIfFail()
+    override fun editPollChan(pollChanEditPb: PollChanEditPb) : PollChanReadPb {
+        val existingPollChan = getPollChanByIdRequired(pollChanEditPb.id)
+        pollChanBrs.validateEditPollChan(pollChanEditPb, existingPollChan).throwIfFail()
         val pollChan = PollChan(
             id = existingPollChan.id,
-            core = PollChanMapper.corePbToCoreModel(pb.core),
+            core = PollChanMapper.corePbToCoreModel(pollChanEditPb.core),
             timestamps = existingPollChan.timestamps.toUpdated(),
-            audit = existingPollChan.audit.copy(updatedBy = pb.core.owner)
+            audit = existingPollChan.audit.copy(updatedBy = pollChanEditPb.core.owner)
         )
         val saved = pollChanRepository.save(pollChan)
         return PollChanMapper.modelToReadPb(saved)
     }
 
-    override fun deletePollChan(accessPb: PollChanAccessPb): PollChanReadPb {
-        val existingPollChan = getPollChanByIdRequired(accessPb.id)
-        pollChanBrs.validateDeletePollChan(accessPb, existingPollChan).throwIfFail()
-        pollChanRepository.deleteById(accessPb.id)
+    override fun deletePollChan(pollChanAccessPb: PollChanAccessPb): PollChanReadPb {
+        val existingPollChan = getPollChanByIdRequired(pollChanAccessPb.id)
+        pollChanBrs.validateDeletePollChan(pollChanAccessPb, existingPollChan).throwIfFail()
+        pollChanRepository.deleteById(pollChanAccessPb.id)
         return PollChanMapper.modelToReadPb(existingPollChan)
     }
 
