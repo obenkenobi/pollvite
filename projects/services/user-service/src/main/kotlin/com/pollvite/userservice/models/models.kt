@@ -10,9 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class UserProfile(
     @Id val publicId: String?,
     @Indexed(unique = true) val uuid: String,
-    val userName: String,
+    @Indexed(unique = true) val userName: String,
     val timestamps: Timestamps,
-    val audit: Audit,
     val batchIndex: Long,
     val fbSynced: Boolean = false,
     val action: Action = Action.NONE

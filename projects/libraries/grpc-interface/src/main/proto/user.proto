@@ -35,5 +35,6 @@ message UserProfileCreatePb {
 
 
 message UserProfileUpdatePb {
-  string userName = 1;
+  string publicId = 1;
+  string userName = 2;
 }
