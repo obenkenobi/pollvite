@@ -7,6 +7,7 @@ import com.pollvite.grpc.user.UserProfileUpdatePb
 import com.pollvite.userservice.configuration.JobProps
 import com.pollvite.userservice.repositories.UserProfileRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.DependsOn
 import org.springframework.stereotype.Service
 
 interface UserService {
@@ -20,6 +21,7 @@ interface UserService {
 }
 
 @Service
+@DependsOn("firebaseApp")
 class UserServiceImpl(@Autowired private val userProfileRepository: UserProfileRepository,
                       @Autowired private val JobProps: JobProps): UserService {
     override fun getUserProfileByUUID(uuid: String): UserProfileFullPb {
