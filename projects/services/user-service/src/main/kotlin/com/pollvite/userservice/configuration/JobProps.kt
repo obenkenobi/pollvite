@@ -7,6 +7,6 @@ import java.util.Random
 @Configuration
 @ConfigurationProperties(prefix = "jobs")
 class JobProps {
-    var batchCount: Long = 20
-    var batchNumber: Long = kotlin.random.Random.nextLong(0, 19)
+    var userProfileBatchCount: Long = 20
+    var userProfileBatchNumber: Long = kotlin.random.Random.nextLong(0, 19)
 }

@@ -7,3 +7,7 @@ grpc:
 firebase:
   projectId: ${firebase.projectId}
   serviceAccountPath: ${firebase.admin.serviceAccountPath}
+
+jobs:
+  userProfileBatchCount: {jobs.userProfileBatchCount}
+  userProfileBatchNumber: {jobs.userProfileBatchNumber}

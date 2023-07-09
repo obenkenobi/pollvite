@@ -6,3 +6,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/poll_db
+
+jobs:
+  userProfileBatchCount: 1
+  userProfileBatchNumber: 1
