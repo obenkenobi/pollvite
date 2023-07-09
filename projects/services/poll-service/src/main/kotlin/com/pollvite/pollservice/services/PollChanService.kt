@@ -41,6 +41,7 @@ private class PollChanServiceImpl(@Autowired private val pollChanRepository: Pol
     }
 
     override fun createPollChan(pollCreatePb: PollChanCreatePb) : PollChanReadPb {
+        // Todo: Add BR to make sure title is not taken
         val pollChan = PollChan(id = null,
             core = PollChanMapper.corePbToCoreModel(pollCreatePb.core),
             timestamps = Timestamps.create(),
