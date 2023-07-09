@@ -28,10 +28,13 @@ interface FirebaseService {
 @Service
 @DependsOn("firebaseApp")
 class FirebaseServiceImpl(@Autowired private val firebasePropsConfig: FirebaseProps): FirebaseService {
-    private val fbWebConfig: Map<String, Any> = readFirebaseWebConf()
+    private val fbWebConfig: Map<String, Any>
+    init {
+        this.fbWebConfig = readFirebaseWebConf()
+    }
 
     override fun getWebConfig(): Map<String, Any> {
-        return readFirebaseWebConf();
+        return this.fbWebConfig
     }
 
     override fun createSessionJwt(loginDto: LoginDto): String? {
