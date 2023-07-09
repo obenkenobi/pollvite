@@ -4,6 +4,8 @@ import com.pollvite.grpc.user.UserProfileCreatePb
 import com.pollvite.grpc.user.UserProfileFullPb
 import com.pollvite.grpc.user.UserProfilePublicPb
 import com.pollvite.grpc.user.UserProfileUpdatePb
+import com.pollvite.userservice.repositories.UserProfileRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 interface UserService {
@@ -17,7 +19,7 @@ interface UserService {
 }
 
 @Service
-class UserServiceImpl: UserService {
+class UserServiceImpl(@Autowired private val userProfileRepository: UserProfileRepository): UserService {
     override fun getUserProfileByUUID(uuid: String): UserProfileFullPb {
         TODO("Not yet implemented")
     }

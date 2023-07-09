@@ -10,28 +10,23 @@ import org.springframework.data.mongodb.core.query.isEqualTo
 import org.springframework.data.mongodb.repository.MongoRepository
 
 interface UserProfileRepositoryCustom {
-    fun getUpdatedUserProfilesBatchIndex(batchIndexRemainder: Long, batchIndexModulus: Long): List<UserProfile>
+    fun getUpdatedUserProfilesBatchIndex(batchNumber: Long, batchCount: Long): List<UserProfile>
 }
 
 class UserProfileRepositoryCustomImpl(@Autowired private val mongoTemplate: MongoTemplate)
     : UserProfileRepositoryCustom {
 
-    override fun getUpdatedUserProfilesBatchIndex(
-        batchIndexRemainder: Long,
-        batchIndexModulus: Long
-    ): List<UserProfile> {
-        val fbNotSyncedCriteria = Criteria.where("fbSynced").isEqualTo(false)
+    override fun getUpdatedUserProfilesBatchIndex(batchNumber: Long, batchCount: Long): List<UserProfile> {
+        val actionCt = Criteria.where("action").ne(UserProfile.Action.NONE)
 
-        val batchIndexMatchCriteria = Criteria
-            .expr(ArithmeticOperators.Mod.valueOf("batchIndex").mod(batchIndexModulus))
-            .isEqualTo(batchIndexRemainder)
+        val idxModBatchCountOp = ArithmeticOperators.Mod.valueOf("batchIndex").mod(batchCount)
+        val batchNumberMatchCt = Criteria.expr(idxModBatchCountOp).isEqualTo(batchNumber)
 
-        val criteria = Criteria().andOperator(fbNotSyncedCriteria, batchIndexMatchCriteria)
+        val criteria = Criteria().andOperator(actionCt, batchNumberMatchCt)
         val query = Query(criteria)
         return mongoTemplate.find(query, UserProfile::class.java)
     }
 
 }
 
-interface UserProfileRepository: MongoRepository<UserProfile, String>, UserProfileRepositoryCustom {
-}
+interface UserProfileRepository: MongoRepository<UserProfile, String>, UserProfileRepositoryCustom

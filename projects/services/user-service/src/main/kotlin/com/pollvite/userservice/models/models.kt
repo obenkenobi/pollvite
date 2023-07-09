@@ -14,5 +14,8 @@ data class UserProfile(
     val timestamps: Timestamps,
     val audit: Audit,
     val batchIndex: Long,
-    val fbSynced: Boolean = false
-)
+    val fbSynced: Boolean = false,
+    val action: Action = Action.NONE
+) {
+    enum class Action {NONE, CREATED, UPDATE, DELETE}
+}
