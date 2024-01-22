@@ -9,32 +9,45 @@ option java_package = "com.pollvite.grpc.user";
 option java_outer_classname = "UserProto";
 
 service IdentityService {
-  rpc getUserProfileByUUID (shared.IdPb) returns (UserProfileFullPb) {}
-  rpc getUserProfileByPublicId (shared.IdPb) returns (UserProfilePublicPb) {}
-  rpc getUserProfilesByPublicIds (stream shared.IdPb) returns (stream UserProfilePublicPb) {}
-  rpc createUserProfile (UserProfileCreatePb) returns (UserProfileFullPb) {}
-  rpc updateUserProfile (UserProfileUpdatePb) returns (UserProfileFullPb) {}
-  rpc beginDeleteUserByUUID (shared.IdPb) returns (UserProfileFullPb) {}
+  rpc getUserPrivateProfileByUUID (shared.IdPb) returns (UserPrivateProfilePb) {}
+  rpc getUserPublicProfileById (shared.IdPb) returns (UserPublicProfilePb) {}
+  rpc getUserPublicProfilesByIds (stream shared.IdPb) returns (stream UserPublicProfilePb) {}
+
+  rpc loginUser(EmailPasswordLoginPb) returns (UserSessionPb) {}
+
+  rpc signUpUser (UserSignUpPb) returns (UserPrivateProfilePb) {}
+  rpc updateUser (UserUpdatePb) returns (UserPrivateProfilePb) {}
+  rpc beginDeleteUserByUUID (shared.IdPb) returns (UserPrivateProfilePb) {}
 }
 
-message UserProfilePublicPb {
-  string publicId = 1;
+message UserSignUpPb {
+  string email = 1;
+  string password = 2;
+  string userName = 3;
+}
+
+message EmailPasswordLoginPb {
+  string email = 1;
+  string password = 2;
+}
+
+message UserSessionPb {
+  string sessionId = 1;
+  UserPublicProfilePb publicProfile = 2;
+}
+
+message UserPublicProfilePb {
+  string userId = 1;
   string userName = 2;
 }
 
-message UserProfileFullPb {
+message UserPrivateProfilePb {
   string publicId = 1;
   string uuid = 2;
   string userName = 3;
 }
 
-message UserProfileCreatePb {
-  string uuid = 2;
-  string userName = 3;
-}
-
-
-message UserProfileUpdatePb {
-  string publicId = 1;
+message UserUpdatePb {
+  string userId = 1;
   string userName = 2;
 }
