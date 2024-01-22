@@ -2,12 +2,12 @@ ext {
 
     def mavenDepsVersions = [
             "embeddedMongo": "4.7.0",
-//            "firebaseAdmin": "9.1.1",
             "grpc": "1.53.0",
             "javaxAnnotationApi": "1.3.5",
             "jakartaAnnotationApi": "2.1.0",
             "jstl": "3.0.0",
             "junit": "5.9.2",
+            "postgresql": "42.7.1",
             "protobuf": "3.9.2",
             "reactiveGrpc": "1.2.4",
             "slf4jApi": "2.0.7",
@@ -16,7 +16,6 @@ ext {
 
     mavenDeps = [
             "embeddedMongo": "de.flapdoodle.embed:de.flapdoodle.embed.mongo:${mavenDepsVersions.embeddedMongo}",
-//            "firebaseAdmin": "com.google.firebase:firebase-admin:${mavenDepsVersions.firebaseAdmin}",
             "grpcApi": "io.grpc:grpc-api:${mavenDepsVersions.grpc}",
             "grpcProtobuff": "io.grpc:grpc-protobuf:${mavenDepsVersions.grpc}",
             "grpcStub": "io.grpc:grpc-stub:${mavenDepsVersions.grpc}",
@@ -30,6 +29,7 @@ ext {
             "kotlinStdlib": "org.jetbrains.kotlin:kotlin-stdlib",
             "kotlinxCoroutinesReactor": "org.jetbrains.kotlinx:kotlinx-coroutines-reactor",
             "junitJupiterEngine": "org.junit.jupiter:junit-jupiter-engine:${mavenDepsVersions.junit}",
+            "postgresql": "org.postgresql:postgresql:${mavenDepsVersions.postgresql}",
             "protobufProtoc": "com.google.protobuf:protoc:${mavenDepsVersions.protobuf}",
             "protocGenGrpcJava": "io.grpc:protoc-gen-grpc-java:${mavenDepsVersions.grpc}",
             "reactorGrpc": "com.salesforce.servicelibs:reactor-grpc:${mavenDepsVersions.reactiveGrpc}",
@@ -41,6 +41,7 @@ ext {
             "slf4jApi": "org.slf4j:slf4j-api:${mavenDepsVersions.slf4jApi}",
             "springBootAutoConfigureProcessor": "org.springframework.boot:spring-boot-autoconfigure-processor",
             "springBootConfigurationProcessor": "org.springframework.boot:spring-boot-configuration-processor",
+            "springBootDataJPA": "org.springframework.boot:spring-boot-starter-data-jpa",
             "springBootDataMongo": "org.springframework.boot:spring-boot-starter-data-mongodb",
             "springBootDataMongoReactive": "org.springframework.boot:spring-boot-starter-data-mongodb-reactive",
             "springBootFreeMarker": "org.springframework.boot:spring-boot-starter-freemarker",
