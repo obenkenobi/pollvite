@@ -10,7 +10,6 @@ dependencies {
     implementation project(':springboot-resolver-grpc-client')
 
     implementation mavenDeps.springBootValidation
-    implementation mavenDeps.firebaseAdmin
     implementation mavenDeps.springBootSecurity
     implementation mavenDeps.springBootWeb
     implementation mavenDeps.springBootGrpcClient

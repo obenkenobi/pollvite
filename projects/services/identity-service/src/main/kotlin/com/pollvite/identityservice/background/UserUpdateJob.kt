@@ -1,6 +1,6 @@
-package com.pollvite.userservice.background
+package com.pollvite.identityservice.background
 
-import com.pollvite.userservice.services.UserService
+import com.pollvite.identityservice.services.UserService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

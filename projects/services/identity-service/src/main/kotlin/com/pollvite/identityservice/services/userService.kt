@@ -1,21 +1,16 @@
-package com.pollvite.userservice.services
+package com.pollvite.identityservice.services
 
-import com.google.cloud.storage.Acl.User
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
 import com.pollvite.grpc.user.UserProfileCreatePb
 import com.pollvite.grpc.user.UserProfileFullPb
 import com.pollvite.grpc.user.UserProfilePublicPb
 import com.pollvite.grpc.user.UserProfileUpdatePb
+import com.pollvite.identityservice.configuration.JobProps
+import com.pollvite.identityservice.models.UserProfile
+import com.pollvite.identityservice.repositories.UserProfileRepository
 import com.pollvite.shared.errors.AppException
 import com.pollvite.shared.errors.ErrorStatus
-import com.pollvite.shared.models.embedded.Audit
 import com.pollvite.shared.models.embedded.Timestamps
-import com.pollvite.userservice.configuration.JobProps
-import com.pollvite.userservice.models.UserProfile
-import com.pollvite.userservice.repositories.UserProfileRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.DependsOn
 import org.springframework.stereotype.Service
 import kotlin.random.Random
 
@@ -30,7 +25,6 @@ interface UserService {
 }
 
 @Service
-@DependsOn("firebaseApp")
 class UserServiceImpl(@Autowired private val userProfileRepository: UserProfileRepository,
                       @Autowired private val JobProps: JobProps): UserService {
     override fun getUserProfileByUUID(uuid: String): UserProfileFullPb {
@@ -71,32 +65,6 @@ class UserServiceImpl(@Autowired private val userProfileRepository: UserProfileR
     }
 
     override fun doUserSyncActions() {
-        val profiles = userProfileRepository.getActionableBatch(
-            this.JobProps.userProfileBatchNumber,
-            this.JobProps.userProfileBatchCount)
-        profiles.forEach { profile ->
-            val fbAuth = if (profile.action != UserProfile.Action.NONE) FirebaseAuth.getInstance() else return
-
-            // Todo: send message to sync user data
-            if (profile.action == UserProfile.Action.CREATED || profile.action == UserProfile.Action.UPDATE) {
-                val fbSynced = try {
-                    if (!profile.fbSynced) {
-                        fbAuth.setCustomUserClaims(profile.uuid, mapOf("userName" to profile.userName))
-                        true
-                    } else { false }
-                } catch (_: FirebaseAuthException) {
-                    false
-                }
-                val profileToSave = profile.copy(action = UserProfile.Action.NONE, fbSynced = fbSynced)
-                userProfileRepository.save(profileToSave)
-            } else if (profile.action == UserProfile.Action.DELETE) {
-                if (!profile.fbSynced) {
-                    try { fbAuth.deleteUser(profile.uuid) }
-                    catch (_: FirebaseAuthException) {}
-                }
-                userProfileRepository.deleteById(profile.publicId!!)
-            }
-        }
         TODO("Not yet implemented")
     }
 

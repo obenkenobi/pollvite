@@ -1,6 +1,6 @@
-package com.pollvite.userservice.repositories
+package com.pollvite.identityservice.repositories
 
-import com.pollvite.userservice.models.UserProfile
+import com.pollvite.identityservice.models.UserProfile
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators

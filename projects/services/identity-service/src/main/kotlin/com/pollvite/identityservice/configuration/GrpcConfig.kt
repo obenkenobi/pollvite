@@ -1,4 +1,4 @@
-package com.pollvite.userservice.configuration
+package com.pollvite.identityservice.configuration
 
 import com.pollvite.springboot.resolver.grpc.client.annotations.EnableGrpcClient
 import com.pollvite.springboot.resolver.grpc.server.annotations.EnableGrpcServer

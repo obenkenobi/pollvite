@@ -8,7 +8,7 @@ option java_multiple_files = true;
 option java_package = "com.pollvite.grpc.user";
 option java_outer_classname = "UserProto";
 
-service UserService {
+service IdentityService {
   rpc getUserProfileByUUID (shared.IdPb) returns (UserProfileFullPb) {}
   rpc getUserProfileByPublicId (shared.IdPb) returns (UserProfilePublicPb) {}
   rpc getUserProfilesByPublicIds (stream shared.IdPb) returns (stream UserProfilePublicPb) {}

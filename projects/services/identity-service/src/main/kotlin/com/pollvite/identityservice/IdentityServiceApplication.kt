@@ -1,11 +1,11 @@
-package com.pollvite.userservice
+package com.pollvite.identityservice
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class UserServiceApplication
+class IdentityServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<UserServiceApplication>(*args)
+    runApplication<IdentityServiceApplication>(*args)
 }

@@ -1,6 +1,5 @@
-package com.pollvite.userservice.models
+package com.pollvite.identityservice.models
 
-import com.pollvite.shared.models.embedded.Audit
 import com.pollvite.shared.models.embedded.Timestamps
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed

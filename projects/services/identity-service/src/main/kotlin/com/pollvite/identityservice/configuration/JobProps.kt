@@ -1,8 +1,7 @@
-package com.pollvite.userservice.configuration
+package com.pollvite.identityservice.configuration
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
-import java.util.Random
 
 @Configuration
 @ConfigurationProperties(prefix = "jobs")

@@ -12,7 +12,6 @@ dependencies {
     implementation project(':springboot-businessrules-manager')
     implementation project(':springboot-resolver-grpc-server')
     implementation project(':springboot-resolver-grpc-client')
-    implementation mavenDeps.firebaseAdmin
     implementation mavenDeps.springBootStarter
     implementation mavenDeps.springBootDataMongo
     implementation mavenDeps.springBootDataMongoReactive
